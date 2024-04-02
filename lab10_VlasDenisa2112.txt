@@ -1,0 +1,505 @@
+
+﻿//ex 1 lab 10 Vlas Denisa grupa 2112
+/*1. Implementaţi programul prezentat în exemplul 3 şi examinaţi eventualele erori date la
+compilare daca exista prin eliminarea comentariilor. Modificaţi programul astfel încât să se
+poată accesa din funcţia main( ), prin intermediul  obiectului obiect_derivat, şi metodele
+aduna( ) şi scade( ) din clasa de baza pastrand mostenirea de tip private*/
+
+//Baza_deriv.h
+class Baza {
+protected:
+        int a, b;
+public:
+        Baza()
+        { 
+                a = 1, b = 1; 
+        }
+        void setA(int a) 
+        {
+                this->a = a;
+        }
+        void setB(int b) 
+        {
+                this->b = b;
+        }
+        int getA() 
+        {
+                return a;
+        }
+        int getB() 
+        {
+                return b;
+        }
+        int aduna() 
+        {
+                return a + b;
+        }
+        int scade() 
+        {
+                return a - b;
+        }
+};
+class Derivata : private Baza
+{
+public:
+        int inmulteste()
+        {
+                return a * b;
+        }
+}; 
+#pragma once
+
+
+
+//main
+#include <iostream>
+using namespace std;
+
+#include "Baza_deriv.h"
+
+int main()
+{
+        Baza obiect_derivat;
+        cout << "\nAfis din baza (val. initiale): " << obiect_derivat.getA() << " " <<obiect_derivat.getB() << '\n';
+        cout << "\nSuma este (cu val. initiale, baza) = " << obiect_derivat.aduna();
+        cout << "\nDiferenta este (cu val. initiale, baza) = " << obiect_derivat.scade();
+
+        obiect_derivat.setA(2);
+        obiect_derivat.setB(3);
+        cout << "\nAfis din baza (modificat): " << obiect_derivat.getA() << " " << obiect_derivat.getB() << '\n';
+        cout << "\nSuma/Diferenta dupa setare= " << obiect_derivat.aduna() << "/" <<obiect_derivat.scade() << '\n';
+        Derivata obiect_baza;
+
+        cout << "\nProdusul este (din derivat cu val. initiale) = " << obiect_baza.inmulteste() << '\n';
+        
+}
+
+
+
+
+
+
+//ex 3 lab 10 Vlas Denisa grupa 2112
+/*3.S� se implementeze o clas� de baz� cu dou� atribute protected de tip �ntreg care con�ine o
+metoda mutator pentru fiecare atribut al clasei, parametri metodelor fiind preluati in main() de
+la tastatura �i metode accesor pentru fiecare atribut care returneaza atributul specific. S� se
+scrie o a doua clas�, derivat� din aceasta, care implementeaz� opera�iile matematice
+elementare: +, -, *, / asupra atributelor din clasa de baz�, rezultatele fiind returnate de metode.
+S� se scrie o a treia clas�, derivat� din cea de-a doua, care implementeaz� �n plus o metoda
+pentru extragerea r�d�cinii p�trate dintr-un num�r ( mul, rezultat al operatiei * din prima clasa
+derivata) �i de ridicare la putere (at�t baza (plus, rezultat al operatiei + din prima clasa
+derivata) c�t �i puterea (minus, rezultat al operatiei - din prima clasa derivata) sunt trimi�i ca
+parametri). Verificati apelul metodelor considerand obiecte la diferite ierarhii.
+*/
+
+#include<iostream>
+
+using namespace std;
+
+class Operatori
+{
+protected:
+        int a, b;
+public:
+        void setA(int x)
+        {
+                a = x;
+        }
+
+        void setB(int y)
+        {
+                b = y;
+        }
+
+        int getA()
+        {
+                return a;
+        }
+
+        int getB()
+        {
+                return b;
+        }
+};
+
+class Operatii : public Operatori
+{
+public:
+        int adunare()
+        {
+                return a + b;
+        }
+
+        int scadere()
+        {
+                return a - b;
+        }
+
+        double inmultire()
+        {
+                return a * b;
+        }
+
+        double impartire()
+        {
+                return a / b;
+        }
+};
+
+class Metode : public Operatii
+{
+public:double radPatrata()
+{
+        return sqrt(inmultire());
+}
+
+          double ridPutere()
+          {
+                  double temporar = 0;
+                  for (int i = 0; i < scadere(); i++)
+                          temporar += adunare();
+                  return temporar;
+          }
+};
+
+int main()
+{
+        Operatori baze_ob;
+        cout << "Introduceti 2 numere: ";
+        int a, b;
+        cin >> a >> b;
+        baze_ob.setA(a);
+        baze_ob.setB(b);
+
+        cout << "\nA: " << baze_ob.getA() << "\nB: " << baze_ob.getB() << endl;
+        Operatii operatii1_ob;
+        operatii1_ob.setA(a);
+        operatii1_ob.setB(b);
+
+        cout << "\nRezultatul adunarii cel 2 numere este: " << operatii1_ob.adunare();
+        cout << "\nRezultatul scaderii cel 2 numere este: " << operatii1_ob.scadere();
+        cout << "\nRezultatul inmultirii cel 2 numere este: " << operatii1_ob.inmultire();
+        cout << "\nRezultatul impartirii cel 2 numere este: " << operatii1_ob.impartire();
+
+        Metode operatii2_ob;
+        operatii2_ob.setA(a);
+        operatii2_ob.setB(b);
+        cout << "\nRadacina patrata este: " << operatii2_ob.radPatrata();
+  
+      cout << "\nRidicarea la putere este: " << operatii2_ob.ridPutere();
+}
+
+
+
+
+
+
+﻿//ex 4 lab 10 Vlas Denisa grupa 2112
+/*4. Definiţi o clasă numita Triangle care are 3 atribute protected pentru laturi si o metoda care
+calculează perimetrul unui triunghi ale cărui laturi sunt citite de la tastatura (folosite de un
+constructor adecvat) şi apoi o clasă derivata in mod public din Triangle, Triangle_extended,
+care în plus, calculează şi aria triunghiului. Folosind obiecte din cele doua clase apelati
+metodele specifice. Verificati inainte de instantiere posibilitatea definirii unui triunghi.
+*/
+
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+class Triangle 
+{
+protected:
+    int x;
+    int y;
+    int z;
+public:
+    Triangle(int a, int b, int c)
+    {
+        x = a;
+        y = b;
+        z = c;
+    }
+    int get_Perimetru() 
+    {
+        return x + y + z;
+    }
+};
+
+class Triangle_extended :public Triangle 
+{
+public:
+    Triangle_extended(int a, int b, int c) :Triangle(a, b, c) {}
+    float get_Aria() 
+    {
+        float p = get_Perimetru();
+        float semip = (float)p / 2;
+        return sqrt(semip * (semip - x) * (semip - y) * (semip - z));
+    }
+};
+
+int main()
+{
+    int a, b, c;
+
+    do {
+        cout << "Introduceti laturile triunghiului: " << endl;
+        cout << "a=";
+        cin >> a;
+        cout << "b=";
+        cin >> b;
+        cout << "c=";
+        cin >> c;
+    } while (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a);
+
+    cout << "Laturile formeaza un triunghi !";
+
+    Triangle triunghi(a, b, c);
+    Triangle_extended triunghi2(a, b, c);
+
+    cout << "Perimetrul este: " << triunghi.get_Perimetru() << endl;
+    cout << "Aria este: " << triunghi2.get_Aria() << endl;
+
+    return 0;
+};
+
+
+
+
+
+
+
+
+﻿//ex 6 lab 10 Vlas Denisa grupa 2112
+/*6. Definiţi o clasă numită Forme care considera o figura geometrica cu un nume ca si atribut de
+tip pointer la un sir de caractere. Clasa va contine un constructor fara parametrii, unul cu
+parametrii, copy/move constructor si se va supraincarca operatorul de asignare. Clasa va avea
+si metode getter/setter si un destructor. Derivati in mod public o clasa Cerc care adauga un
+atribut de tip int pentru raza si constructori adecvati considerand si atributele (nume, raza) si
+o metoda getter pentru raza si alte metode care calculeaza aria si perimetrul cercului de raza r,
+valoare introdusa in main( ) de la tastatura. Similar definiti o clasa Patrat si Dreptunghi care
+permit determinarea ariei si perimetrului obiectelor specifice. Instantiati obiecte din clasele
+derivate si afisati aria si perimetrul obiectelor. Datele specifice vor fi introduse de la tastatura.
+Definiti un obiect de tip Cerc cu parametrii care sa il copiati intr-un nou obiect clona la care sa
+ii afisati atributele. Definiti un obiect de tip Patrat cu parametrii si altul fara parametrii.
+Asignati celui fara parametrii obiectul instantiat cu parametrii si afisati atributele.*/
+
+//Cerc.h
+
+const int DIM = 20;
+const double pi = 3.14;
+
+class Forme
+{
+protected:
+        char* nume;
+public:
+        Forme()
+        {
+                nume = new char[DIM];
+                strcpy(nume, "Necunoscut");
+        }
+        Forme(char* n)
+        {
+                int l = strlen(n);
+                nume = new char[l];
+                strcpy(nume, n);
+        }
+        Forme(const Forme& x)
+        {
+                int lung;
+                lung = strlen(x.nume);
+                nume = new char[lung + 1];
+                strcpy(nume, x.nume);
+                cout << "\nConstructor de copiere!";
+        }
+
+        Forme &operator = (const Forme& x)
+        {
+                int lung = strlen(x.nume);
+                if (this == &x) 
+                        return *this;
+                delete[] nume;
+                nume = new char[lung + 1];
+                strcpy(nume, x.nume);
+                cout << "\nAsignare reusita!";
+                return *this;
+        }
+
+        void setNume(char n[DIM])
+        {
+                strcpy(nume, n);
+        }
+        char* getNume()
+        {
+                return nume;
+        }
+};
+
+class Cerc : public Forme
+{
+        int raza;
+public:
+        Cerc() = default;
+        Cerc(int r, char num[DIM])
+        {
+                strcpy(nume, num);
+                raza = r;
+        }
+        int getRaza()
+        {
+                return raza;
+        }
+        long perimetru()
+        {
+                double p = 2 * pi * raza;
+                return p;
+        }
+        long arie()
+        {
+                long arie = (raza * raza) * pi;
+                return arie;
+        }
+};
+
+class Patrat : public Forme
+{
+        long latura;
+public:
+        Patrat() = default;
+        Patrat(long l, char num[DIM])
+        {
+                strcpy(nume, num);
+                latura = l;
+        }
+        long getLatura()
+        {
+                return latura;
+        }
+        long perimetru()
+        {
+                long p = 4 * latura;
+                return p;
+        }
+        long arie()
+        {
+                double arie = latura * latura;
+                return arie;
+        }
+};
+
+class Dreptunghi : public Forme
+{
+        long lungime, latime;
+public:
+        
+        Dreptunghi(long a1, long a2, char num[DIM])
+        {
+                strcpy(nume, num);
+                lungime = a1;
+                latime = a2;
+        }
+        long getLungime()
+        {
+                return lungime;
+        }
+        long getLatime()
+        {
+                return latime;
+        }
+        long perimetru()
+        {
+                double p = 2 * (lungime + latime);
+                return p;
+        }
+        long arie()
+        {
+                double arie = lungime * latime;
+                return arie;
+        }
+}; 
+#pragma once
+
+
+
+
+//main
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+
+#include "Cerc.h"
+
+int main()
+{
+        int n, r;
+        long lat, lungime, lati;
+        char c[DIM];
+        cout << "\nIntroduceti numarul de obiecte: ";
+        cin >> n;
+        for (int i = 0; i < n; i++)
+        {
+                cout << "\nIntroduceti forma obiectului " << i + 1 << ": ";
+                cin >> c;
+                if (_stricmp(c, "cerc") == 0)
+                {
+                        cout << "Introduceti raza cercului: ";
+                        cin >> r;
+                        Cerc circle(r, c);
+                        cout << "\nNume: " << circle.getNume();
+                        cout << "\nRaza: " << circle.getRaza();
+                        cout << "\nPerimetrul: " << circle.perimetru();
+                        cout << "\nAria: " << circle.arie();
+                }
+                else if (_stricmp(c, "patrat") == 0)
+                {
+                        cout << "Introduceti latura patratului: ";
+                        cin >> lat;
+                        Patrat square(lat, c);
+                        cout << "\nNume: " << square.getNume();
+                        cout << "\nLungimea laturii: " << square.getLatura();
+                        cout << "\nPerimetrul: " << square.perimetru();
+                        cout << "\nAria: " << square.arie();
+                }
+                else if (_stricmp(c, "dreptunghi") == 0)
+                {
+                        cout << "Introduceti lungimea si latimea dreptunghiului: \n";
+                        cout << "Lungimea: ";
+                        cin >> lungime;
+                        cout << "Latimea: ";
+                        cin >> lati;
+                        Dreptunghi rectangle(lungime, lati, c);
+                        cout << "\nNume: " << rectangle.getNume();
+                        cout << "\nLungimea: " << rectangle.getLungime();
+                        cout << "\nLatimea: " << rectangle.getLatime();
+                        cout << "\nPerimetrul: " << rectangle.perimetru();
+                        cout << "\nAria: " << rectangle.arie();
+                }
+                else
+                        cout << "\nForma invalida!";
+        }
+
+        cout << "\nIntroduceti datele unui cerc: \n";
+        cout << "\tNUME:";
+        cin >> c;
+        cout << "\tRAZA:";
+        cin >> r;
+        Cerc c1(r, c);
+        Cerc c2 = c1;//copiere
+        cout << "\nAtributele obiectului in care s-au copiat informatiile date sunt: ";
+        cout << "\nNume: " << c2.getNume();
+        cout << "\nRaza: " << c2.getRaza();
+
+        cout << "\nIntroduceti datele unui patrat: \n";
+        cout << "\tNUME: ";
+        cin >> c;
+        cout << "\tLatura: ";
+        cin >> lat;
+        Patrat p1(lat, c);
+        Patrat p2;
+        p2 = p1;//asignare
+        cout << "\nAtributele patratului caruia i s-au asignat informatiile date sunt: ";
+        cout << "\tNume: " << p2.getNume();
+        cout << "\tLatura: " << p2.getLatura();
+        return 0;
+}

@@ -1,0 +1,644 @@
+
+﻿//ex 1 lab 11 Vlas Denisa grupa 2112
+/*1. În cazul exemplului 3 (care exemplifică moştenirea simplă, cu clasa de bază Pozitie şi derivată
+Punct) se cer următoarele:
+a. urmariţi şi verificaţi ordinea de apel pentru constructori/destructori
+b. extindeţi funcţia main( ) pentru a utiliza toate metodele din clasa de baza şi din clasa
+derivată
+c. introduceţi o nouă clasă Cerc (date şi metode), derivată din clasa Pozitie
+d. scrieţi un program ce utilizează aceste clase. */
+
+
+//Mostenirea simpla, up/down-casting, metode virtuale �" exemplu didactic
+//Poz_punct.h
+// clasa de baza
+
+class Pozitie
+{
+protected:
+        int x, y;
+public:
+        Pozitie(int = 0, int = 0);
+        Pozitie(const Pozitie&);//exista unul implicit standard, aici unul diferit
+        ~Pozitie();
+        virtual void afisare();
+        virtual void deplasare(int, int);
+};
+
+// constructor
+Pozitie::Pozitie(int abs, int ord) 
+{
+        x = abs; y = ord;
+        cout << "Constructor CB \"Pozitie\", ";
+        afisare();
+}
+
+//constructor de copiere
+Pozitie::Pozitie(const Pozitie& p) 
+{
+        x = p.x;
+        y = p.y;
+        cout << "Constructor de copiere CB \"Pozitie\", ";
+        afisare();
+}
+
+// destructor
+Pozitie::~Pozitie() 
+{
+        cout << "Destructor CB \"Pozitie \", ";
+        afisare();
+}
+void Pozitie::afisare() 
+{
+        cout << " CB afisare: coordonate: x = " << x << ", y = " << y << "\n";
+}
+void Pozitie::deplasare(int dx, int dy)
+{
+        cout << "CB: deplasare" << endl;
+        x += dx; y += dy;
+}
+
+// clasa derivata
+class Punct : public Pozitie 
+{
+protected:
+        int vizibil;//ca un flag
+        char culoare;
+public:
+        Punct(int = 0, int = 0, char = 'A');
+        Punct(const Punct&);
+        ~Punct();
+        void arata() 
+        {
+                vizibil = 1;
+        }
+        void ascunde() {
+                vizibil = 0;
+        }
+        void coloreaza(char c)
+        {
+                culoare = c;
+        }
+        void deplasare(int, int) override;
+        void afisare() override;
+};//CD
+
+// constructor
+Punct::Punct(int abs, int ord, char c) :Pozitie(abs, ord) 
+{
+        vizibil = 0;
+        culoare = c;
+        cout << "Constructor CD \"Punct\", ";
+        afisare();//CD
+}
+// constructor de copiere
+Punct::Punct(const Punct& p) :Pozitie(p.x, p.y)
+{
+        vizibil = p.vizibil;
+        culoare = p.culoare;
+        cout << "Constructor de copiere CD \"Punct\", ";
+        afisare();//CD
+}
+
+// destructor
+Punct::~Punct() 
+{
+        cout << "Destructor CD \"Punct\", ";
+        afisare();//CD
+}
+// redefinire functie de deplasare in clasa derivata
+void Punct::deplasare(int dx, int dy) 
+{
+        if (vizibil)
+        {
+                cout << " CD: Deplasare afisare CD\n";
+                
+                afisare();//CD
+        }
+        x += dx;
+        y += dy;
+        if(vizibil)
+        {
+                cout << "coordonatele:";
+                Pozitie::afisare();
+        }
+}
+// redefinire metoda de afisare in clasa derivata
+void Punct::afisare() 
+{
+        cout << "Pozitie: x = " << x << ", y = " << y;
+        cout << ", culoare: " << culoare;
+        if (vizibil) cout << ", vizibil \n";
+        else cout << ", invizibil \n";
+}
+
+class  Cerc : public  Punct
+{ 
+protected:       
+        int  raza; 
+public:        
+        Cerc(int  x,  int  y,  char  cul,  int  r) :Punct(x,y,cul) 
+        { 
+                raza = r; 
+        }        
+        float  perimetru() 
+        { 
+                return  2 * 3.14 * raza; 
+        }        
+        float  aria() 
+        { 
+                return  3.14 * raza * raza; 
+        }        
+        void  afis() 
+        { 
+                cout << "\n\ncercul  obtiut  cu  raza  " << raza << "  are  centrul la ";
+                Punct::Pozitie::afisare();                
+                cout << "culoare:  " << culoare;              
+                if (vizibil)                        
+                        cout << ",  vizibil  ";    
+                else                        
+                        cout << ",  invizibil  ";    
+                cout << "\n  Aria  este:" << aria();     
+                cout << "\n  Perimetrul  este:  " << perimetru() << endl << endl;
+        } 
+};
+#pragma once
+
+
+
+
+
+// program de test
+#include <iostream>
+using namespace std;
+#include "Poz_punct.h"
+
+int main() 
+{
+        Punct p0(1, 1, 'V');
+        Punct p1(p0);
+        p1.arata(); 
+        p1.deplasare(10, 10);
+        cout << endl << endl; 
+        cout << "\nPunctul se deplaseaza cu 1 in coordonatele:\n"; 
+        p1.Pozitie::deplasare(1, 1);
+        //se apeleaza metoda de deplasare din clasa de baza
+        p1.Pozitie::afisare();
+        //se apeleaza metoda de afisare din clasa de baza
+        Cerc  c(1,1,'A',3);
+        c.afis();
+        return 0;
+}
+
+
+
+
+
+
+
+﻿//ex 2 lab 11 Vlas Denisa grupa 2112 
+/*
+2. La exemplul al patrulea extindeţi clasa de bază cu alte metode virtuale, redefinite în clasele
+derivate, cum ar fi metode get( ) şi set( ) pentru greutatea vehiculului (variabila greutate).
+*/
+
+
+
+//Modalitatea de definire si utilizare a metodelor virtuale
+//Header.h
+
+class Vehicul
+{
+protected:
+    int roti;
+    float greutate;
+public:
+    virtual void mesaj()
+    {
+        cout << "Mesaj din clasa Vehicul\n";
+    }
+    void setGr(int gr)
+    {
+        greutate = gr;
+    }
+
+    double getGr()
+    {
+        return greutate;
+    }
+};
+
+class Automobil : public Vehicul
+{
+    int incarcatura_pasageri;
+public:
+    void mesaj() override
+    {
+        cout << "Mesaj din clasa Automobil\n";
+    }
+    virtual double getGreutate()
+    {
+        return greutate;
+    }
+    virtual void setGreutate(float g)
+    {
+        greutate=g;
+    }
+
+};
+class Camion : public Vehicul
+{
+    int incarcatura_pasageri;
+    float incarcatura_utila;
+public:
+    int pasageri()
+    {
+        return incarcatura_pasageri;
+    }
+    void mesaj()
+    {
+        cout << "Mesaj din clasa camion";
+    }
+    virtual double getGreutate()
+    {
+        return greutate;
+    }
+    virtual void setGreutate(float g)
+    {
+        greutate = g;
+    }
+};
+class Barca : public Vehicul
+{
+    int incarcatura_pasageri;
+public:
+    int pasageri()
+    {
+        return incarcatura_pasageri;
+    }
+    void mesaj() override
+    {
+        cout << "Mesaj din clasa Barca\n";
+    }
+    virtual double getGreutate()
+    {
+        return greutate;
+    }
+    virtual void setGreutate(float g)
+    {
+        greutate = g;
+    }
+
+}; 
+#pragma once
+
+
+
+
+
+//main
+#include<iostream>
+using namespace std;
+#include "Header.h"
+
+int main()
+{
+    // apel direct, prin intermediul unor obiecte specifice
+    Vehicul monocicleta;
+    Automobil ford;
+    Camion semi;
+    Barca barca_de_pescuit;
+    monocicleta.mesaj();
+    ford.mesaj();
+    semi.mesaj();//din Vehicul ca si CB
+    barca_de_pescuit.mesaj();
+    // apel prin intermediul unui pointer specific
+    Vehicul* pmonocicleta;
+    Automobil* pford;
+    Camion* psemi;
+    Barca* pbarca_de_pescuit;
+    cout << "\n";
+    pmonocicleta = &monocicleta;
+    pmonocicleta->mesaj();
+    pford = &ford;
+    pford->mesaj();
+    psemi = &semi;
+    psemi->mesaj();//din CB
+    pbarca_de_pescuit = &barca_de_pescuit;
+    pbarca_de_pescuit->mesaj();
+    // apel prin intermediul unui pointer catre un obiect al clasei de baza
+    cout << "\n";
+    pmonocicleta = &monocicleta;
+    pmonocicleta->mesaj();//Vehicul
+    pmonocicleta = &ford;//upcasting
+    pmonocicleta->mesaj();//Automobil
+    pmonocicleta = &semi;//upcasting
+    pmonocicleta->mesaj();//Camion- Vehicul
+    pmonocicleta = &barca_de_pescuit;//upcasting
+    pmonocicleta->mesaj();//Barca
+    return 0;
+}
+
+
+
+
+
+
+
+﻿//ex 3 lab 11 Vlas Denisa grupa 2112
+/*3. Să se scrie un program C++ în care se defineşte o clasă Militar cu o metodă publică virtuală
+sunt_militar( ) care indică apartenenţa la armată. Derivaţi clasa Militar pentru a crea clasa
+Soldat şi clasa Ofiter. Derivaţi mai departe clasa Ofiter pentru a obtine clasele SubLocotenent,
+Locotenent, Capitan, Maior, Colonel, General. Redefiniti metoda sunt_militar( ) pentru a
+indica gradul militar pentru fiecare clasa specifica. Instantiati fiecare clasa Soldat,
+Locotenent,...,General, si apelati metoda sunt_militar( ).
+*/
+
+#include<iostream>
+using namespace std;
+
+class Militar 
+{
+public:
+    virtual void militar(void)
+    {
+        cout << "Sunt militar. \n";
+    }
+};
+
+class Ofiter :public Militar 
+{
+public:
+    void ofiter()
+    {
+        cout << "Sunt ofiter. \n";
+    }
+};
+
+class Sublocotenent :public Militar
+{
+public:
+    void subLoc()
+    {
+        cout << "Sunt sublocotenent. \n";
+    }
+};
+
+class Locotenent : public Ofiter 
+{
+public:
+    void locotenent()
+    {
+        cout << "Sunt locotenent. \n";
+    }
+};
+
+class Capitan : public Ofiter 
+{
+public:
+    void capitan()
+    {
+        cout << "Sunt capitan. \n";
+    }
+};
+
+class Soldat :public Militar 
+{
+public:
+    void soldat()
+    {
+        cout << "Sunt soldat. \n";
+    }
+};
+
+class Maior :public Militar
+{
+public:
+    void maior()
+    {
+        cout << "Sunt maior. \n";
+    }
+};
+
+
+class Colonel : public Ofiter 
+{
+public:
+    void colonel()
+    {
+        cout << "Sunt colonel. \n";
+    }
+};
+
+
+class General : public Ofiter
+{
+public:
+    void general()
+    {
+        cout << "Sunt general. \n";
+    }
+};
+
+int main()
+{
+    Soldat pers1;
+    pers1.militar();
+
+    Ofiter pers2;
+    pers2.ofiter();
+
+    Locotenent pers3;
+    pers3.locotenent();
+
+    Sublocotenent pers4;
+    pers4.subLoc();
+    
+    Capitan pers5;
+    pers5.capitan();
+
+    Colonel pers6;
+    pers6.colonel();
+
+    Soldat pers7;
+    pers7.soldat();
+
+    Maior pers8;
+    pers8.maior();
+
+    General pers9;
+    pers9.general();
+}
+
+
+
+
+
+
+
+
+
+
+//ex 4 lab 11 Vlas Denisa grupa 2112
+/*4. Declarati o clasa Animal, care va contine o metoda pur virtuala, respira( ) si doua metode
+virtuale manaca( ) si doarme( ). Derivati in mod public o clasa Caine si alta Peste, care vor
+defini metoda pur virtuala, iar clasa Caine va redefini metoda mananca( ), iar Peste metoda
+doarme( ). Instantiati obiecte din cele doua clase si apelati metodele specifice. Definiti apoi un
+tablou de tip Animal, care va contine obiecte din clasele derivate, daca e posibil. Daca nu,
+gasiti o solutie adecvata.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+
+class Animal
+{
+public:
+    virtual void mesaj()
+    {
+        cout << "\n Mesaj din clasa Animal";
+    }
+    virtual void respira();
+    virtual void mananca()
+    {
+        cout << "\n Ce mananca?";
+    }
+    virtual void doarme()
+    {
+        cout << "\n Cat doarme pe zi?";
+    }
+};
+
+class Caine
+{
+public:
+    void mesaj()
+    {
+        cout << "\n Mesaj din clasa Caine";
+    }
+    void respira()
+    {
+        cout << "\n Respira.";
+    }
+    void mananca()
+    {
+        cout << "\n Mananca doar o anumita mancare";
+    }
+};
+
+class Peste
+{
+public:
+    void mesaj()
+    {
+        cout << "Mesaj din clasa Peste";
+    }
+    void respira()
+    {
+        cout << "\n Respira.";
+    }
+    void doarme()
+    {
+        cout << "\n Doarme putin";
+    }
+};
+
+int main()
+{
+    Caine pufy;
+    pufy.mesaj();
+    pufy.respira();
+    pufy.mananca();
+
+    Peste nemo;
+    nemo.mesaj();
+    nemo.respira();
+    nemo.doarme();
+
+    const int N = 2;
+    Animal* tab[2];
+    
+    for (int i = 0; i < N; i++)
+    {
+        cout << endl;
+        tab[i]->mesaj();
+        tab[i]->doarme();
+        tab[i]->mananca();
+        tab[i]->respira();
+    }
+    for (int i = 0; i < N; i++)
+    {
+        delete tab[i];
+    }
+}
+
+
+
+
+
+
+
+//ex 5 lab 11 Vlas Denisa grupa 2112
+/*5. Definiti o clasa abstracta care contine 3 declaratii de metode pur virtuale pentru concatenarea,
+intreteserea a doua siruri de caractere si inversarea unui sir de caractere primit ca parametru. O
+subclasa implementeaza corpurile metodelor declarate in clasa de baza. Instantiati clasa
+derivata si afisati rezultatele aplicarii operatiilor implementate in clasa asupra unor siruri de
+caractere citite de la tastatura. Examinati eroarea data de incercarea de a instantia clasa de
+baza. */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<string.h>
+#include<iostream>
+
+using namespace std;
+
+class Sir
+{
+public:
+        virtual char* concatenare(char* s1, char* s2) = 0;
+        virtual char* intersectare(char* s1, char* s2) = 0;
+        virtual char* inversare(char* s) = 0;
+};
+
+class Subclasa
+{
+public:
+        char* concatenare(char* s1, char* s2)
+        {
+                return strcat(s1, s2);
+        }
+        char* intersectare(char* s1, char* s2)
+        {
+                int n, m;
+                n = strlen(s1) + 1;
+                m = strlen(s2) + 1;
+                char* c;
+                c = new char[n];
+                strcpy(c, s1);
+                char* d;
+                d = new char[m];
+                strcpy(d, s2);
+                strcat(c, d);
+                return c;
+        }
+        char* inversare(char* s)
+        {
+                _strrev(s);
+                return s;
+        }
+};
+
+int main()
+{
+        char sir1[20], sir2[20], sir3[20];
+        Subclasa m;
+        cout << "Dati sirul 1:"; 
+        cin >> sir1;
+        cout << "Dati sirul 2:"; 
+        cin >> sir2;
+        cout << "Dati sirul 3:";
+        cin >> sir3;
+        cout << "\nSirul obtinut prin intresetarea primelor doua este:"<<m.intersectare(sir1,sir2);
+        cout << "\nSirul obtinut prin concatenarea primelor doua este: "<<m.concatenare(sir1,sir2);
+        cout << "\nSirul 3 inversat este:" << m.inversare(sir3);
+}

@@ -1,0 +1,301 @@
+
+﻿//ex 1 lab 12 Vlas Denisa grupa 2112
+/*1. Scrieţi un program C++ în care afişaţi diferite valori în zecimal, octal şi hexazecimal. Afişaţi
+valorile aliniate la dreapta, respectiv la stânga într-un câmp de afişare cu dimensiunea 15.
+Utilizaţi manipulatorul setfill( ) pentru stabilirea caracterului de umplere şi metodele width( )
+şi precision( ) pentru stabilirea dimensiunii câmpului de afişare şi a preciziei.*/
+
+#include<iostream>
+#include<iomanip>
+
+using namespace std;
+const int dim = 15;
+
+int main()
+{
+        // afisarea valorilor folosind poziţionarile implicite
+        cout << 123.33 << " salut! " << 100 << '\n';
+        cout << 10 << ' ' << -10 << '\n';
+        cout << 100.01 << '\n';
+        cout << 100.0 << '\n';
+        // schimbam formatul
+        cout.unsetf(ios::dec);
+        cout.setf(ios_base::hex);
+        cout.setf(ios_base::oct);
+        cout << 123 << " salut! " << 100 << '\n';
+        cout.setf(ios::showpos | ios::showbase);
+        cout << 10 << ' ' << -10 << '\n';
+        cout.setf(ios::scientific);
+        cout << 100.1 << '\n';
+        cout.unsetf(ios::scientific);
+        cout.setf(ios::dec | ios::showpoint);
+        cout << 100.0 << '\n';
+        //alinieri
+        cout.width(dim);
+        cout.fill('*');
+        cout.setf(ios::right);
+        cout << "Aliniere dreapta" << '\n';
+        cout.unsetf(ios::right);
+        cout.width(dim);
+        cout.fill('*');
+        cout.setf(ios::left);
+        cout << "Aliniere stanga" << '\n';
+}
+
+
+
+
+
+//ex 2 lab 12 Vlas Denisa grupa 2112
+/*2. Scrieti o aplicatie C++ in care se citesc de la tastatura date de diferite tipuri, urmand a fi
+afisate pe ecran utilizand manipulatorii standard.*/
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main() 
+{
+        int x;
+        float y;
+        char z[25];
+        cout << "Introduceti un numar intreg:"; 
+        cin >> x;
+        cout << "x este =" << x << endl;
+        cout << "Convertit in hexazecimal:" << hex << x << endl;
+        cout << "Convertit in octal:" << oct << x << endl;
+
+        cout << "\nIntroduceti un numar real:"; 
+        cin >> y;
+        cout << setprecision(6);
+        cout << "y este =" << y << endl;
+
+        cout << "Introduceti un sir de caractere:"; 
+        cin >> z;
+        cout << setfill('z') << setw(6) << z << endl;
+        return 0;
+}
+
+
+
+
+
+
+
+
+
+﻿//ex 6 lab 12 Vlas Denisa/Ungur Mihai grupa 2112
+
+/*6. Considerati clasa Fractie care are doua atribute intregi private a si b pentru numarator si
+numitor, doua metode de tip set( ) respectiv get( ) pentru atributele clasei. Declarati o metoda
+simplifica( ) care simplifica un obiect Fractie returnand o valoare reala. Considerati o
+variabila privata statica intreaga icount, care va fi initializata cu 0 si incrementata in cadrul
+constructorilor din clasa. Definiti un constructor explicit fara parametri care initializeaza a cu
+0 si b cu 1, si un constructor explicit cu doi parametri care va putea fi apelat daca se verifica
+posibilitatea definirii unei fracții (b!=0). Definiti un destructor explicit care afiseaza un mesaj.
+Supraincarcati operatorii de adunare, scadere, inmultire si impartire (+,-,*,/) a fractiilor
+folosind functii friend fara a simplifica rezultatele obtinute. Instantiati doua obiecte de tip
+Fractie cu date citite de la tastatura. Afisati atributele initiale ale obiectelor pe linii diferite iar
+fiecare membru al fractiei va fi afisat pe o latime de 10 digiti, caracter de umplere *, primul
+numar aliniat la stanga iar al doilea aliniat la dreapta. Printr-o metoda accesor, afisati contorul
+icount ca si un intreg cu semn, pe 15 pozitii, caracter de umplere $, aliniat la stanga. Efectuati
+operatiile implementate prin functiile friend, initializand alte 4 obiecte cu rezultatele obtinute.
+Afisati rezultatele (numarator/numitor) folosind supraincarcarea operatorul de iesire (<<,
+insertie) si contorul (ca si un intreg cu semn, pe 20 de pozitii, caracter de umplere #, aliniat la
+dreapta) dupa ultima operatie folosind o metoda accesor adecvata. Simplificati rezultatele
+obtinute pe care le veti afisa ca numere reale de tip fixed cu o precizie de 4 digiti la partea
+fractionara.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+
+using namespace std;
+
+const   int   def = 1;
+
+class   Fractie
+{
+
+    int x;
+    int y;
+    int   cont;
+
+public:
+    Fractie()
+    {
+        x = 0;
+        y = 1;
+        cont++;
+    }
+    Fractie(int a, int b)
+    {
+        x = a;
+
+        if (b != 0)
+            y = b;
+
+        else
+        {
+            cout << "Numitorul nu   poate   fi   0   si   i   s-a   atribuit valoarea    default    " << def;
+            y = def;
+        }
+        cont++;
+
+    }
+    void    setA(int a)
+    { 
+        x = a;
+    }
+    void    setB(int b) 
+    { 
+        y = b;
+    }
+    int    getA() 
+    { 
+        return x;
+    }
+    int    getB()
+    { 
+        return y;
+    }
+    int    getIcount() 
+    { 
+        return cont; 
+    }
+    void    simplifica()
+    {
+        int   a = x;
+        int b = y, c;
+        while (b)
+        {
+            c = a % b;
+            a = b;
+            b = c;
+        }
+        x = x / a;
+        y = y / a;
+    }
+    void    afisare1()
+    {
+        cout << "Numarator/numitor: ";
+        cout.fill('*');
+        cout.width(10);
+        cout.setf(ios::left);
+        cout << x << " / " << y << endl;
+    }
+    void    afisare2()
+    {
+        cout << "Numarator/numitor: ";
+        cout.fill('*');
+        cout.width(10);
+        cout.setf(ios::right);
+        cout << x << " / " << y << endl;
+    }
+
+    friend      Fractie    operator+(Fractie&, Fractie&);
+    friend      Fractie    operator-(Fractie&, Fractie&);
+    friend      Fractie    operator*(Fractie&, Fractie&);
+    friend      Fractie    operator/(Fractie&, Fractie&);
+
+    ~Fractie()
+    {
+        cout << "Destructor" << cont << endl;
+    }
+};
+
+Fractie operator+(Fractie& a, Fractie& b)
+{
+    Fractie rez;
+    if (a.y != b.y)
+    {
+        int auxa = a.y, auxb = b.y;
+        a.setB(a.y * b.y);
+        b.setB(auxa * b.y);
+        a.setA(a.x * auxb);
+        b.setA(b.x * auxa);
+    }
+    rez.x = a.x + b.x;
+    rez.y = a.y;
+    rez.simplifica();
+    rez.cont++;
+    return rez;
+}
+
+Fractie operator-(Fractie& a, Fractie& b)
+{
+    Fractie rez;
+    if (a.y != b.y)
+    {
+        int auxa = a.y, auxb = b.y;
+        a.setB(a.y * b.y);
+        b.setB(auxa * b.y);
+        a.setA(a.x * auxb);
+        b.setA(b.x * auxa);
+    }
+
+    rez.x = a.x - b.x;
+    rez.y = a.y;
+    rez.simplifica();
+    rez.cont++;
+    return rez;
+}
+
+Fractie operator*(Fractie& a, Fractie& b)
+{
+    Fractie rez;
+
+    rez.x = a.x * b.x;
+    rez.y = a.y * b.y;
+    rez.simplifica();
+    rez.cont++;
+    return rez;
+}
+
+Fractie operator/(Fractie& a, Fractie& b)
+{
+
+    Fractie rez;
+
+    rez.x = a.x * b.y;
+    rez.y = a.y * b.x;
+    rez.simplifica();
+    rez.cont++;
+    return rez;
+}
+int main()
+{
+    int x, y;
+    cout << "Cititi   prima    fractie:     ";
+
+    cout << "\nNumarator:     ";
+    cin >> x;
+    cout << "Numitor: ";
+    cin >> y;
+
+    Fractie   F1(x, y);
+
+    cout << "Cititi   a   doua     fractie:   ";
+
+    cout << "\nNumarator:     ";
+    cin >> x;
+    cout << "Numitor: ";
+    cin >> y;
+
+    Fractie   F2(x, y);
+
+    cout << "Prima fractie este: ";
+    F1.afisare1();
+    cout << "A doua fractie este: ";
+    F2.afisare2();
+
+    cout << "Contorul icount        dupa   finalizarea   operatiilor:   " << setfill('$')<< setw(15) << F2.getIcount();
+
+    cin.get();
+    cin.ignore();
+    return 0;
+
+}

@@ -1,0 +1,212 @@
+
+﻿//ex 1 lab 13 Vlas Denisa grupa 2112
+/*1. Să se scrie un program care foloseşte metoda seekg( ) pentru poziţionare la mijlocul fişierului
+si apoi afişează conţinutul fişierului începând cu această poziţie. Numele fişierului se citeste
+din linia de comandă.*/
+
+#include<iostream>
+#include<fstream>
+#include<stdlib.h>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+        if (argc == 1)
+        {
+                cout << "Nu sa primit numele fisierului prin linia de comanda" << endl;
+                exit(1);
+        }
+
+        ifstream fin;
+        fin.open(argv[1], ios::in);
+
+        if (fin.fail())
+        {
+                cout << "Eroare la deschiderea fisierului!" << endl;
+                exit(1);
+        }
+
+        fin.seekg(0, ios::end);
+        fin.seekg(fin.tellg() / 2, ios::beg);
+
+        char buff[2] = " ";
+        while (!fin.eof())
+        {
+                cout << buff;
+                fin.read(buff, 1);
+        }
+        cout << endl;
+        fin.close();
+}
+
+
+
+
+
+
+
+﻿//ex 2 lab 13 Vlas Denisa grupa 2112
+/*2. Scrieţi un program care utilizează metoda write( ) pentru a scrie într-un fişier şiruri de
+caractere. Afişaţi apoi conţinutul fişierului folosind metoda get( ). Numele fişierului se va citi
+de la tastatură.*/
+
+#include<iostream>
+#include<fstream>
+#include<stdlib.h>
+
+using namespace std;
+
+int main()
+{
+        char a[20];
+        cout << "Introduceti fisierul: "; 
+        cin >> a;
+        fstream io;
+        io.open(a, ios::in | ios::out);
+        char buff[256] = "\n";
+        cout << "Introduceti sirurile pentru a incheia introduceti pe un rand nou : " << endl;
+        bool flag = false;
+
+        while (1)
+        {
+                cin.getline(buff, 256, '\n');
+                if (!(toupper(buff[0]) == 'E' && buff[1] == '\0'))
+                {
+                        io.write(buff, strlen(buff));
+                        if (flag == true)
+                        {
+                                io.put('\n');
+                        }
+                        else
+                                io.seekp(0, ios::beg);
+                }
+                else
+                        break;
+                flag = true;
+        }
+        io.seekg(0, ios::beg);
+        char buff1 = 0;
+        cout << "Continutul fisierului este: " << endl;
+        while (1)
+        {
+                io.get(buff1);
+                if (!io.eof())
+                        cout << buff1;
+                else
+                        break;
+        }
+        io.close();
+}
+
+
+
+
+
+
+
+
+/*4. Scrieți o aplicație C++ în care deschideți un fișier în mod binar pentru citire. Afișați un mesaj 
+corespunzator dacă fișierul nu a fost creat în prealabil și cereți reintroducerea numelui 
+fișierului. Presupunând că în fișierul deschis există înregistrări de tip agendă (nume, localitate, 
+număr de telefon), utilizați supraîncărcarea operatorilor de inserție și extracție pentru afisarea 
+pe ecran a conținutului fișierului.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<fstream>
+using namespace std;
+class Persoana
+{
+        char nume[256];
+        char localitate[256];
+        char telefon[11];
+public:
+        friend ifstream& operator>> (ifstream& file, Persoana& pers);
+        friend istream& operator>> (istream& stream, Persoana& pers);
+        friend ostream& operator<< (ostream& stream, Persoana& pers);
+        friend ofstream& operator<< (ofstream& file, Persoana& pers);
+        static int count;
+};
+int Persoana::count = 0;
+ifstream& operator>> (ifstream& file, Persoana& pers)
+{
+        file >> pers.nume >> pers.localitate >> pers.telefon;
+        return file;
+}
+istream& operator>> (istream& stream, Persoana& pers)
+{
+        bool flag = false;
+        char tmp[256];
+        cout << "Nume: "; stream >> pers.nume;
+        cout << "Localitatea: "; stream >> pers.localitate;
+        do
+        {
+                if (flag) cout << "Numarul de telefon introdus nu contine 10 cifre.. introduceti numarul de telefon cu tot cu prefix" << endl;
+                cout << "Numar de telefon: "; stream >> tmp;
+                flag = true;
+        } while (strlen(tmp) != 10);
+        strcpy(pers.telefon, tmp);
+        return stream;
+}
+ostream& operator<< (ostream& stream, Persoana& pers)
+{
+        stream << "Nume: " << pers.nume << endl;
+        stream << "Localitate: " << pers.localitate << endl;
+        stream << "Numar de Telefon: " << pers.telefon << endl;
+        return stream;
+}
+ofstream& operator<< (ofstream& file, Persoana& pers)
+{
+        file << pers.nume << " " << pers.localitate << " " << pers.telefon << " ";
+        return file;
+}
+void main(void)
+{
+        char calea[20];
+        bool flag = false;
+        int read, n;
+        Persoana p;
+        ifstream fin;
+        cout << "Doriti scrierea unui fisier?(tastati 1 pentru DA si orice alt numar intreg pentru NU: "; cin >> read;
+        if (read == 1)
+        {
+                ofstream fout;
+                cout << "Introduceti calea pentru salvarea fisierului binar: ";
+                cin >> calea;
+                fout.open(calea, ios::out | ios::binary);
+                cout << "Introduceti cate elemente doriti sa aveti in sir: ";
+                cin >> n;
+                for (int i = 0; i < n; i++)
+                {
+                        cout << "Introduceti datele pentru persoana nr." << i + 1 << " :"<<endl;
+                                cin >> p;
+                        fout << p;
+                }
+                fout.close();
+        }
+        do
+        {
+                if (flag)
+                {
+                        cout << "Fisierul nu exista! Va rugam incercati dinou:" << endl;
+                        fin.close();
+                }
+                cout << "Introduceti calea fisierului de unde doriti citirea: ";
+                cin >> calea;
+                fin.open(calea, ios::in | ios::binary);
+                flag = true;
+        } while (fin.fail());
+        while (1)
+        {
+                fin >> p;
+                if (fin.eof())
+                        break;
+                else
+                {
+                        cout << "Persoana nr." << ++p.count << ":" << endl;
+                        cout << p;
+                }
+        }
+        fin.close();
+}

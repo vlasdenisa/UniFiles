@@ -1,0 +1,458 @@
+
+﻿//ex 1 lab 6 Vlas Denisa grupa 2112 (Claudia Batinas)
+/*1. Să se scrie o aplicaţie C++ care implementează o clasă numită PilotF1. Clasa definește
+variabilele private nume (șir de caractere), echipa (șir de caractere), varsta (int), record (int),
+nr_pole_position (int). Ca membri publici, clasa conține metode accesor/getter și
+mutator/setter distincte pentru fiecare din atributele clasei.
+In funcția main( ), să se creeze 3 instanțe distincte ale clasei PilotF1 și să se folosească
+metodele mutator/setter pentru a inițializa datele din fiecare obiect cu informația
+corespunzătoare citită de la tastatură. Folosind metodele accesor/getter, să se afișeze toate
+datele pilotului cu cel mai bun record*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+class pilotF1 
+{
+    int x;
+private:
+    char nume[20];
+    char echipa[20]; 
+    int varsta;
+    int record;
+    int nr_pole_position;
+
+public:
+    void setNume(char* new_nume) 
+    {
+        strcpy(nume, new_nume);
+    }
+    void setEchipa(char* new_echipa) 
+    { 
+        strcpy(echipa, new_echipa);
+    }
+    void setVarsta(int a) 
+    {
+        varsta = a;
+    }
+    void setRecord(int b) 
+    {
+        record = b;
+    }
+    void setNr_pole_position(int c) 
+    {
+        nr_pole_position = c;
+    }
+    char* getNume()
+    {
+        return nume;
+    }
+
+    char* getEchipa()
+    {
+        return echipa;
+    }
+
+    int getVarsta() 
+    {
+        return varsta; 
+    }
+
+    int getRecord() 
+    {
+        return record;
+    }
+
+    int getNr_pole_position()
+    {
+        return nr_pole_position;
+    }
+
+
+};
+int main() 
+{
+    pilotF1 p1, p2, p3; 
+    int v1, r1, nr1, v2, r2, nr2, v3, r3, nr3;
+    char n1[20], ec1[20], n2[20], ec2[20], n3[20], ec3[20];
+
+    //am citit si am afisat datele despre primul obiect
+    cout << "\nIntroduceti primul nume: ";
+    cin >> n1;
+    p1.setNume(n1);
+    cout << "\nPrimul nume este: " << p1.getNume();
+
+    cout << "\nIntroduceti prima echipa: ";
+    cin >> ec1;
+    p1.setEchipa(ec1);
+    cout << "\nPrima echipa este: " << p1.getEchipa();
+
+    cout << "\nIntroduceti prima varsta: ";
+    cin >> v1;
+    p1.setVarsta(v1);
+    cout << "\nPrima varsta este: " << p1.getVarsta();
+
+    cout << "\nIntroduceti primul record: ";
+    cin >> r1;
+    p1.setRecord(r1);
+    cout << "\nPrimul record este: " << p1.getRecord();
+
+    cout << "\nIntroduceti primul nr_pp: ";
+    cin >> nr1;
+    p1.setNr_pole_position(nr1);
+    cout << "\nPrimul nr_pp este: " << p1.getNr_pole_position();
+
+
+    // am citit si am afisat datele despre al doilea obiect
+
+    cout << "\nIntroduceti al doilea nume: ";
+    cin >> n2;
+    p2.setNume(n2);
+    cout << "\nAl doilea nume este: " << p2.getNume();
+
+    cout << "\nIntroduceti a doua echipa: ";
+    cin >> ec2;
+    p2.setEchipa(ec2);
+    cout << "\nA doua echipa este: " << p2.getEchipa();
+
+    cout << "\nIntroduceti a doua varsta: ";
+    cin >> v2;
+    p2.setVarsta(v2);
+    cout << "\nA doua varsta este: " << p2.getVarsta();
+
+    cout << "\nIntroduceti al doilea record: ";
+    cin >> r2;
+    p2.setRecord(r2);
+    cout << "\nAl doilea record este: " << p2.getRecord();
+
+    cout << "\nIntroduceti al doilea nr_pp: ";
+    cin >> nr2;
+    p2.setNr_pole_position(nr2);
+    cout << "\nAl doilea nr_pp este: " << p2.getNr_pole_position();
+
+    //am citit si am afisat datele despre al treilea obiect
+
+    cout << "\nIntroduceti al treilea nume: ";
+    cin >> n3;
+    p3.setNume(n3);
+    cout << "\nAl treilea nume este: " << p3.getNume();
+
+    cout << "\nIntroduceti a treia echipa: ";
+    cin >> ec3;
+    p3.setEchipa(ec3);
+    cout << "\nA treia echipa este: " << p3.getEchipa();
+
+    cout << "\nIntroduceti a treia varsta: ";
+    cin >> v3;
+    p3.setVarsta(v3);
+    cout << "\nA treia varsta este: " << p3.getVarsta();
+
+    cout << "\nIntroduceti al treilea record: ";
+    cin >> r3;
+    p3.setRecord(r3);
+    cout << "\nAl treilea record este: " << p3.getRecord();
+
+    cout << "\nIntroduceti al treilea nr_pp: ";
+    cin >> nr3;
+    p3.setNr_pole_position(nr3);
+    cout << "\nAl treilea nr_pp este: " << p3.getNr_pole_position();
+    if (p3.getRecord() > p2.getRecord() && p3.getRecord() > p1.getRecord()) 
+    {
+        cout << "\nA treia echipa are recordul cel m mare";
+        cout << "\nAl treilea nume este: " << p3.getNume();
+        cout << "\nA treia echipa este: " << p3.getEchipa();
+        cout << "\nA treia varsta este: " << p3.getVarsta();
+        cout << "\nAl treilea record este: " << p3.getRecord();
+        cout << "\nAl treilea nr_pp este: " << p3.getNr_pole_position();
+    }
+    else if (p2.getRecord() > p3.getRecord() && p2.getRecord() > p1.getRecord()) 
+    {
+        cout << "\nA doua echipa are recordul cel m mare";
+        cout << "\nAl doilea nume este: " << p2.getNume();
+        cout << "\nA doua echipa este: " << p2.getEchipa();
+        cout << "\nA doua varsta este: " << p2.getVarsta();
+        cout << "\nAl doilea record este: " << p2.getRecord();
+        cout << "\nAl doilea nr_pp este: " << p2.getNr_pole_position();
+
+    }
+    else //am afisat datele despre primul obiect daca acesta are recordul cel mai mare
+    {
+        cout << "\nPrima echipa are recordul cel m mare";
+        cout << "\nPrimul nume este: " << p1.getNume();
+        cout << "\nPrima echipa este: " << p1.getEchipa();
+        cout << "\nPrima varsta este: " << p1.getVarsta();
+        cout << "\nPrimul record este: " << p1.getRecord();
+        cout << "\nPrimul nr_pp este: " << p1.getNr_pole_position();
+
+    }
+
+}
+
+
+
+
+
+
+﻿//ex 2 lab 6 Vlas Denisa grupa 2112
+/*2. Să se modifice exemplul 2 astfel încât codul să poată fi lansat în execuție considerand
+atributul clasei private si metode public get/set adecvate. In main() instantiati un obiect din
+clasa care va fi modificat si apoi accesat, afisand rezultatul.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+
+class Test2
+{
+    int x;
+public:
+    Test2()
+    {
+        x = 0;
+        cout << "\nApel constructor explicit vid.";
+    }
+    void Afis(int y)
+    { 
+        x = y; 
+    }
+};
+int main()
+{
+    Test2 ob1;
+    int a;
+    cout << "\nIntroduceti valoarea variabilei de tip \"int\" din clasa: ";
+    cin >> a;
+    ob1.Afis(a);
+    return 0;
+}
+
+
+
+
+
+
+
+﻿///ex 3 lab 6 Vlas Denisa grupa 2112
+/*Metoda de afisare a unei coloane, nu va valida numarul coloanei, coloana fiind validata in
+main(). Completați codul scris cu metode specifice pentru:
+- afișarea elementelor de pe diagonala secundara a matricei, dacă matricea este pătratică; în
+caz contrar se afișează un mesaj corespunzător;
+- afișarea elementelor de sub diagonala principala;
+- afișarea unei matrice de dimensiunea celei inițiale ale cărei elemente pot avea valori de 0
+(dacă elementul corespunzător este mai mic decât o valoare in prealabil citita de prag) sau
+1 (în caz contrar), si verifica daca matricea este rara, >= 67% din elemente sunt zero);
+Refaceti aplicatia in care considerati metodele getElement() si setElement() private iar functile
+readMatrix() si displayMatrix() metode membere publice in cadrul clasei.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+class    Matrix
+{
+    int    matrix[50][50], n,m;
+public:
+    Matrix()
+    {
+        int i, j;
+        cout << "Introduceti dimensiunile matricii:";
+        cin >> n>> m;
+        cout << "Introduceti elementele matricii:" << endl;
+        for (i = 0; i < n; i++)
+        {
+            for (j = 0; j < m; j++)
+            {
+                cin >> matrix[i][j];
+            }
+        }
+    }
+
+    void    afisMatrix()
+    {
+        int i, j;
+        cout << "Elementele matricii sunt: \n";
+        for (i = 0; i < n; i++)
+        {
+            cout << "\n";
+            for (j = 0; j < m; j++)
+                cout << matrix[i][j] << "   ";
+        }
+        cout << "\n";
+    }
+    void    diagonalaSecundara();
+    void    elementeDeSubDiagonalaPrincipala();
+    void    modificaMatrice(int n);
+    int returnare(int l, int c);
+
+};
+
+void    Matrix::modificaMatrice(int x)
+{
+    int i, j;
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            if (matrix[i][j] < x)
+                matrix[i][j] = 0;
+            else 
+                matrix[i][j] = 1;
+        }
+    }
+    afisMatrix();
+}
+
+int Matrix::returnare(int l, int c)
+{
+    return   matrix[l][c];
+}
+
+void Matrix::elementeDeSubDiagonalaPrincipala()
+{
+    int i, j;
+    if (n == m)
+    {
+        for (i = 0; i < n; i++)
+            for (j = 0; j < n; j++)
+                if (i > j )
+                    cout<<returnare(i, j)<<" ";
+    }
+    else
+        cout << "Matricea nu este patratica";
+    
+}
+
+void Matrix::diagonalaSecundara()
+{
+    int i, j;
+    if (n == m)
+    {
+        for (i = 0; i < n; i++)
+            for (j = 0; j < n; j++)
+                if (i + j == n - 1)
+                    cout << returnare(i, j)<<" ";
+    }
+    else
+        cout << "Matricea nu este patratica";
+}
+
+int main()
+{
+    Matrix m1;
+    int c;
+    m1.afisMatrix();
+    cout << "\nElementele de pe diagonala secundara sunt: ";
+    m1.diagonalaSecundara();
+    cout << "\nElementele de sub diagonala principala sunt: ";
+    m1.elementeDeSubDiagonalaPrincipala();
+    cout << "\nIntroduceti valoarea limita: ";
+    cin >> c;
+    m1.modificaMatrice(c);
+}
+
+
+
+
+
+
+
+
+﻿//ex 6 lab 6 Vlas Denisa grupa 2112
+/*6. Să se scrie o aplicaţie C++ care implementează o clasă numită Triunghi. Clasa cuprinde
+atributele private pentru laturile a, b, c de tip int, un constructor cu parametrii, metode setter si
+getter adecvate. Calculați aria și perimetrul prin metode specifice clasei. Scrieți o metodă care
+să indice dacă triunghiul este dreptunghic sau nu. Definiti o metoda private cu parametrii in
+clasa care permite verificarea condiției ca laturile să formeze un triunghi. Ea va fi folosita si
+de metodele setter.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+class  Triunghi
+{
+private:
+    int a;
+    int b;
+    int c;
+    void laturi(int a, int b, int c)
+    {
+        if ((a > 0) && (b > 0) && (c > 0) && a + b > c && a + c > b && b + c > a)
+            cout << "\nLaturile formeaza un triunghi.";
+        else
+            cout << "\nLaturile nu formeaza un triunghi.";
+    }
+public:
+    void setLaturi(int a,int b,int c)
+    {
+        this->a = a;
+        this->b = b;
+        this->c = c;
+    }
+   
+    float arie(int a, int b, int c);
+    int perimetru(int a, int b, int c);
+    void verifDrept(int a, int b, int c);
+    void setA(int x);
+    void setB(int y);
+    void setC(int z);
+    
+    int getA()
+    {
+        return a;
+    }
+    int getB()
+    {
+        return b;
+    }
+    int getC()
+    {
+        return c;
+    }
+};
+void Triunghi::setA(int x)
+{
+    a = x;
+}
+void Triunghi::setB(int y)
+{
+    b = y;
+}
+void Triunghi::setC(int z)
+{
+    c = z;
+}
+ int  Triunghi::perimetru(int a,int b,int c)
+    {
+        return a + b + c;
+    }
+ float  Triunghi::arie(int a,int b,int c)
+    {
+        float semiP, Aria;
+        semiP = (a + b + c) / 2;
+        Aria = sqrt(semiP * (semiP - a) * (semiP - b) * (semiP - c));
+        return Aria;
+    }
+ void  Triunghi::verifDrept(int a,int b,int c)
+    {
+        if ((a * a == b * b + c * c) || (b * b == a * a + c * c) || (c * c == a * a + b * b))
+            cout << "\nTriunghiul este dreptunghic ";
+    }
+int main()
+{
+    Triunghi T;
+    int a, b, c;
+    cout << "\n Introduceti dimensiunile :";
+    cin >> a >> b >> c;
+    T.setA(a);
+    T.setB(b);
+    T.setC(c);
+    T.setLaturi(a, b, c);
+    T.verifDrept(a,b,c);
+    cout << "\n Perimetrul triunghiului este: " << T.perimetru(a,b,c);
+    cout << "\n Aria triunghiului este :" << T.arie(a,b,c);
+    return 0;
+}

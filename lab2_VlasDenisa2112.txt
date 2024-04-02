@@ -1,0 +1,383 @@
+
+//ex 1 lab 2 Vlas Denisa grupa 2112
+//1. Aranjamente de n luate cate k, daca k=1 combinari de n luate cate k este n.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+
+int aranjamente(int n, int k);
+
+int main()
+{
+    int n, k;
+    cout << "introduceti valoarea lui n: "; 
+    cin >> n;
+    cout << "introduceti valoarea lui k: "; 
+    cin >> k;
+    cout << "aranjamente de " << n << " luate cate " << k << " este egal cu : " << aranjamente(n, k); 
+}
+int aranjamente(int n, int k) 
+{
+    if (k == 1) //conditia functiei recursive
+        return n;
+    else
+        return n * aranjamente(n - 1, k - 1); 
+}
+
+
+
+
+
+
+//ex 2 lab 2 Vlas Denisa grupa 2112
+// Combinari de n luate cate k, cu conditia ca daca n=0 , k=0 sau n=k rezulta ca , combinari de n luate cate k este 1.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+
+int combinari(int n, int k);
+int main()
+{
+    int n, k;
+    cout << "introduceti valoarea lui n: "; cin >> n;
+    cout << "introduceti valoarea lui k: "; cin >> k;
+    cout << "combinari de " << n << " luate cate " << k << "este egal cu : " << combinari(n, k);
+}
+int combinari(int n, int k) 
+{
+    if (k == 0 || n == 0 || n == k) //conditiile functiei de recursivitate;
+        return 1;
+    else
+        return (n * combinari(n - 1, k)) / (n - k); 
+}
+
+
+
+
+
+
+//  ex 3 lab 2 Vlas Denisa gr 2112
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+int cmmdc(int a, int b);
+int main()
+{
+        int a, b, r;
+        printf("\n numerele sunt: ");
+        scanf("%d%d", &a, &b);
+        printf("\n cel mai mare divizor a numerelor citite este: %d", cmmdc(a, b));
+}
+
+int cmmdc(int a, int b)
+{
+        int r;
+        r = a % b;
+        if (r > 0)
+                return cmmdc(b, r);
+        else
+                return b;
+}
+
+
+
+
+
+
+// ex 4 lab 2 Vlas Denisa grupa 2112
+//4. Se consideră recursivitatea (seria de medii arimetico-geometrice a lui Gauss):
+//an=(an-1+bn-1)/2 şi
+//bn=sqrt(an-1*bn-1), determinaţi an şi bn, pentru n, a0, b0 introduse de la tastatură
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<math.h>
+#include<iostream>
+using namespace std;
+
+float an, bn;  //rezulta numere reale
+float a(float a0, float b0, float n);
+float b(float a0, float b0, float n);
+
+int main()
+{
+    float  n, a0, b0;
+   
+    cout << "introduceti valoarea lui n : "; 
+    cin >> n;
+    cout << "introduceti valori pentru a0 si b0 : "; 
+    cin >> a0 >> b0;
+    cout << endl;
+    cout << "an este = " << a(a0, b0, n);
+    cout << endl;
+    cout << "bn este = " << b(a0, b0, n);
+}
+float a(float a0, float b0, float n)
+{
+    if (n == 1)
+        return (a0 + b0) / 2;
+    else
+        return (a(a0, b0, n - 1) + b(a0, b0, n - 1)) / 2;
+}
+float b(float a0, float b0, float n)
+{
+    if (n == 1)
+    {
+        bn = sqrt(a0 * b0 + 2);
+        return  bn;
+    }
+    else
+        return(sqrt(a(a0, b0, n - 1) * b(a0, b0, n - 1) + 2));
+}
+
+
+
+
+
+
+
+﻿//ex 5 lab 2 Vlas Denisa grupa 2112
+//5. Citiţi un şir de caractere de la tastatură, caracter cu caracter, cu ajutorul unei funcţi bazate pe caracter.Afişaţi şirul în ordine inversă folosind o funcţie recursivă
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<cstring>
+#include<iostream>
+using namespace std;
+
+void invers(int i, char c[30]);
+
+int main()
+{
+    char c[20];
+    int i = 0;
+    cout << "\n introdu sirul de caractere: ";
+    cin.get(c,20);
+    invers(i,c);
+}
+void invers(int i,char c[30])
+{
+    if (c[i] != '\0')
+        invers(i + 1,c);
+    cout<<c[i]; 
+}
+
+
+
+
+
+
+
+﻿//ex 6 lab 2 Vlas Denisa grupa 2112
+//6. Determinaţi printr-o funcţie recursivă produsul scalar al doi vectori (tablouri unidimensionale de aceiasi lungime).
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <iostream>
+using namespace std;
+
+int produs(int* v1, int* v2, int n);
+void citireV1(int n, int* v1);
+void citireV2(int n, int* v2);
+
+
+int main()
+{
+        int n,v1[100], v2[100];
+        cout << "numarul de elemente a vectorilor este = ";
+        cin >> n;
+        citireV1(n, v1);
+        citireV2(n, v2);
+        int p = produs(v1, v2, n);
+        cout<<p;
+}
+void citireV1(int n, int* v1)
+{
+        for (int i = 0; i < n; i++)
+        {
+                printf("\t v1[%d]=", i);
+                scanf("%d", &*(v1 + i));
+        }
+}
+void citireV2(int n, int* v2)
+{
+        for (int i = 0; i < n; i++)
+        {
+                printf("\t v2[%d]=", i);
+                scanf("%d", &*(v2 + i));
+        }
+}
+int produs(int* v1, int* v2, int n)
+{
+        if (n == 0)
+                return 0;
+        else
+                return v1[n - 1] * v2[n - 1] + produs(v1, v2, n - 1);
+}
+
+
+
+
+
+
+
+
+
+
+﻿//ex 8 lab 2 Vlas Denisa grupa 2112
+//8. Analog cu problema precedentă, dar se calculează produsul elementelor aflate pe poziţii impare într - un tablou unidimensional, respectiv să se calculeze suma numerelor prime din tablou
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include <iostream>
+using namespace std;
+
+void citire(int n, int* a);
+int  sumaPrime(int  n, int  *a);
+int  prodPimp(int  n, int  *a);
+int  verifPrim(int  a);
+
+
+int main()
+{
+    int  a[100], i, n, produs;
+    printf(" numarul  de  elemente  ale  vectorului este =");
+    scanf("%d", &n);
+    citire(n, a);
+    if (n % 2 == 0)
+        produs = prodPimp(n, a);
+    else
+        produs = prodPimp(n - 1, a);
+    printf("\n produsul  elementelor  de  pe  pozitii  impare  este  %d", produs);
+    printf("\n suma  elementelor  prime  este  %d\n", sumaPrime(n, a));
+}
+
+void citire(int n, int* a)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf("\t a[%d]=", i);
+        scanf("%d", &*(a + i));
+    }
+}
+int  sumaPrime(int  n, int  *a)
+{
+    if (n == -1)
+        return  0;
+    else
+        if (verifPrim(*(a+n)) == 0)
+            return  sumaPrime(n - 1, a);
+        else
+            return  (*(a+n) + sumaPrime(n - 1, a));
+}
+int  prodPimp(int  n, int  *a)
+{
+    if (n == 0)
+        return  1;
+    else
+        if (n % 2 == 0)
+            return  prodPimp(n - 1, a);
+        else  
+            return  (*(a+n) * prodPimp(n - 1, a));
+}
+
+int  verifPrim(int  a)
+{
+    int  i, ok = 1;
+    if (a < 2)
+        ok = 0;
+    else
+        for (i = 2; i < a; i++)
+            if (a % i == 0)
+                ok = 0;
+    return  ok;
+}
+
+
+
+
+
+
+﻿//ex 11 lab 2 Vlas Denisa grupa 2112
+//11. Considerați un număr n întreg pozitiv în baza 10 introdus de la tastatură. Folosind o funcție
+//recursivă convertiți valoarea n într - o altă bază de numerație 1 < b < 10 citită de la tastatură.
+
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+void transformBaza(int n, int b);
+
+int main()
+{
+        int n, b;
+        cout << "numarul este =";
+        cin>>n;
+        cout<<"numerul n transformat in baza =";
+        cin>>b;
+        transformBaza(n, b);
+}
+
+void transformBaza(int n, int b)
+{
+        int rest = n % b;
+        if (n >= b) 
+                transformBaza(n / b, b);
+        cout << rest;
+}
+
+
+
+
+
+
+
+﻿//ex13 lab 2 Vlas Denisa grupa 2112
+//13.Scrieți un program care să calculeze în mod recursiv și în mod nerecursiv valoarea seriei armonice sn = 1 / 1 + 1 / 2 + 1 / 3 + …1 / n
+
+#include<iostream>
+using namespace std;
+
+//recursiv
+float suma(int n);
+
+int main()
+{
+        int n;
+        cout << "numarul n este =";
+        cin >> n;
+        cout<<suma(n);
+        return 0;
+}
+float suma(int n)
+{ 
+        if (n==0) 
+                return 0;
+        else 
+                return suma(n-1) + 1.0/n;
+}
+
+
+
+//nerecuriv
+int main()
+{
+        int i, n;
+        float suma = 0;
+        cout << "valoarea lui n este = ";
+        cin >> n;
+        i = 1;
+        while (i <= n)
+        {
+                suma =suma + (1.0 / i);
+                i++;
+        }
+        cout <<"suma este egala cu = " << suma;
+}
+
+
+
+

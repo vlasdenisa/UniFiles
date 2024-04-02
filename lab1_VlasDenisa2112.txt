@@ -1,0 +1,210 @@
+
+﻿//Vlas Denisa grupa 2112 ex 1 lab 1
+//1. Definiţi funcţii macro MAXi (i=2,3)care determină şi afişează maximul dintre 2 si alta, dintre 3 numere introduse de la tastatură.Folositi variante diferite(operator conditional, instructiuni if, etc.)
+
+#define _CRT_SECURE_NO_WARNINGS
+#define MAX1(a,b) ((a) > (b) ? (a) : (b))
+//#define MAX2(a,b,c)        { if(a<b && a<c)}
+#include <iostream>
+using namespace std;
+
+int main()
+{
+        int a, b,c,maxim1,maxim2;
+        printf("\n numerele sunt : ");
+        scanf("%d%d%d", &a, &b, &c);
+        maxim1 = MAX1(a, b);
+        maxim2 = MAX1(maxim1,c);
+        printf("\n cel mai mare numar dintre a si b este :%d", maxim1);
+        printf("\n cel mai mare numar dintre a , b si c este :%d", maxim2);
+}
+
+
+
+
+
+
+﻿//ex 2 lab 1 Vlas Denisa grupa 2112 
+//2. Definiţi o funcţie inline min( ) care determină şi afişează minimul dintre 2 si alta dintre 3 numere întregi introduse de la tastatură.Considerati supraincarcarea functiilor.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+inline int MAX1(int a, int b);
+inline int MAX2(int a, int b, int c);
+
+int main()
+{
+        int a, b, c, maxim1, maxim2;
+        printf("\n numerele sunt : ");
+        scanf("%d%d%d", &a, &b, &c);
+        maxim1 = MAX1(a, b);
+        maxim2 = MAX2(a,b, c);
+        printf("\n cel mai mare numar dintre a si b este :%d", maxim1);
+        printf("\n cel mai mare numar dintre a , b si c este :%d", maxim2);
+}
+
+inline int MAX1(int a, int b)
+{
+        if (a > b) return a;
+        return b;
+}
+inline int MAX2(int a, int b, int c)
+{
+        int maxim;
+        if (a > b)
+                if (c > a)
+                        maxim = c;
+                else
+                        maxim = a;
+        else
+                if (c > b)
+                        maxim = c;
+                else
+                        maxim = b;
+        return maxim;
+}
+
+
+
+
+
+
+﻿//ex 4 lab 1 Vlas Denisa grupa 2112
+//4. Consideraţi o funcţie cu 3 parametrii toţi impliciţi (int, float, double) care returnează produsul acestor valori.
+//Apelaţi funcţia considerând mai multe variante de apel concrete(fără parametri, 1 parametru, 2 parametri, 3 parametri).
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <conio.h>
+#include <stdio.h>
+#include<iostream>
+using namespace std;
+
+double produs(int a = 1, float b = 1.0, double c = 1.0)
+{
+        return a * b * c;
+}
+int main()
+{
+        int a = 0;
+        float b = 0;
+        double c = 0;
+        printf("\n introduceti primul numar:");
+        scanf("%d", &a);
+        printf("\n introduceti al doilea numar:");
+        scanf("%f", &b);
+        printf("\n introduceti al treilea numar:");
+        scanf("%lf", &c);
+        printf("\n produsul fara parametri :%lf", produs());
+        printf("\n produsul cu un singur parametru :%lf", produs(a));
+        printf("\n produsul cu doi parametri :%lf", produs(a, b));
+        printf("\n produsul cu trei parametri :%lf", produs(a, b, c));
+}
+
+
+
+
+
+
+﻿//ex 5 lab 1 Vlas Denisa grupa 2112
+//5. Folosind supraîncărcarea funcţiilor definiţi trei funcţii cu acelaşi nume dar cu tipuri diferite de parametri (int, int*, int&) care returnează radicalul unei valori intregi.Analizaţi cazul transmiterii parametrilor prin valoare şi prin referinţă.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <conio.h>
+using namespace std;
+
+float radical(int a); //functia radical cu parametru primit prin valoare
+float radical(int* b); //functia radical cu parametru primit prin pointer
+float radicalRef (int &c); //functia radical cu parametru prmit prin referinta
+
+int main()
+{
+        int a, b;
+        int & p = b; // parametru primit prin pointer
+        int& c = a;  //parametru prin referinta 
+        printf("introduceti a= ");
+        scanf("%d", &a);
+        printf("introduceti b= ");
+        scanf("%d", &b);
+        printf("radicalul lui a este %f\n", radical(a));
+        printf("radicalul lui b este %f\n", radical(p));
+        printf("radicalul lui c este %.3f\n", radicalRef(c));
+} 
+
+float radical(int a)
+{
+        return sqrt((float)a);
+} 
+float radical(int * b)
+{
+        int n;
+        n = *b;
+        return sqrt((float)(n));
+}
+float radicalRef(int & c)
+{
+        return sqrt((float)(c));
+} 
+
+
+
+
+
+
+﻿//ex 7 lab 1 Vlas Denisa grupa 2112
+//7. Scrieţi un program care face o codare simplă prin adaugarea la codul ASCII al caracterului, o valoare n=3, folosind macro funcții.Exemplu: ‘a’ devine în urma codării ‘d’.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<iostream>
+#define cod(x,n) ((x)+n)   //definim macro functia
+#define ASCII 3                //cu cate caractere vrem sa codam 
+using namespace std;
+
+//C
+int main()
+{
+        char x;
+        int n = ASCII;
+        printf("\n introdu un caracter:");
+        scanf("%c", &x);
+        printf("\n Caracterul %c codat este: %c\n", x, cod(x, n));          //codarea caracterului folosind macro functia
+}
+
+//C++ (cin,cout)
+int main()
+{
+        char x;
+        int n = ASCII;
+        cout<<"introdu un caracter:";
+        cin>>x;
+        cout<<"\n Caracterul "<< x <<" codat este : "<< cod(x, n);          //codarea caracterului folosind macro functia
+}
+
+
+
+
+
+﻿//ex 8 lab 1 Vlas Denisa grupa 2112
+//8. Să se scrie un program care afişează numele programului, data şi ora compilării şi numărul de linii pe care îl are acest program folosind macrofunctii standard.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <conio.h>
+#include<iostream>
+using namespace std;
+
+void main()
+{
+        printf("\n numele programului este : %s \n", __FILE__);
+        printf("\n data compilarii este : %s \n", __DATE__);
+        printf("\n ora compilarii este : %s \n", __TIME__);
+        printf("\n numarul de lini pe care il are programul este : %d \n", __LINE__);
+}
+
+
+
+

@@ -1,0 +1,162 @@
+
+﻿//ex 1 lab 3 Vlas Denisa grupa 2112
+//1. Testați aplicațiile privind metodele de programare oferite în cadrul laboratorului. Folosiți aceste aplicații
+//pentru a implementa problemele 2 și 4 propuse, considerând în acest sens aplicațiile adiționale din laborator.
+
+#define CRT SECURE NO WARNINGS
+#include <stdio.h>
+#define DIM 20
+#include<iostream>
+using namespace std;
+
+//problema 2
+
+void back_SubSet(int);
+int posibil(int, int&);
+void afis_sol(int);
+
+int x[DIM], n;
+
+int main()
+{
+        cout<<"\n Introduceti numarul care urmeaza sa fie descompus";
+        cin>>n;
+        cout<<"Solutii posibile : \n";
+        back_SubSet(0);
+}
+
+void back_SubSet(int k)
+{
+        int sum;
+        x[k] = 0;
+        while (x[k] < n)
+        {
+                x[k]++;
+                if (posibil(k, sum))
+                        if (sum == n)
+                                afis_sol(k);
+                        else
+                                back_SubSet (k + 1);
+        }
+                
+}
+
+int posibil(int k, int& s)
+{
+        s = 0;
+        if (k == 0)
+                return 1;
+        if (x[k] >= x[k - 1])
+        {
+                for (int i = 0; i <= k; i++)
+                        s += x[i];
+                if (s <= n)
+                        return 1;
+        }
+        return 0;
+}
+
+void afis_sol(int k)
+{
+        for (int i = 0; i <= k; i++)
+                cout << x[i] << " ";
+}
+
+
+//problema 4
+//Problema turnurilor din Hanoi (cu solutie in mod text)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+double mutari; 
+void hanoi(int n, char a, char b, char c);
+
+int main()
+{
+        int n;
+        printf("Numarul de discuri este = ");
+        scanf("%d", &n);
+        mutari = 0;
+        hanoi(n, 'A', 'B', 'C');
+        printf("Numarul de mutari este = %lf\n", mutari);
+} 
+
+void hanoi(int n, char a, char b, char c)
+{
+        if (n == 1)
+        {
+                printf("Se muta discul 1 de pe tija %c pe tija %c\n", a, b);
+                mutari++;
+                return;
+        }
+        hanoi(n - 1, a, c, b);
+        printf("Discul %d de pe tija %c se muta pe tija %c\n", n, a, b);
+        mutari++;
+        hanoi(n - 1, c, b, a);
+} 
+
+
+
+
+
+
+
+﻿//ex 7 lab 3 Vlas Denisa grupa 2112
+//7. Scrieţi o aplicaţie care determină c.m.m.d.c. dintr-un tablou unidimensional de numere întregi (max. 2000 de
+//valori), utilizând metoda divide et impera.Elementele tabloului se pot citi de la tastatură sau dintr - un fisier
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<math.h>
+
+using namespace std;
+
+void citire(int n, int a[100]);
+int cmmdc(int a, int b);
+int cmmdc_ET(int p, int u,int a[100]);
+
+int main()
+{   
+    int a[100], n, x;
+    cout << "numarul de elemente=";
+    cin >> n;
+    cout << "sirul de elemente ";
+    citire(n, a);
+    cout << "cmmdc=" << cmmdc_ET(1, n,a);
+}
+void citire(int n, int a[100])
+{
+    for (int i = 1; i <= n; i++)
+    {
+        cout << "a[" << i << "]="; cin >> a[i];
+    }
+}
+int cmmdc(int a, int b)//cmmdc dintre 2 numere
+{
+    if (a == b)
+        return a;
+    else
+        if (a > b)
+            return cmmdc(a - b, b);
+        else
+            return cmmdc(a, b - a);
+}
+int cmmdc_ET(int p, int u,int a[100])// cmmdc dintre n numere prin metoda divide et impera
+{
+    int m;
+    if (u - p == 1)
+        cmmdc(a[p], a[u]);
+    else
+        if (p == u)
+            return a[p];
+        else
+        {
+            m = (p + u) / 2;
+            return cmmdc(cmmdc_ET(p, m,a), cmmdc_ET(m + 1, u,a));
+        }
+}
+
+
+

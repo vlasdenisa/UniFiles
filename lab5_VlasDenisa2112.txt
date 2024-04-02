@@ -1,0 +1,414 @@
+
+﻿//ex 1 lab 5 Vlas Denisa grupa 2112
+
+/*1.Să se scrie o aplicaţie C/C++ care foloseşte o structură de date cu numele Scerc care conţine
+raza ca şi o variabilă de tip întreg. Într-un program C/C++, declaraţi două variabile c1, c2 de
+tip Scerc şi calculaţi aria şi circumferinţa lor pentru valori ale razei introduse de la tastatură cu
+două metode definite. Aceleaşi cerinţe vor fi implementate în aceiasi aplicaţie folosind o clasă
+numită Cerc cu atributul raza de tip private, clasă ce va conţine pe lângă metodele de calcul
+ale ariei şi perimetrului un constructor explicit cu parametru, un destructor. Introduceţi in
+clasă o metodă de tip accesor, getRaza(), care permite accesul la data privată raza si care sa o
+folositi pentru a afisa in main( ) raza obiectelor.
+Extindeţi aplicaţia astfel încât să definiţi mai multe obiecte de tip Cerc la care să accesaţi
+metodele specifice folosind obiectele instanţiate, pointeri la obiecte, referinţe la obiecte. */
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+struct Scerc 
+{
+        int raza;
+};
+
+double ariacerc(Scerc c)
+{
+        return 3.14 * c.raza * c.raza;
+}
+
+double circumfc(Scerc c)
+{
+        return 2 * 3.14 * c.raza;
+}
+
+int main()
+{
+        Scerc c1;
+        c1.raza = 10;
+        cout << "\nAria c1: " << ariacerc(c1);
+        cout << "\nCircumferinta c1: " << circumfc(c1);
+        cout << "\nRaza lui C1:" << c1.raza;
+}
+
+
+
+
+
+
+
+﻿//ex 2 lab 5 Vlas Denisa grupa 2112
+/*2. Să se definească o clasă numită myString (într-un fişier numit strClass.h) care să fie compusă
+din metodele specifice care efectuează următoarele operaţii pe şiruri de caractere:
+- determină lungimea şirului primit la intrare.
+- determină ultima poziţie de apariţie a unui anumit caracter din şirul de intrare.
+- returnează şirul primit la intrare, scris cu caractere majuscule.
+- returnează şirul primit la intrare, scris cu caractere minuscule.
+- returnează numărul de apariţii ale unui anumit caracter din şirul primit.
+*/
+
+
+//strClass.h
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+class myString
+{
+        char* sir;
+public:
+        int lungime(char* sir)
+        {
+                return strlen(sir);
+        }
+        char* majuscule(char* sir)
+        {
+                int i;
+                for (i = 0; i < strlen(sir); i++)
+                        sir[i] = sir[i] - 32;
+                return sir;
+        }
+        char* minuscule(char* sir)
+        {
+                int i;
+                for (i = 0; i < strlen(sir); i++)
+                        sir[i] = sir[i] + 32;
+                return sir;
+        }
+        int nrAp(char* sir)
+        {
+                int ok = 0, l, i;
+                char caracter;
+                cout << "\nIntroduceti caracterul: ";
+                cin >> caracter;
+                for (i = 0; i < strlen(sir); i++)
+                {
+                        if (sir[i] == caracter)
+                                ok++;
+                }
+                return ok;
+        }
+        int ultimaPoz(char* sir)
+        {
+                int ok, l, i;
+                char caracter;
+                cout << "\nIntroduceti caracterul: ";
+                cin >> caracter;
+                for (i = 0; i < strlen(sir); i++)
+                {
+                        if (sir[i] == caracter)
+                                ok = i + 1;;
+                }
+                return ok;
+        }
+}; 
+#pragma once
+
+
+
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include "strClass.h"
+
+using namespace std;
+int main()
+{
+        myString ob;
+        char sir[30];
+        sir[0] = '\0';
+        cout << "\nIntroduceti sirul de caractere: ";
+        cin >> sir;
+        cout << "\nLungimea sirului introdus este: ";
+        cout << ob.lungime(sir);
+        cout << "\nSirul primit la intrare, scris cu caractere majuscule este: ";
+        cout << ob.majuscule(sir);
+        cout << "\nSirul primit la intrare, scris cu caractere minuscule este: ";
+        cout << ob.minuscule(sir);
+        cout << "\nNumarul de aparitii ale unui anumit caracter din sirul primit este: ";
+        cout << ob.nrAp(sir);
+        cout << "\nUltima pozitie de aparitie a unui anumit caracter din sirul de la intrare este: ";
+        cout << ob.ultimaPoz(sir);
+        return 0;
+
+}
+
+
+
+
+
+
+﻿//ex 3 lab 5 Vlas Denisa (Rad Amalia), grupa 2112
+/*Să se scrie programul care citeşte de la tastatură un şir de maxim 10 caractere şi care, pe baza
+clasei implementate anterior, efectuează asupra şirului de intrare operaţiile definite în cadrul
+clasei.*/
+
+
+//strClass.h
+#include <iostream>
+#include <string.h>
+using namespace std;
+class myString
+{
+        char* sir;
+public:
+        int lungime(char* sir)
+        {
+                return strlen(sir);
+        }
+        char* majuscule(char* sir)
+        {
+                int i;
+                for (i = 0; i < strlen(sir); i++)
+                        sir[i] = sir[i] - 32;
+                return sir;
+        }
+        char* minuscule(char* sir)
+        {
+                int i;
+                for (i = 0; i < strlen(sir); i++)
+                        sir[i] = sir[i] + 32;
+                return sir;
+        }
+        int nrAp(char* sir)
+        {
+                int ok = 0, l, i;
+                char caracter;
+                cout << "\nIntroduceti caracterul: ";
+                cin >> caracter;
+                for (i = 0; i < strlen(sir); i++)
+                {
+                        if (sir[i] == caracter)
+                                ok++;
+                }
+                return ok;
+        }
+        int ultimaPoz(char* sir)
+        {
+                int ok, l, i;
+                char caracter;
+                cout << "\nIntroduceti caracterul: ";
+                cin >> caracter;
+                for (i = 0; i < strlen(sir); i++)
+                {
+                        if (sir[i] == caracter)
+                                ok = i + 1;;
+                }
+                return ok;
+        }
+}; 
+#pragma once
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include "strClass.h"
+
+using namespace std;
+
+int main()
+{
+        myString ob;
+        char sir[50];
+        sir[0] = '\0';
+        int n;
+        n = strlen(sir);
+        cout << "\nIntroduceti n(lungimea sirului): ";
+        cin >> n;
+        if (n > 10 || n < 0)
+        {
+                cout << "\nEroare! Va rugam sa introduceti o alta valoare!";
+                return 1;
+        }
+        else {
+                cout << "\nIntroduceti sirul: ";
+                cin >> sir;
+        }
+        cout << "\nLungimea sirului introdus este: ";
+        cout << ob.lungime(sir);
+        cout << "\nSirul primit la intrare, scris cu caractere majuscule este: ";
+        cout << ob.majuscule(sir);
+        cout << "\nSirul primit la intrare, scris cu caractere minuscule este: ";
+        cout << ob.minuscule(sir);
+        cout << "\nNumarul de aparitii ale unui anumit caracter din sirul primit este: ";
+        cout << ob.nrAp(sir);
+        cout << "\nUltima pozitie de aparitie a unui anumit caracter din sirul de la intrare este: ";
+        cout << ob.ultimaPoz(sir);
+        return 0;
+
+}
+
+
+
+
+
+
+﻿//ex5 lab 5 Vlas Denisa grupa 2112
+
+/*Să se definească o clasă care implementează metodele:
+- int plus(int x, int y), care returnează suma valorilor primite la apelul metodei;
+- int minus(int x, int y), care returnează diferenta valorilor primite la apelul metodei;
+- int inmultit(int x, int y), care returnează produsul valorilor primite la apelul metodei;
+- float impartit(int x, int y), care returnează catul valorilor primite la apelul metodei;
+şi apoi să se scrie aplicaţia care utilizează această clasă. Considerati si cazul in care in cadrul
+clasei aveti atributele de tip int x si y, caz in care metodele nu vor mai avea parametrii.
+Observaţie: În cazul împărţirii, trebuie verificată validitatea operaţiei (împărţitor diferit de
+zero). În cazul în care operaţia este imposibilă, trebuie afişat un mesaj de eroare.*/
+
+
+//Operatii.h
+class Operatii
+{
+public:
+        int adunare(int x, int y)
+        {
+                return x + y;
+        }
+        int scadere(int x,int y)
+        {
+                return x - y;
+        }
+        int inmultire(int x, int y)
+        {
+                return x * y;
+        }
+        float impartire(int x, int y)
+        {
+                return (float)(x / y);
+        }
+}; 
+#pragma once
+
+
+
+
+#define CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string.h>
+#include "Operatii.h"
+
+using namespace std;
+
+int main()
+{
+        Operatii op;
+        int x, y;
+        cout << "\nPrimul numar: ";
+        cin >> x;
+        cout << "\nAl doilea numar: ";
+        cin >> y;
+        cout << "\nSuma numerelor: \n" << op.adunare(x, y);
+        cout << "\nDiferenta numerelor: \n" << op.scadere(x, y);
+        cout << "\nInmultirea numerelor: \n" << op.inmultire(x, y);
+        cout << "\nImpartirea numerelor: \n" << op.impartire(x, y);
+        return 0;
+}
+
+
+
+
+
+
+
+﻿//ex7 lab 5 Vlas Denisa si Rad Amalia grupa 2112
+
+/*Să se scrie un program care implementează clasa Aritmetica cu două atribute a și b de tip
+numeric (int, float sau double) si metode setter si getter adecvate. Implementați metoda suma()
+în interiorul clasei și metoda diferenta() ce apartine de asemenea clasei, dar e definita în afara
+clasei, metode care vor fi apelate prin intermediul unui obiect al clasei Aritmetica. În funcția
+principală main() instanțiați trei obiecte de tip Aritmetica. Modificati atributele a si b la fiecare
+obiect in parte folsind metodele de tip setter. Aplicați asupra lor operațiile de adunare și
+scădere pe care le-ați implementat prin metodele suma() și diferenta(). Metodele returneaza
+valorile numerice corespunzatoare operatiei folosind cele doua atribute ale clasei valori ce le
+veti afisa in main(). La fiecare grup de operatii adunare/scadere afisati valorile atributelor
+obiectului folosind metodele de tip getter.*/
+
+
+
+//Aritmetica.h
+class Aritmetica
+{
+        int a, b;
+public:
+        Aritmetica(int x = 0, int y = 0)
+        {
+                a = x;
+                b = y;
+        }
+        void setA(int x) 
+        {
+                a = x;
+        }
+        int getA() 
+        {
+                return a;
+        }
+        void setB(int y)
+        {
+                b = y;
+        }
+        int getB() 
+        {
+                return b;
+        }
+        int suma(int a, int b)
+        {
+                return a + b;
+        }
+        int diferenta(int a, int b)
+        {
+                return a - b;
+        }
+};
+
+#pragma once
+
+
+
+
+
+#include <iostream>
+#include"Aritmetica.h"
+
+using namespace std;
+
+int main()
+{
+        Aritmetica x1;
+        Aritmetica x2;
+        Aritmetica x3;
+        x1.setA(3);
+        x1.setB(5);
+        cout << "\na= " << x1.getA();
+        cout << "\nb= " << x1.getB();
+        cout << "\nSuma numerelor 3 si 5 este: " << x1.suma(3, 5);
+        cout << "\nDiferenta numerelor 3 si 5 este: " << x1.diferenta(3,5);
+        x2.setA(10);
+        x2.setB(6);
+        cout << "\na= " << x2.getA();
+        cout << "\nb= " << x2.getB();
+        cout << "\nSuma numerelor 10 si 6 este: " << x1.suma(10, 6);
+        cout << "\nDiferenta numerelor 10 si 6 este: " << x1.diferenta(10, 6);
+        x1.setA(90);
+        x1.setB(35);
+        cout << "\na=" << x1.getA();
+        cout << "\nb= " << x1.getB();
+        cout << "\nSuma numerelor 90 si 35 este: " << x1.suma(90, 35);
+        cout << "\nDiferenta numerelor 90 si 35 este: " << x1.diferenta(90, 35);
+        return 0;
+}

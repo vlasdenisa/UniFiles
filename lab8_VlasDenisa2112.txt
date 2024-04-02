@@ -1,0 +1,420 @@
+
+﻿//ex 1 lab 8 Vlas Denisa gr 2112
+/*1. Construiţi o aplicaţie în care clasa OraCurenta are ca atribute private ora, minutele şi secundele şi metode
+publice de tip set/get pentru atributele clasei. Adaugaţi o functie friend clasei prin care să se poată copia
+conţinutul unui obiect OraCurenta dat ca si parametru, într-un alt obiect instanţă a aceleiaşi clase care va fi
+returnat de functie, ora fiind insa modificata la Greenwich Mean Time. Utilizati timpul curent al calculatorului.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<ctime>
+using namespace std;
+
+class OraCurenta
+{
+private:
+        int ora;
+        int minute;
+        int secunde;
+public:
+        void setOra(int o) 
+        {
+                ora = o;
+        }
+        void setMinute(int m) 
+        {
+                minute = m;
+        }
+        void setSecunde(int s) 
+        {
+                secunde = s;
+        }
+        int getOra() 
+        {
+                return ora;
+        }
+        int getMinute() 
+        {
+                return minute;
+        }
+        int getSecunde() 
+        {
+                return secunde;
+        }
+        friend OraCurenta copiere(OraCurenta x);
+};
+
+OraCurenta copiere(OraCurenta x) 
+{
+        OraCurenta o;
+        o.ora = x.ora;
+        o.minute = x.minute;
+        o.secunde = x.secunde;
+        return o;
+
+}
+int main()
+{
+        time_t now;    
+        struct tm newLocal;
+    now = time(NULL);
+    newLocal = *localtime(&now);
+    cout << "Timpul este: " << newLocal.tm_hour << " " << newLocal.tm_min << " " << newLocal.tm_sec;
+    cin.get();.
+
+    int ora, minute, secunde;
+    OraCurenta ob;
+    OraCurenta obi;
+    ob.setOra(newLocal.tm_hour);
+    ob.setMinute(newLocal.tm_min);
+    ob.setSecunde(newLocal.tm_sec);
+    obi = copiere(ob);
+    cout << "\t Ora GreenWich: " << obi.getOra() - 2 << "\t Minutul: " << obi.getMinute() << "\t Secunde: " << obi.getSecunde();
+    return 0;
+}
+
+
+
+
+
+
+
+﻿//ex 2 lab 8 Vlas Denisa (Batinas Claudia) grupa 2112
+/*2. Scrieţi o aplicaţie C/C++ în care clasa Calculator are un atribut privat memorie_RAM (int) şi o funcție prietenă
+tehnician_service( ) care permite modificarea valorii acestui atribut. Functia friend va fi membra intr-o alta
+clasa, Placa_de_baza care are o componentă denumire_procesor (sir de caractere). Scrieţi codul necesar care
+permite funcției prietene tehnician_service( ) să modifice (schimbe) valoarea variabilei denumire_procesor si
+memorie _RAM.*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+using namespace std;
+const int dim_sc = 20;
+
+class Calculator
+{
+        int memorie_RAM;
+public:
+        void setMem(int i)
+        {
+                memorie_RAM = i;
+        }
+        int getMem()
+        {
+                return memorie_RAM;
+        }
+        friend void tehnician_service(Calculator);
+};
+
+void tehnician_service(Calculator a)
+{
+        Calculator rez;
+        rez.memorie_RAM = a.memorie_RAM;
+        cout << "\nValoarea modificata a memoriei RAM este: " << rez.memorie_RAM;
+}
+
+class Placa_de_baza
+{
+        char* denumire_procesor;
+public:
+        void setDenumire(char* den)
+        {
+                strcpy(denumire_procesor, den);
+        }
+
+        char* getDenumire()
+        {
+                return denumire_procesor;
+        }
+
+        friend void tehnician_service(Placa_de_baza);
+};
+
+void tehnician_service(Placa_de_baza a)
+{
+        Placa_de_baza rez;
+        rez.denumire_procesor = a.denumire_procesor;
+        cout << "\nValoarea modificata a denumirii procesorului este: " << rez.denumire_procesor;
+}
+
+int main()
+{
+        Calculator a;
+        int mem = 0, mem_finala = 0;
+        cout << "\nIntroduceti valoarea memoriei RAM: ";
+        cin >> mem;
+        a.setMem(mem);
+        cout << "\nValoarea initiala a memoriei RAM este: " << a.getMem();
+        cout << "\nIntroduceti valoarea de modificat a memoriei: ";
+        cin >> mem_finala;
+        a.setMem(mem_finala);
+        tehnician_service(a);
+
+        Placa_de_baza b;
+        char* denumire = new(std::nothrow)char[dim_sc];
+        char* denumire_finala = new(std::nothrow)char[dim_sc];
+
+        if (denumire == NULL)
+        {
+                cout << "\nAlocare nereusita!";
+                return 1;
+        }
+
+        if (denumire_finala == NULL)
+        {
+                cout << "\nAlocare nereusita!";
+                return 1;
+        }
+        else
+                cout << "\nIntroduceti denumirea procesorului: ";
+        cin >> denumire;
+        b.setDenumire(denumire);
+        cout << "\nDenumirea initiala a procesorului este: " << b.getDenumire();
+        cin >> denumire_finala;
+        b.setDenumire(denumire_finala);
+        cout << "\nDenumirea finala a procesorului este: " << b.getDenumire();
+        return 0;
+}
+
+
+
+
+
+
+﻿//ex 3 lab 8 Vlas Denisa grupa 2112
+/*3. Definţi o clasă numită Repository care are două variabile private de tip întreg. Clasa mai conţine un constructor
+explicit vid si unul cu 2 parametri şi o metodă accesor care afişează valorile variabilelor din clasă. Scrieţi o
+clasă numită Mathemathics, friend cu prima clasă, care implementează operaţiile aritmetice elementare (+, -, *,
+/) asupra variabilelor din prima clasa. Fiecare metoda primeşte ca parametru un obiect al clasei Repository*/
+
+#define CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+using namespace std;
+class Mathemathics;
+
+class Repository
+{
+    int x, y;
+public:
+    Repository(int x, int y);
+    void afisare();
+    friend Mathemathics;
+};
+
+class Mathemathics
+{
+public:
+    int adunare(Repository m)
+    {
+        return m.x + m.y;
+    }
+    int scadere(Repository m)
+    {
+        return m.x - m.y;
+    }
+    int inmultire(Repository m)
+    {
+        return m.x * m.y;
+    }
+    float impartire(Repository m)
+    {
+        return (float)(m.x / m.y);
+    }
+
+};
+
+Repository::Repository(int a, int b)
+{
+    x = a; y = b;
+}
+void Repository::afisare()
+{
+    cout << "\nSe afiseaza numerele: " << x << " " << y;
+}
+
+int main()
+{
+    Mathemathics m;
+    int a, b;
+    cout << "\nPrimul numar: ";
+    cin >> a;
+    cout << "\nAl doilea numar: ";
+    cin >> b;
+    Repository n(a, b);
+    n.afisare();
+    cout << "\nSuma numerelor: \n" << m.adunare(n);
+    cout << "\nDiferenta numerelor: \n" << m.scadere(n);
+    cout << "\nInmultirea numerelor: \n" << m.inmultire(n);
+    cout << "\nImpartirea numerelor: \n" << m.impartire(n);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+﻿//ex 3 lab 8 Vlas Denisa grupa 2112
+/*3. Definţi o clasă numită Repository care are două variabile private de tip întreg. Clasa mai conţine un constructor
+explicit vid si unul cu 2 parametri şi o metodă accesor care afişează valorile variabilelor din clasă. Scrieţi o
+clasă numită Mathemathics, friend cu prima clasă, care implementează operaţiile aritmetice elementare (+, -, *,
+/) asupra variabilelor din prima clasa. Fiecare metoda primeşte ca parametru un obiect al clasei Repository*/
+
+#define CRT_SECURE_NO_WARNINGS
+#include <iostream>
+
+using namespace std;
+class Mathemathics;
+
+class Repository
+{
+    int x, y;
+public:
+    Repository(int x, int y);
+    void afisare();
+    friend Mathemathics;
+};
+
+class Mathemathics
+{
+public:
+    int adunare(Repository m)
+    {
+        return m.x + m.y;
+    }
+    int scadere(Repository m)
+    {
+        return m.x - m.y;
+    }
+    int inmultire(Repository m)
+    {
+        return m.x * m.y;
+    }
+    float impartire(Repository m)
+    {
+        return (float)(m.x / m.y);
+    }
+
+};
+
+Repository::Repository(int a, int b)
+{
+    x = a; y = b;
+}
+void Repository::afisare()
+{
+    cout << "\nSe afiseaza numerele: " << x << " " << y;
+}
+
+int main()
+{
+    Mathemathics m;
+    int a, b;
+    cout << "\nPrimul numar: ";
+    cin >> a;
+    cout << "\nAl doilea numar: ";
+    cin >> b;
+    Repository n(a, b);
+    n.afisare();
+    cout << "\nSuma numerelor: \n" << m.adunare(n);
+    cout << "\nDiferenta numerelor: \n" << m.scadere(n);
+    cout << "\nInmultirea numerelor: \n" << m.inmultire(n);
+    cout << "\nImpartirea numerelor: \n" << m.impartire(n);
+    return 0;
+}
+
+
+﻿//ex 4 lab 8 Vlas Denisa grupa 2112
+/*4. Scrieţi o aplicaţie C/C++ care defineşte într-o clasă variabila publică contor var_static de tip static întreg.
+Aceasta se va incrementa în cadrul constructorului. După o serie de instanţieri, să se afişeze numarul de obiecte
+create (conţinutul variabilei var_static).*/
+
+#include <iostream>
+using namespace std;
+
+class Obiect 
+{
+        int val;
+public:
+        static int var_static;
+        Obiect(int x) 
+        {
+                val = x;
+                var_static++;
+        }
+        int getVal() 
+        {
+                return val;
+        }
+        static int valStatic() 
+        {
+                return var_static;
+        }
+};
+
+int Obiect::var_static;
+
+int main()
+{
+        
+        int n;
+        cout << "Introduceti numarul: ";
+        cin >> n;
+        Obiect nr1(n), nr2(n), nr3(n);
+        cout << "\n S-au creat: " << nr3.var_static << " obiecte";
+}
+
+
+
+
+
+
+
+﻿//ex 5 lab 8 Vlas Denisa grupa 2112
+/*5. Rezolvaţi problema 4 în cazul în care variabila statică este de tip private. Definiţi o metodă accesor care
+returnează valoarea contorului. Analizati cazul in care metoda accesor e statica sau nestatica si modul in care e
+apelata*/
+
+#include <iostream>
+using namespace std;
+
+class Obiect
+{
+        int val;
+        static int var_static;
+public:
+        
+        Obiect(int x)
+        {
+                val = x;
+                var_static++;
+        }
+        int getVal()
+        {
+                return val;
+        }
+        static int valStatic()
+        {
+                return var_static;
+        }
+};
+
+int Obiect::var_static;
+
+int main()
+{
+        static int var_static;
+        int n;
+        cout << "Introduceti numarul: ";
+        cin >> n;
+        Obiect nr1(n), nr2(n), nr3(n);
+        cout << "\n S-au creat: " << nr3.valStatic << " obiecte";
+        cout << "\nValoarea contorului este: " << var_static;
+}
+
+
