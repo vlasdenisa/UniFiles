@@ -1,0 +1,412 @@
+//Vlas Denisa grupa 2112 ex 1 lab 10
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#define DIM 5
+using namespace std;
+/*
+int main()
+{
+	//1. Scrieţi un program pentru determinarea valorii medii a elementelor pozitive/negative dintr-un tablou unidimensional.
+	float suma1, suma2;
+	int n, i, s1 = 0, s2 = 0, contP = 0, contN = 0,a[DIM];
+	printf("\n n=");
+	scanf("%d", &n);     
+	if (n > DIM)
+	{ 
+		printf("\n Dimensiune prea mare !");
+		return 1;
+	}
+	else {
+		for (i = 0; i < n; i++)
+		{
+			printf("\t a[%d] = ", i+1);
+			scanf("%d", &*(a + i));
+		}
+		for (i = 0; i < n; i++)
+		{
+			if (*(a + i) > 0)
+			{
+				s1 += *(a + i);
+				contP++;
+			}
+			else
+				if (*(a + i) < 0)
+				{
+					s2 += *(a + i);
+					contN++;
+				}
+		}
+		suma1 = s1 / contP;
+		suma2 = s2 / contN;
+	}
+	printf("\n valoarea medie a numerelor pozitive este= %.3f", suma1);
+	printf("\n valoarea medie a numerelor negative este= %.3f", suma2);
+}
+*/
+
+
+/*
+int minim(int n, int a[100]);
+int main()
+{
+	//2. Scrieţi un program pentru determinarea celui mai mic element pozitiv dintr-un tablou unidimensional.
+		int n, i, min, a[DIM];
+		printf("\n numarul de elemente din vector este n=");
+		scanf("%d", &n);
+		if (n > DIM)
+		{
+			printf("\n Dimensiune prea mare !");
+			return 1;
+		}
+		else
+		{
+			for (i = 0; i < n; i++)
+			{
+				printf("\t a[%d] = ", i + 1);
+				scanf("%d", &*(a + i));
+			}
+		}
+		min = minim(n, a);
+		printf("\n cel mai mic element din tabloul dat este= %d", min);
+}
+int minim(int n, int a[100])
+{
+	int min;
+	min = a[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < min)
+			min = a[i];
+	}
+	return min;
+}
+*/
+
+void citire(int n, int a[100]);
+void afisare(int n, int a[100]);
+void crescator(int n, int a[100]);
+int main()
+{
+	//3. Scrieţi o aplicatie C/C++ care citeşte de la tastatură un tablou de 10 valori intregi. Definiţi o funcţie care primeste tabloul ca parametru şi apoi îl afişeaza ordonat crescător.
+	int n, a[100];
+	printf("\n n=");
+	scanf("%d", &n);
+	citire(n, a);
+	crescator(n, a);
+	afisare(n, a);
+}
+void citire(int n, int *a[100])
+{
+		for (int i = 0; i < n; i++)
+		{
+			printf("\t a[%d] = ", i + 1);
+			scanf("%d", &*(a + i));
+		}
+}
+void afisare(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\n %d", a[i]);
+	}
+}
+void crescator(int n, int a[100])
+{
+	int aux;
+	for (int i = 0; i < n; i++)
+		for (int j = i + 1; j < n; j++)
+			if (a[i] > a[j])
+			{
+				aux = a[i];
+				a[i] = a[j];
+				a[j] = aux;
+			}
+}
+
+
+
+//Vlas Denisa 2112 ex 2 lab 10
+//2. Se consideră doi parametri întregi şi alţi doi flotanţi din linia de comandă. Să se afişeze suma şi produsul lor.
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+
+int main(int argc, char*argv[])
+{
+	float f_suma = 0.f, int_val,float_val,f_prod=1.f;
+	if (argc == 1) 
+	{
+		printf("\nNu ati introdus numerele de adunat !");
+		exit(1);
+	}
+	else
+	{
+		for (int i = 1; i < 3; i++)
+		{
+			int_val = atoi(argv[i]);
+			f_suma += int_val;
+			f_prod *= int_val;
+		}
+		for (int i = 3; i < argc; i++)
+		{
+			float_val = atof(argv[i]);
+			f_suma += float_val;
+			f_prod *= float_val;
+		}
+	}
+	
+	printf("\nSuma argumentelor din linia de comanda este : %d\n", f_suma);
+	printf("\nProdusul argumentelor din linia de comanda este : %d\n", f_prod);
+}
+
+
+
+
+//Vlas Denisa 2112 ex 3 lab 10
+//3. Scrieţi o aplicaţie care citeşte de la tastatură un şir de caractere cu lungimea mai mare decât 7. Folosiţi un pointer pt.a accesa şi afişa caracterele de pe poziţiile 1, 3, 5 şi 7.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+	        
+	char sir[255];
+	int i,n;        
+	cout << " introdu sirul de caractere :";        
+	cin.get(sir,255); 
+	n = strlen(sir);
+	if (n < 7) 
+	{ 
+		cout << "\n sirului de caractere este mai mic decat 7!";                        
+	}        
+	for (i = 0; i < n; i++)               
+		while (i <= 7) 
+		{ 
+			cout << *(sir + i) << " "; 
+			i += 2;
+		}        
+	cout << endl;
+}
+
+
+
+
+//Vlas Denisa gr 2112 ex 5 lab 10
+//Aplicaţia generează un număr aleator între 1 şi 100 şi apoi citeşte în mod repetatintrarea de la tastatură până când utilizatorul introduce valoarea corectă.Folosiţi mesajele definite pentru a informa utilizatorul, la fiecare pas, despre relaţia existentă între numărul generat şi ultima valoare citită.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <math.h>
+#include <string.h>
+
+void main(void)
+{
+	char a[] = "valoare prea mica";
+	char b[] = "valoare prea mare";
+	char c[] = "valoare corecta";
+	char* p[3];
+	int x, r;
+	p[0] = a;
+	p[1] = b;
+	p[2] = c;
+	r = 15;
+	printf("/n Introduceti un numar intre 1 si 100:");
+	scanf("%d", &x);
+	while (x != r)
+	{
+		if (x < r)
+			printf("%s", p[0]);
+		else
+			if(x>r)
+				printf("%s", p[1]);
+			else
+				printf("%s", p[2]);	
+		printf("\n\t");
+		scanf("%d", &x);
+	}
+	
+}
+
+
+
+//Vlas Denisa 2112 ex 6 lab 10
+//6. Scrieţi un program în care să definiţi un tablou de pointeri spre şiruri de caractere, pe care să - l iniţializaţi cu diferite mesaje.Afişaţi mesajele.
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{        
+	const char *p[] = {" Ana are mere ","Denisa are pere ","Alex are visine ","Andrei se joaca in zapada "};
+	cout<<"mesajele sunt:";
+	for (int i = 0; i < 4; i++) 
+	{ 
+		cout << p[i]; 
+		cout << endl; 
+	}
+}
+
+
+
+
+
+//Vlas Denisa 2112 ex 7 lab 10
+//7. Să se scrie un program care preia din linia de comandă şiruri de caractere şi afişează şirul rezultat din concatenarea acestora
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main(int argc,char *argv[])
+{       
+	char sir[255]; 
+	sir[0] = '\0';
+	for(int i=1;i<argc;i++)        
+	{                
+		strcat(sir,*(argv+i));        
+	}        
+	cout<<"sa se afiseze suririle concatenate: "<<sir<<endl;
+}
+
+
+
+
+
+
+//Vlas Denisa ex 8 lab 10
+//8. Să se scrie un program care inversează şirul de caractere citit din linia de comandă
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main(int argc, char* argv[])
+{
+	char sir[255];
+	int n;
+	n = strlen(*(argv + 1));
+	for(int i = argc; i < 0; i--)
+	{
+		strcpy(sir,(*(argv + 1) + i));
+	}
+	sir[n] = '\0';
+	cout << sir << endl;
+}
+
+
+
+
+//Vlas Denisa gr 2112 ex 9 lab 10
+//9. Scrieţi un program care citeşte de la tastatură elementele de tip float ale unui tablou unidimensional, elemente ce reprezintă mediile unei grupe de studenţi.Să se scrie o funcţie care determină numărul studenţilor cu media >= 8. Afişaţi rezultatul în main.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, float a[100]);
+int main()
+{
+	int n, i, cont = 0;
+	float a[100];
+	printf("n=");
+	scanf("%d", &n);
+	citire(n, a);
+	for (i = 0; i < n; i++)
+		if (a[i] > 8)
+			cont++;
+	printf("\n numarul elevilor ce au media mai mare de 8 este= %d", cont);
+
+}
+void citire(int n, float a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%f]=", i);
+		scanf("%f", &a[i]);
+	}
+}
+
+
+
+
+
+//Vlas Denisa gr 2112 ex 11 lab 10
+//11. Scrieţi un program în care se citesc de la tastatură elementele de tip întreg ale unei matrici pătratice, utilizând o funcţie.Scrieţi o funcţie care determină numărul de elemente negative de deasupra diagonalei secundare.Afisaţi rezultatul în main() (fără variabile globale)
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, int a[100][100]);
+int main()
+{
+	int a[100][100], n, i, j, cont = 0;
+	printf("n=");
+	scanf("%d", &n);
+	citire(n, a);
+	for (i = 0; i < n; i++)
+		for (j = 0; j < n; j++)
+			if (i + j < n + 1)
+				if (a[i][j] < 0)
+					cont++;
+	printf("\n Numrul de elemente negative de deasupra diagonalei secundare este = %d", cont);
+
+}
+void citire(int n, int a[100][100])
+{
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			scanf("%f", &a[i][j]);
+}
+
+
+
+
+
+
+//Vlas Denisa grupa 2112 ex 12 lab 10
+//12. Scrieţi un program în care se citesc de la tastatură elementele de tip întreg ale unei matrici pătratice, utilizând o funcţie.Scrieţi o funcţie care interschimbă două linii ale matricii.Afişaţi cu o funcţie matricea iniţială şi cea obţinută.Dimensiunea matricii şi
+//numerele ce identifică liniile care vor fi interschimbate se citesc de la tastatură, în funcţia main. (fără variabile globale).
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+void citire(int n, int a[100][100]);
+void afisare(int n, int a[100][100]);
+int main()
+{
+	int n, j, a[100][100], aux,l1,l2;
+	cout << "numarul de linii si coloare este:  ";
+	cin >> n;
+	cout << "cele doua linii ce trebuie interschimbate sunt :   ";
+	cin >> l1 >> l2;
+	citire(n, a);
+	cout << "sa se afiseze matricea initiala: ";
+	cout << endl;
+	afisare(n, a);
+	for (j = 0; j < n; j++)
+	{
+		aux = a[l1][j];
+		a[l1][j] = a[l2][j];
+		a[l2][j] = aux;
+	}
+	cout << "sa se afiseze matricea dupa interschimbare: ";
+	cout << endl;
+	afisare(n, a);
+}
+void citire(int n, int a[100][100])
+{
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			cin >> a[i][j];
+}
+void afisare(int n, int a[100][100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+			cout << a[i][j] << " ";
+		cout << endl;
+	}
+}

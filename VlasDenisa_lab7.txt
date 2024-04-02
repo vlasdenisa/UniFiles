@@ -1,0 +1,312 @@
+//Vlas Denisa 2112, ex 1 lab 7
+//1. Se citesc trei numere de la tastatură (a, b şi c). Să se determine aria dreptunghiului ale cărui laturi sunt a şi b şi verificaţi dacă diagonala dreptunghiului este egală cu c.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+int arieDr(int a, int b);
+int diagonalaDr(int a, int b);
+int main()
+{
+	int a, b, c,arie,diag;
+	printf("\n primul numar este= ");
+	scanf("%d", &a);
+	printf("\n al doilea numar este= ");
+	scanf("%d", &b);
+	printf("\n al treilea numar este= ");
+	scanf("%d", &c);
+	arie = arieDr(a, b);
+	diag = diagonalaDr(a, b);
+	printf("\n aria dreptunghiului este egala cu= %d", arie);
+	if (diag == c)
+		printf("\n diagonala dreptunghiului este egala cu c");
+	else
+		printf("\n diagonala dreptunghiului nu este egala cu c");
+}
+int arieDr(int a, int b)
+{
+	return a * b;
+}
+int diagonalaDr(int a, int b)
+{
+	return sqrt(a * a + b * b);
+}
+
+
+
+
+//Vlas Denisa ex 2 lab 7
+//2. Să se scrie un program care verifică dacă un număr citit de la tastatură este pătrat perfect.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n;
+	cin >> n;
+	if ((int)sqrt(n) == (float)sqrt(n))
+		cout << "da";
+	else
+		cout << "nu";
+}
+
+
+
+
+
+//Vlas Denisa ex 3 lab 7
+//3. Să se scrie un program care calculeaza an, prin inmultiri repetate, unde n este citit de la consolă(a sedefineşte în program).
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+int main()
+{
+	int val_a, n, a;
+	printf("\n n= ");
+	scanf("%d", &n);
+	printf("\n a= ");
+	scanf("%d", &a);
+	val_a = 1;
+	while (n > 0)
+	{
+		val_a = val_a * a;
+		n--;
+	}
+	printf("\n valoarea a^n este= %d", val_a);
+}
+
+
+
+
+//Vlas Denisa 2112, ex 4 lab 7
+//4. Să se scrie un program care citeşte de la tastatură o valoare întreagă n şi calculează n! (n-factorial).
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int factorial(int n);
+int main()
+{
+	int n, val;
+	printf("\n n= ");
+	scanf("%d", &n);
+	val = factorial(n);
+	printf("\n n factorial este= %d", val);
+}
+int factorial(int n)
+{
+	int rez = 1;
+	for (int i = n; i >= 1; i--)
+		rez = rez * i;
+	return rez;
+}
+
+
+
+
+
+//Vlas Denisa , 2112 ex 5 lab 7
+//Să se scrie un program care :a)determină cel mai mare număr prim mai mic decât numărul dat  b) determină toate numerele prime mai mici decât numărul dat.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int prim(int n);
+/*
+//a)determină cel mai mare număr prim mai mic decât numărul dat
+int main()
+{
+	int max, nr;
+	cin >> nr;
+	max = 0;
+	for (int i = 0; i < nr; i++)
+	{
+		if (prim(i) == 1)
+		{
+			max = i;
+		}
+	}
+	cout << max;
+}*/
+
+//b)determină toate numerele prime mai mici decât numărul dat.
+int main()
+{
+	int nr;
+	cin >> nr;
+	for (int i = 1; i <=nr; i++) //am inceput de la 1 ca sa nu-l cuprinda si pe 0
+		if (prim(i) == 1)
+			cout << i << " ";
+}
+int prim(int n)
+{
+	int prim = 1,d = 2;
+	while (d <= n / 2)
+	{
+		if (n % d == 0)
+			prim = 0;
+		d = d + 1;
+	}
+	if (prim == 1)
+		return 1;
+	else 
+		return 0;;
+}
+
+
+
+
+
+//Vlas Denisa 2112 ex 6 lab 7
+//6. Să se scrie un program care determină cel mai mare divizor comun a doi întregi
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int main()
+{
+	int a, b;
+	cout << "introdu primul nr intreg: ";
+	cin >> a;
+	cout << "introdu al doilea nr intreg: ";
+	cin >> b;
+	while (a != b)
+	{
+		if (a > b)
+			a = a - b;
+		else
+			b = b - a;
+	}
+	cout << "cel mai mare divizor al celor doua numere intregi este: "<<a;
+}
+
+
+
+
+//Vlas Denisa 2112 ex 7 lab 7
+//7. Să se scrie un program care determină toţi divizorii unui număr.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n, d;
+	cout << "n este egal cu= ";
+	cin >> n;
+	cout << "divizorii lu n sunt:";
+	for (d = 2; d <= n; d++)
+		if (n % d == 0)
+			cout <<" "<< d << " ";
+}
+
+
+
+
+//Vlas Denisa 2112 ex10 lab 7
+//10. Să se scrie un program care determină numărul de cifre care compun un număr întreg citit de la tastatură.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+int nrCifre(int n);
+int main()
+{
+	int nr;
+	cin >> nr;
+	cout << nrCifre(nr);
+}
+int nrCifre(int n)
+{
+	int cont;
+	cont = 0;
+	while (n >0)
+	{
+		cont=cont+1;
+		n = n / 10;
+	}
+	return cont;
+}
+
+
+
+
+//Vlas Denisa 2112 ex 11 lab 7
+//11. Să se scrie un program care citeşte de la tastatură n numere întregi. Afişaţi toate numerele impare din şir.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+void citire(int n, int a[100]);
+int main()
+{
+	int n, a[100];
+	cin >> n;
+	citire(n, a);
+	for (int i = 1; i <= n; i++)
+		if (a[i] % 2 == 1)
+			cout << a[i] << " ";
+}
+void citire(int n, int a[100])
+{
+	for (int i = 1; i <= n; i++)
+		cin >> a[i];
+}
+
+
+
+
+
+//Vlas Denisa 2112 ex 13 lab 7
+//13. Să se scrie un program care determină cmmmc a două numere citite de la tastatură.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int cmmdc(int a, int b);
+int main()
+{
+	int a, b, rez;
+	cout << "primul numar este= ";
+	cin >> a;
+	cout << "al doilea numar este= ";
+	cin>> b;
+	rez = cmmdc(a, b);
+	cout << rez;
+}
+int cmmdc(int a, int b)
+{
+	if (a == 0 && b != 0)
+		return b;
+	else
+		if (a != 0 && b == 0)
+			return a;
+		else
+			while(a!=b)
+			{
+				if (a > b)
+					a = a - b;
+				else
+					b = b - a;
+			}
+	return a;
+}
+
+
+
+
+//Vlas Denisa 2112 ex 14 lab 7
+//14. Scrieţi un program care citeşte n numere întregi de la tastatură şi le afişează pe cele divizibile cu 3. 
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+void citire(int n, int a[100]);
+int main()
+{
+	int n, a[100];
+	cin >> n;
+	citire(n, a);
+	for (int i = 1; i <= n; i++)
+		if (a[i] % 3 == 0)
+			cout << a[i] << " ";
+}
+void citire(int n, int a[100])
+{
+	for (int i = 1; i <= n; i++)
+		cin >> a[i];
+}

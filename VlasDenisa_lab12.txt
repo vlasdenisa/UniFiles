@@ -1,0 +1,762 @@
+
+//Vlas Denisa gr 2112 ex 1 lab 12
+
+
+//main
+#include <iostream>
+using namespace std;
+#include "Student.h"
+#define MAX 20
+int main()
+{
+        struct Date_st* dp;
+        int i;
+        if (!(dp = new Date_st[MAX]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele studentilor :";
+        i = 0;
+        do
+        {
+                cout << "\n Persoana: " << i + 1;
+                cin >> dp->nume;
+                if (strcmp((dp)->nume, "AAA") == 0)
+                        break;
+                else
+                {
+                        citDateStudent(dp + i);
+                        i++;
+                }
+        } while (strcmp((dp + i)->nume, "AAA") != 0);
+
+        int cont = 0;
+        cout << "\n\nAfisarea studentilor straini: ";
+        for (int k = 0; k < i; k++)
+                if (strcmp((dp + k)->tara, "romania") != 0)
+                {
+                        cont++;
+                        afisDateStudent(dp + k);
+                }
+        cout << "\n Afisarea numarului de studenti straini: ";
+        cout << cont;
+        delete[] dp;
+}
+
+
+
+
+
+//Sudent.h
+
+
+struct Data_calend
+{
+        int anul;
+};
+struct Date_st
+{
+        char nume[16];
+        char prenume[20];
+        char tara[50];
+        int grupa;
+        struct Data_calend data_nast;
+        void citDateStudent(Date_st*);
+        void afisDateStudent(Date_st*);
+};
+void afisDateStudent(Date_st* p)
+{
+        cout << "\n Numele: " << p->nume;
+        cout << "\n Prenumele: " << p->prenume;
+        cout << "\n Tara de origine:" << p->tara;
+        cout << "\n Grupa: " << p->grupa;
+        cout << "\n\t Anul: " << (p->data_nast).anul;
+}
+void citDateStudent(Date_st* p)
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nTara de origine: ";
+        cin >> p->tara;
+        cout << "\nGrupa: ";
+        cin >> p->grupa;
+        cout << "\n\tAnul: ";
+        cin >> (p->data_nast).anul;
+}
+#pragma once
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 2 lab 12
+//2. Să se scrie un program C/C++, în care folosind câte o funcţie, se transferă ca parametru o variabilă de tip structură de date prin valoare şi respectiv prin adresă, folosind pointeri.În funcţia main() iniţializaţi câmpurile structurii cu date citite de la tastatură.În ambele funcţii afişaţi datele din structură folosind un mesaj adecvat.
+
+#include <iostream>
+using namespace std;
+#include "Student.h"
+
+//main
+
+int main()
+{
+        struct Date_st* dp;
+        int i, n;
+        cout << "\nNumar studenti : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_st[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele angajatilor :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Persoana: " << i + 1;
+                citDateStudent(dp + i);
+        }
+        cout << "\nNumele studentilor introdusi sunt:  ";
+        for (i = 0; i < n; i++)
+        {
+                afisare(dp + i);
+                cout << endl;
+        }
+                
+        
+        delete[] dp;
+}
+
+
+
+//Student.h
+
+#pragma once
+struct Data_calend
+{
+        int ziua;
+        char luna[11];
+        int anul;
+};
+struct Date_st
+{
+        char nume[16];
+        char prenume[20];
+        char tara[50];
+        int grupa;
+        struct Data_calend data_nast;
+        void citDateStudent(Date_st*);
+        void afisDateStudent(Date_st*);
+};
+void citDateStudent(Date_st* p)
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nTara de origine: ";
+        cin >> p->tara;
+        cout << "\nGrupa: ";
+        cin >> p->grupa;
+        cout << "\nData nasterii: ";
+        cout << "\n\tZiua: ";
+        cin >> (p->data_nast).ziua;
+        cout << "\n\tLuna: ";
+        cin >> (p->data_nast).luna;
+        cout << "\n\tAnul: ";
+        cin >> (p->data_nast).anul;
+}
+void afisare(struct Date_st* p)
+{
+        cout << p->nume;
+}
+#pragma once
+
+
+
+
+
+
+
+﻿
+//Vlas Denisa gr 2112 ex 10 lab 12
+//4. Să se scrie o aplicaţie C/C++, care utilizând o structură de tip Angajat, să afişeze toate datele persoanelor cu ocupaţia inginer dintr-o întreprindere (nume, prenume, ocupaţia, data naşterii, secţia în care lucrează).
+
+//main
+
+#include <iostream>
+using namespace std;
+#include "Angajat.h"
+
+int main()
+{
+        struct Date_pers* dp;
+        int i, n;
+        cout << "\nNumar angajati : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_pers[n]))
+        { 
+                cout << "Alocare nereusita!"; 
+                exit(1);
+        }
+        cout << "\n Introduceti datele angajatilor :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Persoana: " << i + 1;
+                citDatePers(dp + i);
+        }
+        cout << "\nAngajatii introdusi sunt:  ";
+        for (i = 0; i < n; i++)
+                afisDatePers(dp + i);
+        cout << "\n\nAfisarea angajatilor care sunt ingineri: ";
+        for (i = 0; i < n; i++)
+                if (strcmp((dp + i)->ocupatie, "inginer") == 0)
+                        afisDatePers(dp+i);
+        delete[] dp;
+}
+
+
+
+
+//Angajat.h
+
+#pragma once
+struct Data_calend 
+{
+        int ziua;
+        char luna[11];
+        int anul;
+};
+struct Date_pers
+{
+        char nume[16];
+        char prenume[20];
+        char ocupatie[50];
+        long sectie;
+        struct Data_calend data_nast;
+        void citDatePers(Date_pers*);
+        void afisDatePers(Date_pers*);
+};
+void afisDatePers(Date_pers* p) 
+{
+        cout << "\n Numele: " << p->nume;
+        cout << "\n Prenumele: " << p->prenume;
+        cout << "\n Ocupatie: " << p->ocupatie;
+        cout << "\n Data nasterii: ";
+        cout << "\n\t Ziua: " << (p->data_nast).ziua;
+        cout << "\n\t Luna: " << (p->data_nast).luna;
+        cout << "\n\t Anul: " << (p->data_nast).anul;
+        cout << "\n\t Sectia in care lucreaza: " << p->sectie;
+}
+void citDatePers(Date_pers* p) 
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nOcupatie: ";
+        cin >> p->ocupatie;
+        cout << "\nData nasterii: ";
+        cout << "\n\tZiua: ";
+        cin >> (p->data_nast).ziua;
+        cout << "\n\tLuna: ";
+        cin >> (p->data_nast).luna;
+        cout << "\n\tAnul: ";
+        cin >> (p->data_nast).anul;
+        cout << "\n Sectia in care lucreaza: ";
+        cin >> p->sectie;
+}
+
+
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex5 lab 12
+//5. Folosind structura de la exemplul precedent , să se scrie un program care citeşte datele personale pentru n persoane(nume, prenume, data naşterii, codul numeri personal, data angajării) şi apoi le afişează în ordinea datei angajării.
+
+//main
+#include <iostream>
+using namespace std;
+#include "Angajat.h"
+void sortare(struct Date_pers* a, int n);
+int main()
+{
+        struct Date_pers* dp;
+        int i, n;
+        cout << "\nNumar angajati : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_pers[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele angajatilor :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Persoana: " << i + 1;
+                citDatePers(dp + i);
+        }
+        cout << "\nAngajatii introdusi sunt:  ";
+        for (i = 0; i < n; i++)
+                afisDatePers(dp + i);
+        cout << "\n\nAfisarea angajatilor in ordinea angajarii: ";
+        sortare(dp, n);
+        for (i = 0; i < n; i++)
+                afisDatePers(dp + i);
+        delete[] dp;
+
+}
+void sortare(struct Date_pers* a, int n)
+{
+        Date_pers aux;
+        int i, j;
+        for (i = 0; i < n - 1; i++)
+                for (j = i + 1; j < n; j++)
+                {
+                        if ((a[i].data_angajarii).anul > ((a[j].data_angajarii).anul))
+                        {
+                                aux = a[i];
+                                a[i] = a[j];
+                                a[j] = aux;
+                        }
+                        if (((a[i].data_angajarii).anul) == ((a[j].data_angajarii).anul) && ((a[i].data_angajarii).luna) > ((a[j].data_angajarii.luna)))
+                        {
+                                aux = a[i];
+                                a[i] = a[j];
+                                a[j] = aux;
+                        }
+                        else 
+                                if (((a[i].data_angajarii).anul) == ((a[j].data_angajarii).anul) && ((a[i].data_angajarii).luna) > ((a[j].data_angajarii.luna)) && (((a[i].data_angajarii).ziua) > ((a[j].data_angajarii.ziua))))
+                        {
+                                aux = a[i];
+                                a[i] = a[j];
+                                a[j] = aux;
+                        }
+                }
+}
+
+
+
+//Angajat.h
+
+
+#pragma once
+struct Data_calend
+{
+        int ziua;
+        char luna[11];
+        int anul;
+};
+struct Date_pers
+{
+        char nume[16];
+        char prenume[20];
+        int codNum;
+        struct Data_calend data_angajarii;
+        struct Data_calend data_nasterii;
+        void citDatePers(Date_pers*);
+        void afisDatePers(Date_pers*);
+        void ordonare(struct Date_pers* a, int n);
+};
+void afisDatePers(Date_pers* p)
+{
+        cout << "\n Numele: " << p->nume;
+        cout << "\n Prenumele: " << p->prenume;
+        cout << "\n Cod numeric personal:" << p->codNum;
+        cout << "\n Data nasterii: ";
+        cout << "\n\t Ziua: " << (p->data_nasterii).ziua;
+        cout << "\n\t Luna: " << (p->data_nasterii).luna;
+        cout << "\n\t Anul: " << (p->data_nasterii).anul;
+        cout << "\n Data angajarii: ";
+        cout << "\n\t Ziua: " << (p->data_angajarii).ziua;
+        cout << "\n\t Luna: " << (p->data_angajarii).luna;
+        cout << "\n\t Anul: " << (p->data_angajarii).anul;
+}
+void citDatePers(Date_pers* p)
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nCod numeric personal: ";
+        cin >> p->codNum;
+        cout << "\n Data nasterii: ";
+        cout << "\n\tZiua: ";
+        cin >> (p->data_nasterii).ziua;
+        cout << "\n\tLuna: ";
+        cin >> (p->data_nasterii).luna;
+        cout << "\n\tAnul: ";
+        cin >> (p->data_angajarii).anul;
+        cout << "\nData angajarii: ";
+        cout << "\n\tZiua: ";
+        cin >> (p->data_angajarii).ziua;
+        cout << "\n\tLuna: ";
+        cin >> (p->data_angajarii).luna;
+        cout << "\n\tAnul: ";
+        cin >> (p->data_angajarii).anul;
+}
+
+#pragma once
+
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 6 lab 12
+//6. Să se scrie un program care afişează numele, prenumele şi media studentului cu cele mai bune rezultate din grupă în urma sesiunii de iarnă.Folosiţi pentru aceasta un tablou de structuri, de un tip numit Student, alocarea dinamica, şi o funcţie care returnează înregistrarea student cu media cea mai mare.
+
+//main
+#include <iostream>
+using namespace std;
+#include "Student.h"
+
+int main()
+{
+        struct Date_st* dp;
+        int i, n;
+        cout << "\nNumar studenti : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_st[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele studentilor :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Persoana: " << i + 1;
+                citDateStudent(dp + i);
+        }
+        float max = 0;
+        int nr;
+        cout << "\n\nAfisarea elevului cu media cea mai mare: ";
+        for (i = 0; i < n; i++)
+                if ((dp + i)->media > max)
+                {
+                        max = (dp+i)->media;
+                        nr = i;
+                }        
+        afisDateStudent(dp+nr);
+        delete[] dp;
+}
+
+
+
+//Student.h
+
+
+struct Date_st
+{
+        char nume[16];
+        char prenume[20];
+        float media;
+        void citDateStudent(Date_st*);
+        void afisDateStudent(Date_st*);
+};
+void afisDateStudent(Date_st* p)
+{
+        cout << "\n Numele: " << p->nume;
+        cout << "\n Prenumele: " << p->prenume;
+        cout << "\n Media: " << p->media;
+}
+void citDateStudent(Date_st* p)
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nMedia: ";
+        cin >> p->media;
+}
+#pragma once
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 7 lab 12
+//7. Să se scrie o aplicaţie C/C++, care alocă dinamic memorie pentru datele a n studenţi, (nume, prenume si gen), citeşte datele pentru fiecare din aceştia, afişează numărul studentelor si elibereaza memoria alocată.
+
+//main
+#include <iostream>
+using namespace std;
+#include "Student.h"
+
+int main()
+{
+        struct Date_st* dp;
+        int i, n;
+        cout << "\nNumar studenti : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_st[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele studentilor :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Persoana: " << i + 1;
+                citDateStudent(dp + i);
+        }
+        int cont = 0;
+        cout << "\n\nAfisarea numarului de studente: ";
+        for (i = 0; i < n; i++)
+                if (strcmp((dp + i)->gen, "feminin") == 0)
+                        cont++;
+        cout << cont;
+        delete[] dp;
+}
+
+
+//Student.h
+
+
+
+#pragma once
+struct Date_st
+{
+        char nume[16];
+        char prenume[20];
+        char gen[50];
+        void citDateStudent(Date_st*);
+        void afisDateStudent(Date_st*);
+};
+void afisDateStudent(Date_st* p)
+{
+        cout << "\n Numele: " << p->nume;
+        cout << "\n Prenumele: " << p->prenume;
+        cout << "\n Gen:" << p->gen;
+}
+void citDateStudent(Date_st* p)
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nGen: ";
+        cin >> p->gen;
+}
+
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 9 lab 12
+//9. Scrieti o aplicaţie C/C++, care alocă dinamic memorie pentru memorarea datelor a n produse, folosind o structură Produs, cu câmpurile denumire, pret, cantitate, citeşte datele pentru fiecare dintre produse si afişează produsul din care avem cel mai mult pe stoc.În final va elibera memoria alocată.
+
+//main
+#include <iostream>
+using namespace std;
+#include "Produs.h"
+
+int main()
+{
+        struct Date_st* dp;
+        int i, n;
+        cout << "\nNumar produse : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_st[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele fiecarui produs :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Produsul: " << i + 1;
+                citDateProdus(dp + i);
+        }
+        float max = 0;
+        int nr;
+        cout << "\n\nAfisarea produsului din care avem cel mai mult pe stoc: ";
+        for (i = 0; i < n; i++)
+                if ((dp + i)->cantitate > max)
+                {
+                        max = (dp + i)->cantitate;
+                        nr = i;
+                }
+        afisDateProdus(dp + nr);
+        delete[] dp;
+}
+
+
+
+//Produs.h
+
+#pragma once
+
+struct Date_st
+{
+        char denumire[16];
+        int pret;
+        int cantitate;
+        void citDateStudent(Date_st*);
+        void afisDateStudent(Date_st*);
+};
+void afisDateProdus(Date_st* p)
+{
+        cout << "\n Denumire produs: " << p->denumire;
+        cout << "\n Pret produs: " << p->pret;
+        cout << "\n Cantitate:" << p->cantitate;
+}
+void citDateProdus(Date_st* p)
+{
+        cout << "\nDenumire produs: ";
+        cin >> p->denumire;
+        cout << "\nPret produs: ";
+        cin >> p->pret;
+        cout << "\nCantitate: ";
+        cin >> p->cantitate;
+}
+
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 10 lab 12
+//10. Să se definească o structură cu numele Masina, care are câmpurile producator, anul fabrictiei, capacitatea_cilindrică și culoare.Să se aloce dinamic memorie pentru n  date de tip Maşina şi să se citească informaţiile pentru acestea.Să se afişeze inregistrarile maşinilor de culoare roşie, fabricate după anul 2010.
+
+
+//main
+
+#include <iostream>
+using namespace std;
+#include "DateMasina.h"
+
+
+int main()
+{
+        struct Masina *dp;
+        int i, n;
+        cout << "\nNumar masini : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl; 
+                exit(1);
+        }
+        if (!(dp = new Masina[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+        cout << "\n Introduceti datele masinii :";
+        for (i = 0; i < n; i++) 
+        {
+                cout << "\n Masina: " << i + 1;
+                citDateMasina(dp + i);
+        }
+        cout << "\nMasinile introduse: ";
+        for (i = 0; i < n; i++)
+                afisDateMasina(dp + i);
+        cout << "\n\nAfisarea masinilor de culoare rosie dupa 2010";
+        for (i = 0; i < n; i++) 
+                if(strcmp((dp+i)->culoare, "rosu") == 0 && ((dp+i)->data_mas).anul >= 2010)
+                        afisDateMasina(dp + i);
+        delete[] dp;
+}
+
+
+//DateMasina.h
+
+
+#pragma once
+#include <iostream>
+using namespace std;
+struct Data_calend
+{
+        int anul;
+};
+struct Masina
+{
+        char producator[16];
+        long capacitate_cilindrica;
+        char culoare[20];
+        long an_fabricatie;
+        struct Data_calend data_mas;
+        void citDatePers(Masina*);//methods inside struct
+        void afisDatePers(Masina*);
+};
+void afisDateMasina(Masina* p) 
+{
+        cout << "\n Nume producator: " << p->producator;
+        cout << "\n Capacitate: " << p->capacitate_cilindrica;
+        cout << "\n Anul fabricatiei: ";
+        cout << "\n\t Anul: " << (p->data_mas).anul;
+        cout << "\n Culoare: " << p->culoare;
+}
+void citDateMasina(Masina* p) 
+{
+        cout << "\nNume producator: ";
+        cin >> p->producator;
+        cout << "\nCapacitate: ";
+        cin >> p->capacitate_cilindrica;
+        cout << "\nData fabricatiei: ";
+        cout << "\n\tAnul: ";
+        cin >> (p->data_mas).anul;
+        cout << "\nCuloare: ";
+        cin >> p->culoare;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

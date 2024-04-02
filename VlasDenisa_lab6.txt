@@ -1,0 +1,253 @@
+
+
+
+
+//ex1 lab 6
+//1. Să se scrie un program care afişează valoarea polinomului de gradul 3 pentru o anumită valoare a
+variabilei reale x.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+/*
+int val_pol(int x, int a, int b, int c, int d);
+int main()
+{
+        int a, b, c, d, x, valoare;
+        cout << "primul coeficient este= ";
+        cin >> a;
+        cout << "al doilea coeficient este= ";
+        cin >> b;
+        cout << "al treilea coeficient este= ";
+        cin >> c;
+        cout << "ultimul coeficient este= ";
+        cin >> d;
+        cin >> x;
+        valoare = val_pol(x, a, b, c, d);
+        cout << "valoarea polinomului de gradul 3 este= " << valoare;
+}
+int val_pol(int x, int a, int b, int c, int d)
+{
+        return (a * x * x * x) + (b * x * x) + c * x + d;
+}*/
+
+int val_pol(int x, int a, int b, int c, int d);
+int main()
+{
+        int a, b, c, d, x, valoare;
+        printf("\n primul coeficient este= ");
+        scanf("%d", &a);
+        printf("\n al doilea coeficient este= ");
+        scanf("%d", &b);
+        printf("\n al treilea coeficient este= ");
+        scanf("%d", &c);
+        printf("\n ultimul coeficient este= ");
+        scanf("%d", &d);
+        scanf("%d", &x);
+        valoare= val_pol(x, a, b, c, d);
+        printf("\n valoarea polinomului de gradul 3 este = %d", valoare);
+}
+
+int val_pol(int x, int a, int b, int c, int d)
+{
+        return (a * x * x * x) + (b * x * x) + c * x + d;
+}
+
+
+
+
+//ex 2 lab 6
+//2. Să se scrie un program care citeşte lungimile laturilor unui triunghi (folosind variabile întregi) şi
+afişează aria triunghiului ca valoare reală.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<math.h>
+using namespace std;
+/*
+float semiperimetru(float a, float b, float c);
+float arieTr(float a, float b, float c);
+int main()
+{
+        float A,a, b, c;
+        cout << "prima latura este= ";
+        cin >> a;
+        cout << "a doua latura este= ";
+        cin >> b;
+        cout << "a treia latura este = ";
+        cin >> c;
+        A = arieTr(a, b, c);
+        cout << "aria triunghiului este= " << A;
+}
+float semiperimetru(float a, float b, float c)
+{
+        return (a+b+c)/2;
+}
+float arieTr(float a, float b, float c)
+{
+        return sqrt((semiperimetru(a, b, c) * (semiperimetru(a, b, c) - a)*(semiperimetru(a, b, c) - b)*(semiperimetru(a, b, c) - c)));
+}
+*/
+
+float semiperimetru(float a, float b, float c);
+float arieTr(float a, float b, float c);
+int main()
+{
+        float A, a, b, c;
+        printf("\n prima latura este= ");
+        scanf("%f", &a);
+        printf("\n a doua latura este= ");
+        scanf("%f", &b);
+        printf("\n a treia latura este= ");
+        scanf("%f", &c);
+        A = arieTr(a, b, c);
+        printf("\n aria triunghiului este= %f", A);
+}
+float semiperimetru(float a, float b, float c)
+{
+        return (a + b + c) / 2;
+}
+float arieTr(float a, float b, float c)
+{
+        return sqrt((semiperimetru(a, b, c) * (semiperimetru(a, b, c) - a) * (semiperimetru(a, b, c) - b) * (semiperimetru(a, b, c) - c)));
+}
+
+
+
+
+
+//3. Să se scrie un program care afişează valorile biţilor unei variabile de tip unsigned char aplicând
+succesiv operatorul de deplasare dreapta şi operatorul %.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int main()
+{
+        unsigned char x;
+        cout << "introdu un caracter: ";
+        cin >> x;
+        for (int i = 1; i <= sizeof(x) * 8; i++)
+        {
+                cout << "valoarea bitului de pe pozitia: " << i << "este= " << x % 2;
+                x = x >> 1;
+        }
+}
+
+
+
+
+// ex5_lab6
+//5. Să se scrie un program care citeşte de la intrarea standard un număr întreg şi afişează numărul de
+zerouri din reprezentarea sa binară.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+/*
+int main()
+{
+        int n, cont = 0;
+        cin >> n;
+        while (n > 0)
+        {
+                if (n % 2 == 0)
+                        cont++;
+                n = n / 2;
+        }
+        cout << cont;
+}
+*/
+
+int main()
+{
+        int n, cont = 0;
+        printf("\n n este= ");
+        scanf("%d", &n);
+        while (n > 0)
+        {
+                if (n % 2 == 0)
+                        cont++;
+                n = n / 2;
+        }
+        printf("\n cont este= %d", cont);
+}
+
+
+
+
+
+
+//8. Citiți de la tastatură mai multe caractere reprezentând litere mici. Să se transforme caracterele citite
+în litere mari în 2 moduri: printr-o operație aritmetică, respectiv folosind o operație logică și o mască
+adecvată.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstring>
+using namespace std;
+/*
+int main()
+{
+        //prin operatie aritmetica
+        char sir[255];
+        cin.get(sir, 255);
+        for (int i = 0; i <= strlen(sir); i++)
+        {
+                if (sir[i] >= 'a' && sir[i] <= 'z')
+                        sir[i] = sir[i] - 32;
+        }
+        cout << sir;
+}
+*/
+
+int main()
+{
+        //tot prin operatie aritmetica
+        char sir[255];
+        int x;
+        x = 'a' - 'A';
+        cin.get(sir, 255);
+        for (int i = 0; i <= strlen(sir); i++)
+        {
+                if (sir[i] >= 'a' && sir[i] <= 'z')
+                        sir[i] = sir[i] - x;
+        }
+        cout << sir;
+}
+
+
+
+
+//ex 9 lab 6 
+//9. Citiți de la tastatura 2 numere întregi. Dacă sunt egale, determinați aria cercului cu raza egală cu
+valoarea citită, iar dacă sunt diferite calculați aria dreptunghiului cu laturile egale cu valorile date.
+Afișați aria calculată specificând forma geometrică pentru care s-a făcut calculul.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+float arieC(float r);
+float arieD(float a, float b);
+int main()
+{
+        float a, b, r;
+        printf("\n a= ");
+        scanf("%f", &a);
+        printf("\n b= ");
+        scanf("%f", &b);
+        printf("\n r= ");
+        scanf("%f", &r);
+        if (a == b)
+                printf("\n aria cercului este= %f", arieC(r));
+        else
+                printf("\n aria dreptunghiului este= %f", arieD(a, b));
+}
+float arieC(float r)
+{
+        return 3.14 * (r * r);
+}
+float arieD(float a, float b)
+{
+        return a* b;
+}

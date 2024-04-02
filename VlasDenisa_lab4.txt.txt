@@ -1,0 +1,176 @@
+//Vlas Denisa gr 2112 tema lab 4
+
+//1. Să se scrie un program pentru determinarea mediei aritmetice a trei numere neîntregi
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int main()
+{
+        float nr1, nr2,nr3, ma;
+        printf("\n introdu primul nr neintreg = ");
+        scanf("%f", &nr1);
+        printf("\n introdu al doilea nr neintreg = ");
+        scanf("%f", &nr2);
+        printf("\n introdu al treilea nr neintreg = ");
+        scanf("%f", &nr3);
+        ma = (nr1 + nr2+nr3) / 3;
+        printf("\n media arirmetica este= \n%f", ma);
+}
+/*
+//metoda cu cin si cout
+int main()
+{
+        float nr1, nr2, nr3, ma;
+        cin >> nr1 >> nr2 >> nr3;
+        ma = (nr1 + nr2 + nr3) / 3;
+        cout << ma;
+}
+*/
+
+
+
+//2. Să se scrie un program pentru pentru determinarea mediei geometrice a două numere întregi.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<math.h>
+using namespace std;
+int main()
+{  
+        float mg,nr1, nr2;
+        printf("\n intrododu primul nr intreg= ");
+        scanf("%f", &nr1);
+        printf("\n intrododu al doilea nr intreg= ");
+        scanf("%f", &nr2);
+        mg = sqrt(nr1 * nr2);
+        printf("\n media geometrica este= \n%.6f", mg);
+}
+/*
+//rezolvare cu cin si cout
+int main()
+{
+        int nr1, nr2;
+        float mg;
+        cin >> nr1 >> nr2;
+        mg = sqrt(nr1 * nr2);
+        cout << mg;
+}
+*/
+
+
+
+
+//3.Să se scrie un program C/C++ care defineşte o variabilă întreagă care va fi iniţializată cu valori constante. Afişaţi
+rezultatul cu ajutorul supraîncărcării operatorului << şi a lui cout.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+int main()
+{
+        int n = 68;
+        cout << "numarul citit este: " << n;
+}
+
+
+
+//4. Definiţi un şir de caractere care va fi afişat cu cout. Definiţi alte şiruri de caractere folosind secvenţe escape.
+Verificaţi utilizarea spaţiilor albe.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+int main()
+{
+        char s1[255], s2[255], s3[255];
+        cout<<"\n dati primul sir de caractere:";
+        cin.get(s1, 255);
+        cout << s1 << endl;
+        cin.get();
+        cout<<"\n dati sirul doi de caractere:";
+        cin.get(s2, 255);
+        cout <<"\n"<<s2 << endl;
+        cin.get();
+        cout<<"\n dati sirul trei de caractere:";
+        cin.get(s3, 255);
+        cout <<"\n"<< s3 << endl;
+}
+
+
+
+//5. Să se scrie un program în care se dau 3 numere întregi și se cere să se calculeze suma lor ponderată, ponderile fiind
+numere subunitare a căror suma este 1.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+        float a = 0, b = 0, c = 0;
+        printf("a=");
+        scanf("%f", &a);
+        printf("b=");
+        scanf("%f", &b);
+        printf("c=");
+        scanf("%f", &c);
+        float pon = 0;
+        pon = (0.5 * a + 0.3 * b + 0.2 * c) / (0.5 + 0.3 + 0.2);
+        printf("%f", pon);
+        return 0;
+}
+
+
+
+//6. Definiți într-un program constante simbolice de tipuri diferite (întregi, reale, șiruri de caractere). Afișati valorile
+acestor constante utilizând operatorul << și fluxul cout.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main()
+{
+        int nr1,nr2,nr3;
+        float n1,n2;
+        char s[78];
+        cout << "intodu numerele intregi: ";
+        cin >> nr1>>nr2>>nr3;
+        cout << "introdu numerele reale: ";
+        cin >> n1 >> n2;
+        cout << "introdu sirul de caractere: ";
+        cin >> s;
+        cout << nr1 <<" "<< nr2 <<" "<< nr3 << endl << n1 <<" "<< n2 << endl << s;
+}
+
+
+
+
+//7. Definiți 3 numere reale a, b, și c. Afișați rezultatul operației 1/a+1/b+1/c. Efectuati aceeasi operatie considerand ca
+si intrare numere intregi.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+/*
+// utilizand cin si cout
+int main()
+{
+        float a, b, c,rez;
+        cin >> a >> b >> c;
+        rez = (b * c + a * c + a * b) / (a * b * c);
+        cout << rez;
+}
+*/
+int main()
+{
+        float a, b, c, rez;
+        printf("\n a= ");
+        scanf("%f", &a);
+        printf("\n b= "); 
+        scanf("%f", &b);
+        printf("\n c= ");
+        scanf("%f", &c);
+        rez= (b * c + a * c + a * b) / (a * b * c);
+        printf("\n rezultatul calculului este = \n%.6f", rez);
+}

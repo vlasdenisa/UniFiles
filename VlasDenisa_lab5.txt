@@ -1,0 +1,237 @@
+
+//ex 1 lab 5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+float rez_serie(float r1, float r2);
+float rez_paralel(float r1, float r2);
+int main()
+{
+        float r1, r2, par, ser;
+        printf("\n rezistenta r1 este= ");
+        scanf("%f", &r1);
+        printf("\n rezistenta r2 este= ");
+        scanf("%f", &r2);
+        ser = rez_serie(r1, r2);
+        par = rez_paralel(r1, r2);
+        printf("\n rezistenta serie este= \n%.3f", ser);
+        printf("\n rezistenta paralel este= \n%6.3f", par);
+}
+float rez_paralel(float r1, float r2)
+{
+        return (r1 * r2)/(r1 + r2);
+}
+float rez_serie(float r1, float r2)
+{
+        return r1 + r2;
+}
+
+
+
+//ex2 lab5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+float rez_serie(float c1, float c2);
+float rez_paralel(float c1, float c2);
+int main()
+{
+        float c1, c2, par, ser;
+        printf("\n rezistenta c1 este= ");
+        scanf("%f", &c1);
+        printf("\n rezistenta c2 este= ");
+        scanf("%f", &c2);
+        ser = rez_serie(c1, c2);
+        par = rez_paralel(c1, c2);
+        printf("\n rezistenta serie este= %-6.4f", ser);
+        printf("\n rezistenta paralel este= %-6.4f", par);
+}
+float rez_paralel(float c1, float c2)
+{
+        return (c1 * c2) / (c1 + c2);
+}
+float rez_serie(float c1, float c2)
+{
+        return c1 + c2;
+}
+
+
+
+
+//ex3 lab5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<math.h>
+using namespace std;
+float ipotenuza(float a, float b);
+float perimetru(float a, float b,float c);
+
+int main()
+{
+        float a, b, ip, per;
+        printf("\n valoarea primei catete este= ");
+        scanf("%f", &a);
+        printf("\n valoarea celei de a doua catete este= ");
+        scanf("%f", &b);
+        ip = ipotenuza(a, b);
+        per = perimetru(a, b,ip);
+        printf("\n valoarea ipotenuzei este= %f", ip);
+        printf("\n valoarea perimetrului este= %f", per);
+}
+float ipotenuza(float a, float b)
+{
+        return sqrt(a * a + b * b);
+}
+float perimetru(float a, float b, float c)
+{
+        return a + b + c;
+}
+
+
+
+
+//ex4 lab5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+
+int main()
+{
+        float x=0,c=-1;
+        int a, b;
+        printf("\n a= ");
+        scanf("%i", &a);
+        printf("\n b= ");
+        scanf("%i", &b);
+        x = (c*b) / a;
+        printf("\n rezultatul ecuatiei este= %f", x);
+}
+
+
+
+
+
+//Ex 5 lab 5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+float rez_serie(float r1, float r2);
+float rez_paralel(float r1, float r2);
+float rez_serie(float c1, float c2);
+float rez_paralel(float c1, float c2);
+int main()
+{
+        float r1, r2,c1, c2;
+        printf("\n rezistenta r1 este= ");
+        scanf("%f", &r1);
+        printf("\n rezistenta r2 este= ");
+        scanf("%f", &r2);
+        printf("\n rezistenta serie este= \n%.3f", rez_serie(r1,r2));
+        printf("\n rezistenta paralel este= \n%6.3f", rez_paralel(r1, r2));
+        printf("\n rezistenta c1 este= ");
+        scanf("%f", &c1);
+        printf("\n rezistenta c2 este= ");
+        scanf("%f", &c2);
+        printf("\n rezistenta serie este= %-6.4f", rez_serie(c1, c2));
+        printf("\n rezistenta paralel este= %-6.4f", rez_paralel(c1, c2));
+}
+float rez_paralel(float r1, float r2)
+{
+        return (r1 * r2) / (r1 + r2);
+}
+float rez_serie(float r1, float r2)
+{
+        return r1 + r2;
+}
+
+
+
+
+
+//ex 6 lab 5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstring>
+using namespace std;
+float medieNote(float n1, float n2);
+int main()
+{
+        char nume1[255], nume2[255];
+        float n1, n2,medie;
+        printf("\n numele primului evel este: ");
+        scanf("%s", nume1);
+        printf("\n numele celui de al doilea elev este: ");
+        scanf("%s", nume2);
+        printf("\n nota primului elev este= ");
+        scanf("%f", &n1);
+        printf("\n nota celui de al doilea elev este= ");
+        scanf("%f", &n2);
+        medie = medieNote(n1, n2);
+        printf("\n primul elev %+20s", nume1);
+        printf("\n al doilea elev %+20s", nume2);
+        printf("\n media notelor este egala cu :%-.2f", medie);
+}
+float medieNote(float n1, float n2)
+{
+        return (n1 + n2) / 2;
+}
+
+
+
+
+//ex7 lab5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#define pi 3.14
+using namespace std;
+float arieC(float x);
+float lungimeC(float x);
+int main()
+{
+        float R;
+        printf("\n valoarea razei este= ");
+        scanf("%f", &R);
+        printf("\n aria cercului este= %10.3f", arieC(R));
+        printf("\n lungimea cercului este= %10.3f", lungimeC(R));
+}
+float arieC(float x)
+{
+        return pi * x * x;
+}
+float lungimeC(float x)
+{
+        return 2 * pi * x;
+}
+
+
+
+
+
+//PROBLEMA 8 LAB 5
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+int main()
+{
+        float ora1, ora2, min1, min2;
+        cout << "trenul porneste din Cluj la ora ";
+        cin >> ora1;
+        cout << "si minutul ";
+        cin>> min1;
+        cout << "trenul ajunge la Brasov la ora ";
+        cin >> ora2;
+        cout << "si minutul ";
+        cin>> min2;
+        if (min1 > min2)
+        {
+                ora2 = ora2 - 1;
+                min2 = min2 + 60;
+                cout << "trenul ajunge dupa " << ora2 - ora1 << "si" << min2 - min1 << "de minute";
+        }
+        else
+                cout << "trenul ajunge dupa" << ora1 - ora2 << "si" << min1 - min2 << "de minute";
+}

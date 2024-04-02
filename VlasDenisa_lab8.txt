@@ -1,0 +1,473 @@
+
+//Vlas Denisa ex 1 lab 8
+//1. Scrieţi un program pentru determinarea valorii medii a elementelor pozitive/negative dintr-un tablou unidimensional.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, int a[100]);
+int verif(int nr);
+int main()
+{
+	float s1, s2;
+	int n, i,sumP=0,sumN=0,contP=0,contN=0,a[100];
+	printf("\n n=");
+	scanf("%d", &n);
+	citire(n, a);
+	for (i = 0; i < n; i++)
+	{
+		if (verif(a[i]) == 1)
+		{
+			sumP += a[i];
+			contP++;
+		}
+		else
+		{
+			sumN += a[i];
+			contN++;
+		}
+	}
+	s1 = sumP / contP;
+	s2 = sumN / contN;
+	printf("\n valoarea medie a numerelor pozitive este= %f",(float) s1);
+	printf("\n valoarea medie a numerelor negative este= %.f", (float) s2);
+}
+void citire(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%d]=", i);
+		scanf("%d", &a[i]);
+	}
+}
+int verif(int nr)
+{
+	if (nr>0)
+		return 1;
+	return 0;
+}
+
+/*
+void citire(int n, int a[]);
+int medPoz(int n,int a[]);
+int medNeg(int n, int a[]);
+int main()
+{
+	int n, a[100], x, y;
+	printf("\n n= ");
+	scanf("%d", &n);
+	citire(n, a);
+	x = medPoz(n, a);
+	y = medNeg(n, a);
+	printf("\n valoarea medie a numerelor pozitive este= %f", x);
+	printf("\n valoarea medie a numerelor negative este= %f", y);
+}
+void citire(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%d]=", i);
+		scanf("%d", &a[i]);
+	}
+}
+int medPoz(int n, int a[100])
+{
+	float sum = 0, cont = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] > 0)
+		{
+			sum += a[i];
+			cont++;
+		}
+	}
+	return sum / cont;
+}
+int medNeg(int n, int a[100])
+{
+	float sum = 0, cont = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < 0)
+		{
+			sum += a[i];
+			cont++;
+		}
+	}
+	return sum / cont;
+}
+*/
+
+
+
+
+//Vlas Denisa gr 2112, ex 2 lab 8
+//2. Scrieţi un program pentru determinarea celui mai mic element pozitiv dintr-un tablou unidimensional.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, int a[100]);
+int minim(int n,int a[100]);
+int main()
+{
+	int n, i,a[100],min;
+	printf("\n n=");
+	scanf("%d", &n);
+	citire(n, a);
+	min = minim(n, a);
+	printf("\n cel mai mic element din tabloul dat este= %d", min);
+}
+void citire(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%d]=", i);
+		scanf("%d", &a[i]);
+	}
+}
+int minim(int n, int a[100])
+{
+	int min;
+	min = a[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < min)
+			min = a[i];
+	}
+	return min;
+}
+
+
+
+
+//Vlas Denisa fr 2112 ex 3 lab 8
+//3. Scrieţi o aplicatie C/C++ care citeşte de la tastatură un tablou de 10 valori intregi. Definiţi o funcţie care primeste tabloul ca parametru şi apoi îl afişeaza ordonat crescător.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, int a[100]);
+void afisare(int n, int a[100]);
+void crescator(int n, int a[100]);
+int main()
+{
+	int n, a[100];
+	printf("\n n=");
+	scanf("%d", &n);
+	citire(n, a);
+	crescator(n, a);
+	afisare(n, a);
+}
+void citire(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%d]=", i);
+		scanf("%d", &a[i]);
+	}
+}
+void afisare(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d", a[i]);
+	}
+}
+void crescator(int n, int a[100])
+{
+	int aux;
+	for (int i = 0; i < n; i++)
+		for(int j=i+1;j<n;j++)
+			if(a[i]>a[j])
+			{
+				aux = a[i];
+				a[i] = a[j];
+				a[j] = aux;
+			}
+}
+
+
+
+
+
+//Vlas Denisa gr 2112 ex 4 lab 8
+//4. Scrieţi o aplicaţie C/C++ care defineşte o parolă (in format şir de caractere). Programul citeşte în mod repetat şirurile de caractere introduse de la tastatură, până când utilizatorul scrie parola corectă.Să se afişeze numărul de incercări până la introducerea parolei corecte.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include <cstring>
+using namespace std;
+int comparare(char sir[], char parola[]);
+int main()
+{
+	char sir[255], parola[] = "parola";
+	int rez, cont = 0;
+	cout << "introdu parola: ";
+	do
+	{
+		cin >> sir;
+		rez = comparare(sir, parola);
+		if (rez)
+		{
+			cout << "Parola e introdusa corect dupa" << cont << "incercari";
+			break;
+		}
+		else
+		{
+			cout << "Parola incorecta";
+		}
+		cont++;
+	} while (true);
+}
+int comparare(char sir[], char parola[])
+{
+	int i = 0;
+	while(sir[i]!=0 && parola[i]!=0)
+	{
+		if (sir[i] != parola[i])
+			return 0;
+		i++;
+	}
+	if (sir[i] != 0 || parola[i] != 0)
+		return 0;
+	return 1;
+}
+
+
+
+
+//Vlas Denisa 2112 ex 6 lab 8
+//6. Scrieţi o aplicatie C/C++ care defineşte două matrici de valori intregi. Dimensiunea si elementele matricilor sunt citite de la tastatura.Scrieţi functiile care :
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+/*
+//incercare 1
+void citire(int n, int m, int a[100][100]);
+int main()
+{
+	int a[100][100], b[100][100];
+	int sum1, sum2,suma1,suma2, m, n, i, j, x, y;
+	printf("\n Numarul de linii este= : ");
+	scanf("%d", &n);
+	printf("\n Numarul de coloane este= : ");
+	scanf("%d", &m);
+	citire(n, m, a);
+	printf("\n Numarul de linii este= : ");
+	scanf("%d", &x);
+	printf("\n Numarul de coloane este= : ");
+	scanf("%d", &y);
+	citire(x, y, b);
+	//a) afişează poziţiile elementelor pare din fiecare matrice;
+	for (i = 0; i < n; i++)
+		for (j = 0; j < m; j++)
+		{
+			if (a[i][j] % 2 == 0)
+				printf("\n Pozitiile elem pare sunt: %d", i, j);
+		}
+	for (i = 0; i < x; i++)
+		for (j = 0; j < y; j++)
+		{
+			if (b[i][j] % 2 == 0)
+				printf("\n Pozitiile elem pare sunt: %d", i, j);
+		}
+	//b) afişează suma elementelor impare din ambele matrice;
+	sum1 = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+		{
+			if (a[i][j] % 2 == 1)
+				sum1 += a[i][j];
+		}
+	for (int i = 0; i < x; i++)
+		for (int j = 0; j < y; j++)
+		{
+			if (b[i][j] % 2 == 1)
+				sum1 += b[i][j];
+		}
+	printf("\n Suma elem impare din prima matrice este= %d",sum1);
+	//c) afişează suma matricelor;
+	suma1 = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+				suma1 += a[i][j];
+	for (int i = 0; i < x; i++)
+		for (int j = 0; j < y; j++)
+				suma1 += b[i][j];
+	printf("\n Suma elem matricelor este= %d", suma1);
+
+}
+void citire(int n, int m, int a[100][100])
+{
+	printf("\nIntroduceti elementele matricei:");
+	for (int i = 0; i < n; i++) 
+		for(int j=0;j<m;j++)
+		{
+			for (j = 0; j < n; j++) 
+			{
+				printf("\t\ta[%d,%d] = ", i + 1, j + 1);
+				scanf("%d", &a[i][j]);
+			}
+		}
+}
+*/
+
+
+
+
+//incercare 2
+void citire(int n, int m, int a[100][100]);
+void pozPare(int n, int m, int a[100][100]);
+int sumaImpare(int n, int m, int a[100][100],int b[100][100]);
+int sumaMatrice(int n, int m, int a[100][100], int b[100][100]);
+int main()
+{
+	int a[100][100], b[100][100], n,m, i, j, x, y, sumaI, sumaTot;
+	printf("\n Numarul de linii este= : ");
+	scanf("%d", &n);
+	printf("\n Numarul de coloane este= : ");
+	scanf("%d", &m);
+	citire(n, m, a);
+	printf("\n Numarul de linii este= : ");
+	scanf("%d", &x);
+	printf("\n Numarul de coloane este= : ");
+	scanf("%d", &y);
+	citire(x, y, b);
+	printf("\n pozitiile elem pare din matricea 1 sunt= : \n");
+	pozPare(n, m, a);
+	printf("\n pozitiile elem pare din matricea 2 sunt= : \n" );
+	pozPare(n, m, b);
+	sumaI=sumaImpare(n, m, a,b);
+	printf("\n Suma elem impare din matrice este = %d\n",sumaI);
+	sumaTot=sumaMatrice(n, m, a, b);
+	printf("\n Suma elem din ambele matrice este= %d\n",sumaTot);
+}
+void citire(int n, int m, int a[100][100])
+{
+	printf("\nIntroduceti elementele matricei:");
+	for (int i = 0; i < n; i++)
+	{
+		printf("\n\t Linia %d: \n", i + 1);
+		for (int j = 0; j < n; j++)
+			{
+				printf("\t\ta[%d,%d] = ", i + 1, j + 1);
+				scanf("%d", &a[i][j]);
+			}
+	}
+			
+}
+void pozPare(int n, int m, int a[100][100])
+{
+	for(int i=0;i<n;i++)
+		for (int j = 0; j < m; j++)
+		{
+			if (a[i][j] % 2 == 0)
+				printf("\n poz : %d",i+1,j=1);
+		}
+}
+int sumaImpare(int n, int m, int a[100][100], int b[100][100])
+{
+	int suma = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+		{
+			if (a[i][j] % 2 == 0)
+				suma += a[i][j];
+			if (b[i][j] % 2 == 0)
+				suma += b[i][j];
+		}
+	return suma;
+}
+int sumaMatrice(int n, int m, int a[100][100], int b[100][100])
+{
+	int suma = 0;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			suma += a[i][j] + b[i][j] ;
+	return suma;
+}
+
+
+
+
+//Vlas Denisa 2112 ex 9 lab 8
+//9. Să se scrie o aplicaţie C/C++ în care se citesc într-un tablou unidimensional “n” valori întregi şi se determină numărul elementelor negative impare.Să se afişeze acest număr şi elementele respective.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, int a[100]);
+int verif(int nr);
+int main()
+{
+	int n, i, a[100], cont = 0;
+	printf("\n n=");
+	scanf("%d", &n);
+	citire(n, a);
+	for (i = 0; i < n; i++)
+	{
+		if (verif(a[i]) == 1)
+		{
+			cont++;
+			printf("%d", a[i]);
+		}
+	}
+	printf("\n numarul de elemente negative impare este= %d",cont);
+	
+}
+void citire(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%d]=", i);
+		scanf("%d", &a[i]);
+	}
+}
+int verif(int nr)
+{
+	if (nr < 0 && nr % 2 != 0)
+		return 1;
+	else 
+		return 0;
+}
+
+
+
+
+
+//Vlas Denisa 2112 ex 11 lab 8
+//11. Se citeşte de la tastatură un şir de caractere. Scrieţi funcţia care inversează şirul şi apoi formează un alt şir de caractere ce va conţine elementele de pe poziţiile pare ale şirului inversat.Afişaţi şirurile obţinute.
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include <cstring>
+using namespace std;
+void invers(int l, char a[255]);
+int main()
+{
+	char sir[255],sir2[255];
+	int l,m,i;
+	m = 0;
+	cin.get(sir,255);
+	l = strlen(sir);
+	invers(l, sir);
+	cout << sir;
+	for (i = 0; i < l; i=i+2)
+	{
+		m++;
+		sir2[m] = sir[i];
+	}
+	for (i = 0; i <= m; i++)
+		cout << sir2;
+}
+void invers(int l , char a[255])
+{
+	int i; char aux;
+	for (i = 0; i < l / 2; i++)
+	{
+		aux= a[i];
+		a[i] = a[l - 1 - i];
+		a[l - 1 - i] = aux;
+	}
+}

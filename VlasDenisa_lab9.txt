@@ -1,0 +1,67 @@
+//Vlas Denisa 2112 ex 1 lab 9 
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+void citire(int n, int a[100]);
+int scalar(int a[100], int b[100], int n);
+int main() 
+{
+	int a[100], b[100], m, n, prod = 1;
+	printf("\n n=");
+	scanf("%d", &n);
+	printf("\n m=");
+	scanf("%d", &m);
+	citire(n, a);
+	citire(m,b);
+	prod = scalar(a, b, n);
+	printf("\n produsul scalar a celor doi vectori este = %d", prod);
+}
+int scalar(int a[100], int b[100], int n) 
+{
+	int i;
+	int produs = 1;
+	for (i = 0; i < n; i++) 
+	{
+		produs += a[i] * b[i];
+	}
+	return produs;
+}
+void citire(int n, int a[100])
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("\t a[%d]=", i);
+		scanf("%d", &a[i]);
+	}
+}
+
+
+
+
+//Vlas Denisa ex 4 lab 9 2112
+//Să se scrie un program care citeşte de la tastatură un şir de caractere, apoi elimină din şir caracterele care se repetă şi afişează în final şirul obţinut, folosind pointeri.
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+void main(void)
+{
+	char sir[225], * c = sir;
+	int asci[255], i, k = 0;
+	printf("Introduceti un sir de caractere: ");
+	scanf("%s", c);
+	while (c != NULL)
+	{
+		for (i = 0; i < strlen(c); i++)
+			for (int j = i + 1; j < strlen(c); j++)
+				if (c[i] == c[j])
+				{
+					strcpy(c, c + 1);
+				}
+	}
+	printf("%s", sir);
+}
+
+
+

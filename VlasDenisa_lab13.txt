@@ -1,0 +1,467 @@
+
+﻿//Vlas Denisa gr 2112 ex 1 lab 13
+//1. Să se scrie un program care citeşte şi apoi afişează date întregi preluate dintr-un fişier text al cărui nume este citit de la consolă.Creati in prealabil fisierul prin program.
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<iostream>
+int main() 
+{
+        FILE* ex;
+        int x;
+        ex = fopen("test.txt", "r");
+        if (!ex)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        while (fscanf(ex, "%d", &x) != EOF)
+                        printf("valoare citita= %d\n", x);
+        fclose(ex);
+        ex = fopen("test.txt", "a");
+        if (!ex) 
+        {
+                printf("\n EROARE la deschiderea fisierului in vederea adaugarii...\n");
+                exit(1);
+        }
+        fclose(ex);
+        return 0;
+}
+
+
+//test.txt
+23 4 6 4 32 3
+
+
+
+
+
+
+
+
+//Vlas Denisa gr 2112 ex 2 lab 13
+//
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+void crescator(int *a);
+void descrescator(int *a);
+int nrPare(int* a);
+
+int main()  
+{
+        FILE* fp;
+        int a[100];
+        int x;
+        fp = fopen("numere.txt", "r");
+        if (!fp)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        for (int i = 0; i < 10; i++) 
+        { 
+                fscanf(fp, "%d", a + i); 
+        }
+        int m = 0;
+        m = nrPare(a);
+        crescator(a);
+        fclose(fp);
+
+        fp = fopen("numere.txt", "w");
+        fprintf(fp, "Numerele ordonate crescator:\n\t"); 
+        for (int i = 0; i < 10; i++) 
+        { 
+                fprintf(fp, " %d", *(a + i)); 
+        }
+        fprintf(fp, "\n\nDin care %d sunt pare.\n", m);
+
+        fclose(fp);
+
+        fp = fopen("numere.txt", "a");
+        if (!fp) 
+        {
+                printf("\n EROARE la deschiderea fisierului in vederea adaugarii...\n");
+                exit(1);
+        }
+        
+        fclose(fp);
+        return 0;
+}
+void crescator(int *a)
+{
+        int aux;
+        for(int i=0;i<9;i++)
+                for(int j=i+1;j<10;j++)
+                        if (*(a+i)>*(a+j))
+                        {
+                                aux = a[i];
+                                a[i] = a[j];
+                                a[j] = aux;
+                        }
+}
+
+int nrPare(int* a)
+{
+        int cont = 0;
+        for (int i = 0; i < 10; i++)
+                if (*(a + i) % 2 == 0)
+                        cont++;
+        return cont;
+}
+void descrescator(int *a)
+{
+        int aux;
+        for (int i = 0; i < 9; i++)
+                for (int j = i + 1; j < 10; j++)
+                        if (*(a + i) < *(a + j))
+                        {
+                                aux = a[i];
+                                a[i] = a[j];
+                                a[j] = aux;
+                        }
+}
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 3 lab 13
+//3. Scrieţi un program care citeşte de la consolă n numere întregi pe care le scrie într-un fişier text cu numele citit de la tastatură.Citiţi apoi numerele din fişier, determinaţi media lor aritmetică, pe care o adăugaţi la sfârşitul fişierului şi o afişaţi şi pe ecran
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<iostream>
+using namespace std;
+
+int main()
+{
+        FILE* media;
+        int x;
+        media = fopen("ma.txt", "r");
+        if (!media)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        int cont = 0,suma=0;
+        while (fscanf(media, "%d", &x) != EOF)
+        {
+                cont++;
+                suma += x;
+        }
+        int mediaA = (float)suma / cont;
+
+        fclose(media);
+
+        media = fopen("ma.txt", "w");
+        if (!media)
+        {
+                printf("\n EROARE la deschiderea fisierului in vederea adaugarii...\n");
+                exit(1);
+        }
+        while (fscanf(media, "%d", &x) != EOF)
+                printf("valoare citita= %d\n", x);
+        fprintf(media, "media este = %f", (float)mediaA);
+        printf("\n media este= ", mediaA);
+
+        fclose(media);
+        return 0;
+}
+
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 4 lab 13
+//4. Scrieţi un program C/C++ care citeşte de la tastatură un caracter apoi scrie acest caracter într - un fişier text pe n linii, câte n caractere pe fiecare linie, n citit de la consola.
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+int main()
+{
+        FILE* f;
+        char c, sir[255];
+        int n;
+        printf("\nIntroduceti caracterul: ");
+        scanf("%c", &c);
+        printf("\nIntroduceti numarul de multiplicitate:");
+        scanf("%d", &n);
+
+        f = fopen("caracter.txt", "w");
+
+        if (!f)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        for (int i = 0; i < n; i++)
+        {
+                fprintf(f, "\n");//rand nou
+                for (int j = 0; j < n; j++)
+                {
+                        fprintf(f, "%c", c);//afisare caracter de n ori pe n linii
+                }
+        }
+
+        fclose(f);
+        f = fopen("test.txt", "a");
+        if (!f)
+        {
+                printf("\n EROARE la deschiderea fisierului in vederea adaugarii...\n");
+                exit(1);
+        }
+        fclose(f);
+        return 0;
+}
+
+
+
+
+
+
+
+﻿//Vlas Denisa gr 2112 ex 8 lab 13
+//8. Scrieţi un program care citeşte valori reale dintr-un fişier creat în prealabil si scrie într-un alt fişier partea întreagă a numerelor pozitive citite.
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int main() 
+{
+        FILE* f1, * f2; 
+        float ch;
+        f1 = fopen("test1", "r");
+        f2 = fopen("test2", "r");
+        if (!f1)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        if (!f2)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        while (fscanf(f1, "%d", &ch) != EOF)
+        {
+                ch = fgetc(f1);
+                fputc((int)ch, f2);
+        } 
+        while (fscanf(f2, "%d", &ch) != EOF)
+                printf("valoare citita= %d\n", ch);
+        fclose(f1);
+        fclose(f2);
+
+        f2 = fopen("test2.txt", "w");
+        if (!f2)
+        {
+                printf("\n EROARE la deschiderea fisierului in vederea adaugarii...\n");
+                exit(1);
+        }
+        
+        fclose(f2);
+        return 0;
+}
+
+
+
+
+
+
+
+
+//Vlas Denisa gr 2112 ex 10 lab 13
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+using namespace std;
+#include "Student.h"
+
+int main()
+{
+        struct Date_st* dp;
+        int i, n;
+        int x;
+        FILE* f;
+        char nm_f[] = "test.txt";
+        cout << "\nNumar studenti : ";
+        cin >> n;
+        if (n <= 0)
+        {
+                cout << "\n Numar invalid (negativ sau zero) !" << endl;
+                exit(1);
+        }
+        if (!(dp = new Date_st[n]))
+        {
+                cout << "Alocare nereusita!";
+                exit(1);
+        }
+
+        cout << "\n Introduceti datele studentilor :";
+        for (i = 0; i < n; i++)
+        {
+                cout << "\n Persoana: " << i + 1;
+                citDateStudent(dp + i);
+        }
+        
+        f = fopen("test.txt", "r");
+        if (!f)
+        {
+                cout<<"\n EROARE la deschiderea fisierului...";
+                exit(1);
+        }
+        fclose(f);
+
+        f = fopen("test.txt", "w");
+        cout << "\n Nota introdusa de la tastatura este= " ;
+        cin >> x;
+        fprintf(f,"\nStudentii cu media mai mare decat cea introdusa sunt:   ");
+        for (i = 0; i < n; i++)
+        {
+                
+                if ((dp + i)->medie > x)
+                        fprintf(f, "\n Studentul cu numele: %c", dp->nume);
+        }
+        
+        if (!f)
+        {
+                cout<<"\n EROARE la deschiderea fisierului in vederea adaugarii...\n";
+                exit(1);
+        }
+
+        fclose(f);
+
+        delete[] dp;
+}
+
+
+
+
+//student.h
+
+#pragma once
+
+struct Date_st
+{
+        char nume[16];
+        char prenume[20];
+        int grupa;
+        float medie;
+        void citDateStudent(Date_st*);
+        void afisDateStudent(Date_st*);
+};
+void citDateStudent(Date_st* p)
+{
+        cout << "\nNumele: ";
+        cin >> p->nume;
+        cout << "\nPrenumele: ";
+        cin >> p->prenume;
+        cout << "\nGrupa: ";
+        cin >> p->grupa;
+        cout << "\nMedia: ";
+        cin >> p->medie;
+}
+void afisare(struct Date_st* p)
+{
+        cout <<"\n Numele: "<< p->nume;
+        cout << "\n Prenumele"<< p->prenume;
+        cout << "\nGrupa din care face parte"<<p->grupa;
+        cout <<"\n Media studentului "<< p->medie;
+}
+#pragma once
+
+
+
+
+
+
+
+
+
+//Vlas Denisa gr 2112 ex 11 lab 13
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<iostream>
+using namespace std;
+
+void citire(int* a, int n);
+int main() 
+{ 
+        FILE* fp;
+        int n;
+        int *a;       
+               
+        cout << "Dimensiunea vectorului:";        
+        cin >> n;        
+        if (!(a = (int*)malloc(n * sizeof(int))))
+        { 
+                cout << "Eroare la alocarea dinamica";               
+                exit(1);
+        }        
+        cout << "Elementele vectorului sunt : \n";       
+        citire(a, n);           
+        if (!fp)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        fwrite(a, sizeof(int), n, fp);
+
+        fclose(fp);       
+
+        if (!fp)
+        {
+                perror("\n EROARE la deschiderea fisierului...");
+                exit(1);
+        }
+        fread(a, sizeof(int), n, fp);
+
+        fclose(fp);     
+
+        cout << "Elementele care sunt pare, apar pe pozitiile : \n\t";    
+        for (int i = 0; i<n;i++)
+        {  
+                if (*(a + i) % 2 == 0) 
+                { 
+                        cout << " " << i;
+                } 
+        }     
+        fclose(fp);
+        delete[]a; 
+}
+
+void citire(int* a, int n)
+{
+        for (int i = 0; i < n; i++)
+                cin >> *(a + i);
+}
+
+
+
+
