@@ -1,0 +1,253 @@
+
+// ex 1 lab 8 Vlas Denisa grupa 2122
+/*1. Folosind mecanismul preluării datelor de la tastatură cu un BufferedReader și InputStreamReader, preluați: un mesaj
+de tip String, ziua ca intreg, luna de tip String si anul ca un întreg. Procesul se va încheia în momentul trecerii la o nouă
+linie, când se va afișa fiecare câmp pe o linie separată. Afisati de asemenea toate campurile in ordinea in care au aparut.
+Recomandare: Folosiți clasa StreamTokenizer, atributele sval, nval respectiv constanta TT_EOL.
+Considerați și cazul în care nu cunoașteți natura câmpurilor introduse (numeric, cuvânt) folosind constantele
+TT_NUMBER, TT_WORD.
+*/
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Test
+{
+        public static void main (String[] args)
+        {
+                String mesaj=new String();
+                int zi,an;
+                String luna=new String();
+                
+                try
+                {
+                        BufferedReader bufRead=new BufferedReader (new InputStreamReader(System.in));
+                        System.out .println ("Introduceti mesajul:");
+                        mesaj=bufRead.readLine ();
+                        System.out .println("Mesajul scris este: "+mesaj);
+                        
+                        System.out .println ("Introduceti ziua:");
+                        zi=Integer.parseInt(bufRead.readLine());
+                        System.out.println("Ziua scrisa este: "+(zi));
+                        
+                        System.out.println ("Introduceti luna:");
+                        luna=bufRead.readLine();
+                        System.out .println("Luna scrisa este: "+luna);
+                        
+                        System.out .println ("Introduceti anul:");
+                        an=Integer.parseInt(bufRead.readLine());
+                        System.out .println("Anul scris este: "+an);
+                        
+                        bufRead.close ();
+                }
+                catch(IOException e)
+                {
+                        System.out .println("Eroare" +e);
+                }
+        }
+}
+
+
+// ex 2 lab 8 Vlas Denisa grupa 2122
+/*2. Implementați aplicația anterioară folosind un fișier de intrare care conține un anumit număr de inregistrări cu
+formatul specificat mai sus.
+*/
+
+import java.lang.String;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Test {
+        private static Scanner dis;
+
+        public static void main(String[] args) throws IOException 
+        {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                BufferedReader buff = new BufferedReader(new FileReader("fisier.dat"));
+                try
+                {
+                        while (buff.readLine() != null) 
+                        {
+                                String s = dis.nextLine();
+                                System.out.println("ziua: " + zi(s));
+                                System.out.println("luna: " + luna(s));
+                                System.out.println("an: " + an(s));
+                                System.out.println();
+                                buff.close();
+                        }
+                } 
+                catch (IOException e)
+                {
+                        System.out.println("Eroare" + e);
+                }
+        }
+
+        public static String zi(String s) 
+        {
+                String ziua = s.substring(0, 2);
+                return ziua;
+        }
+
+        public static String luna(String s) 
+        {
+                String luna = "";
+                char c;
+                for (int i = 0; i < s.length(); i++) 
+                {
+                        c = s.charAt(i);
+                        if (Character.isLetter(c))   // se verifică dacă caracterul respectiv este o literă folosind metoda isLetter() 
+                                luna += String.valueOf(c); //aduaga la sir daca e litera
+                }
+                return luna;
+        }
+        /*metoda substring() pentru a obține o porțiune din șirul de caractere "s" care începe de la 
+                 indexul (lungimea șirului "s" - 4) 
+        */
+        public static String an(String s) 
+        {
+                String an = s.substring(s.length() - 4, s.length());
+                return an;
+        }
+}
+
+
+
+//ex 5 lab 8 Vlas Denisa grupa 2122
+/*5. Scrieți o aplicație Java ce citește un set de fișiere text ce conțin informațiile studenților din anul curent. Fișierele sunt
+stocate pe sistemul local cu denumirea An_y_Grupa_xxxx.txt . Să se agregheze informația din aceste fișiere folosind
+SequenceInputStream și să se genereze un nou fișier ce conține toți studenții din anul curent ordonați alfabetic.
+*/
+
+import java.lang.String;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import java.io.SequenceInputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Test {
+        
+        public static void main(String[] args)throws IOException
+        {
+                FileInputStream in1= new FileInputStream("An_2_Grupa_2122.txt");
+                FileInputStream in2= new FileInputStream("An_2_Grupa_2123.txt");
+                SequenceInputStream seq= new SequenceInputStream(in1,in2);
+                FileOutputStream outF = new FileOutputStream("Outputfile.txt"); 
+                ArrayList<String> sir=new ArrayList<>();
+                String str1="";
+                Scanner read=new Scanner(seq);
+                while(read.hasNextLine()){
+                        str1= read.nextLine();
+                        sir.add(str1+"\n");
+                }
+                seq.close();
+                Collections.sort(sir);
+                String str2;
+            for(int i=0;i<sir.size();i++)
+            {
+                    str2=sir.get(i);
+                    outF.write(str2.getBytes());
+            }
+            
+                in1.close();
+                in2.close();
+                outF.close();
+        }
+}
+
+
+//ex 8 lab 8 Vlas Denisa grupa 2122
+/*
+8. Scrieți o aplicație Java ce citește un fișier cu următorul format:
+Să se separe informația din fișier în fișiere distincte denumite conform liniei care începe prin caracterele */
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.lang.String;
+import java.util.Scanner;
+import java.io.IOException;
+
+public class Test{
+        private static Scanner read() {
+                Scanner dis=new Scanner(System.in);
+                System.out.flush();
+                return dis;
+        }
+        public static void main(String[] args) throws IOException {
+                
+                FileInputStream inF= new FileInputStream("fisier.txt");
+            String l;
+            FileOutputStream outF1=new FileOutputStream("Out1.txt");
+            FileOutputStream outF2=new FileOutputStream("Out2.txt");
+            int i=0;
+            while(i<1) {
+                    while(read().hasNextLine()){
+                            l=read().nextLine();
+                            if(l.startsWith("*/")){
+                                    outF1 = new FileOutputStream("Out1.txt");
+                            }
+                            outF1.write(l.getBytes());
+                            i++;
+                    }
+                    if(i==1) {
+                            while(read().hasNextLine()){
+                                    l=read().nextLine();
+                                    if(l.startsWith("*/")){
+                                            outF2 = new FileOutputStream("Out2.txt");
+                                            outF2.write(l.getBytes());
+                                    }
+                            }
+                    }
+            }
+            inF.close();
+            outF1.close();
+            outF2.close();
+        }
+}
+
+//ex 3 lab 8 Vlas Denisa grupa 2122
+/*3. Se citesc de la tastatură date formatate sub forma DD/MM/YYYY. Să se afișeze sub forma DD luna YYYY, unde luna
+este forma expandată a MM și de asemenea să se afișeze și dacă anul este bisect. Programul se oprește prin apăsarea
+tastei X sau x. Puteti folosi si clasa DateFormatSymbols pentru conversia lunii.
+*/
+
+import java.text.DateFormatSymbols;
+import java.util.Scanner;
+
+public class Test {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		DateFormatSymbols symbols = new DateFormatSymbols();
+
+		while (true) {
+			System.out.print("Introduceti o data de tipul DD/MM/YYYY: ");
+			String input = scanner.nextLine();
+
+			if (input.equalsIgnoreCase("X")) {
+				break;
+			}
+
+			String[] parts = input.split("/");
+			int zi = Integer.parseInt(parts[0]); // ziua
+			int luna = Integer.parseInt(parts[1]);
+			int an = Integer.parseInt(parts[2]);
+
+			String lunaName = new String[] { "ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie",
+					"august", "septembrie", "octombrie", "noiembrie", "decembrie" }[luna];
+			System.out.println("Data: " + zi + " " + lunaName + " " + an);
+
+			if (an % 4 == 0) {
+				System.out.println(an + "Anul este bisect");
+			} else {
+				System.out.println(an + " Anul nu este bisect");
+			}
+		}
+	}
+
+}

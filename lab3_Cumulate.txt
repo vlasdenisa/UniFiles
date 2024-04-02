@@ -1,0 +1,478 @@
+
+//ex 1 lab 3 Vlas Denisa Georgiana grupa 2122
+/*1. Scrieti o aplicatie Java in care cititi o valoare intreaga. In cazul in care valoarea intreaga este cuprinsa intre 1-12
+sa se afiseze luna corespunzatoare. Considerati cazul in care valoarea introdusa este un sir de caractere si daca
+aceasta corespunde unei luni din an afisati valoarea numerica a lunii.*/
+
+import java.util.Scanner;
+import java.io.IOException;
+
+public class Calendar {
+        private static Scanner dis;
+        public static void main(String[] args) {
+                String n;
+                dis=new Scanner(System.in);
+                System.out.println("Introduceti un numar: ");
+                System.out.flush();
+                n=dis.nextLine();
+                String luna;
+                try {
+                        int m=Integer.parseInt(n);
+                
+                        switch (m) {
+                                case 1: luna="Ianuarie"; break;
+                                case 2: luna="Februarie"; break;
+                                case 3: luna="Martie"; break;
+                                case 4: luna="Aprilie"; break;
+                                case 5: luna="Mai"; break;
+                                case 6: luna="Iunie"; break;
+                                case 7: luna="Iulie"; break;
+                                case 8: luna="August"; break;
+                                case 9: luna="Septembrie"; break;
+                                case 10: luna="Octombrie"; break;
+                                case 11: luna="Noiembrie"; break;
+                                case 12: luna="Decembrie"; break;
+                                default: luna= "Numarul nu este cuprins intre 1-12.."; break;
+                        }
+                        System.out.println("Luna este: "+luna);
+                
+                }catch(NumberFormatException ioe){
+                                int l=0;
+                                switch (n) {
+                                case "Ianuarie": l=1; break;
+                                case "Februarie": l=2; break;
+                                case "Martie": l=3;; break;
+                                case "Aprilie": l=4;; break;
+                                case "Mai": l=5; break;
+                                case "Iunie": l=6; break;
+                                case "Iulie": l=7; break;
+                                case "August": l=8; break;
+                                case "Septembrie": l=9; break;
+                                case "Octombrie": l=10; break;
+                                case "Noiembrie": l=11; break;
+                                case "Decembrie": l=12; break;
+                                default: l=0; break;
+                                }
+                        System.out.println("Numarul lunii introduse este: "+l);
+                }
+        }
+}
+/*
+import java.util.Scanner;
+
+public class Luna {
+        private static Scanner dis;
+
+        public static void main(String[] args) {
+                dis = new Scanner(System.in);
+                int n;
+                System.out.print("Introduceti un numar: ");
+                System.out.flush();
+                n = dis.nextInt();
+                if(n!=0 && n<=12)
+                {
+                        if(n==1) System.out.print("Ianuarie");
+                        if(n==2) System.out.print("Februarie");
+                        if(n==3) System.out.print("Martie");
+                        if(n==4) System.out.print("Aprilie");
+                        if(n==5) System.out.print("Mai");
+                        if(n==6) System.out.print("Iunie");
+                        if(n==7) System.out.print("Iulie");
+                        if(n==8) System.out.print("August");
+                        if(n==9) System.out.print("Septembrie");
+                        if(n==10) System.out.print("Octombrie");
+                        if(n==11) System.out.print("Noiebmrie");
+                        if(n==12) System.out.print("Decembrie");
+                }
+        }
+
+}
+else System.out.print("Numarul nu este cuprins intre 1-12..");
+
+ System.out.print("Introdu o luna: "); 
+ String[] Calendar = { "Ianuarie","Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August","Septembrie", "Octombrie", "Noiembrie", "Decembrie" }; 
+ for (int i = 1; i <Calendar.length; i++) 
+ { 
+         if (Calendar[i] == "Ianuarie") 
+                 System.out.print("1");
+        if (Calendar[i] == "Februarie") 
+                System.out.print("2"); 
+        if (Calendar[i] == "Martie") 
+                System.out.print("3"); 
+        if (Calendar[i] == "Aprilie")
+                System.out.print("4"); 
+        if (Calendar[i] == "Mai") 
+                System.out.print("5"); 
+        if(Calendar[i] == "Iunie") 
+                System.out.print("6"); 
+        if (Calendar[i] == "Iulie")
+                System.out.print("7"); 
+        if (Calendar[i] == "August") 
+                System.out.print("8");
+        if(Calendar[i] == "Septembrie") 
+                System.out.print("9"); 
+        if (Calendar[i] == "Octombrie") 
+                System.out.print("10"); 
+        if (Calendar[i] == "Noiembrie")
+                 System.out.print("11"); 
+         if (Calendar[i] == "Decembrie")
+                System.out.print("12");
+ }
+
+ }
+*/
+
+
+//ex 2 lab 3 Vlas Denisa grupa 2122
+/*2. Cititi un sir de caractere de la intrarea standard. Transformati sirul intr-un tablou de caractere. Cautati in acest
+tablou un caracter specificat in program. Afisati numarul de aparitii.*/
+
+import java.util.Scanner;
+import java.lang.String;
+
+public class Caracter {
+        private static Scanner dis;
+           
+        public static void main(String[] args) {
+                Scanner dis=new Scanner(System.in);
+                System.out.flush();
+                String sir,x;
+                int ap=0;
+                System.out.println("Introduceti un sir de caractere: ");
+                sir=dis.nextLine();
+                String[] sirul;
+                sirul= sir.split("");
+                for (int i=0; i<sirul.length; i++)
+            System.out.print(sirul[i]+"   ");
+                //alegem caracterul caruia ii vrem nr de aparitii
+                System.out.println("\nIntroduceti caracterul dorit: ");
+                x=dis.nextLine();
+                //det numarul de aparitii
+                for (int i=0; i<sirul.length; i++) {
+                        if(x.equals(sirul[i])) {
+                                ap=ap+1;
+                        }
+                }
+                System.out.print("Numarul de aparitii este: "+ap);
+        }
+}
+
+
+//ex 3 lab 3 Vlas Denisa grupa 2122
+/*3. Pornind de la problema precedenta, copiati primele 3 caractere din sir intr-un alt tablou si afisati rezultatul
+obtinut (folositi metoda arraycopy() din clasa System).*/
+
+import java.util.Scanner;
+public class Caractere3 
+{
+        //functie citire sir
+        private static Scanner read() 
+        {
+                Scanner dis=new Scanner(System.in);
+                System.out.flush();
+                return dis;
+        }
+        public static void main(String[] args) 
+        {
+                String sir;
+                System.out.println("Introduceti un sir de caractere: ");
+                sir=read().nextLine();
+                String[] sirul;
+                sirul= sir.split("  ");
+                for(int i=0;i<sirul.length;i++)
+                {
+                        System.out.print(sirul[i]);
+                }
+                
+                System.out.print("\nSirul copiat este: ");
+                String[] copieArray= new String[3];
+                
+                //functia arraycopy: arraycopy(Object src, int srcPos,Object dest, int destPos, int length)
+                
+                System.arraycopy(sirul, 0, copieArray, 0, 3);
+                //afisam sirul copiat 
+                for(int i=0;i<copieArray.length;i++)
+                {
+                        System.out.print(copieArray[i]);
+                }
+        }
+}
+
+
+//ex 4 lab 3 Vlas Denisa grupa 2122
+/*4. Scrieti o aplicatie Java care defineste o valoare intreaga si apoi afiseaza reprezentarea ei binară, octală și
+hexazecimală. Scrieți metode de conversie a valorii citite în diferite baze de numeratie.*/
+
+import java.util.Scanner;
+
+public class Conversii 
+{
+        private static Scanner read()
+        {
+                Scanner dis=new Scanner(System.in);
+                System.out.flush();
+                return dis;
+        }
+        public static void main(String[] args) 
+        {
+                long n;
+                System.out.print("Valoarea lui n este: ");
+                n=read().nextLong();
+                long m;
+                long baza, x=0, p10=1;
+                System.out.print("Convertim numarul in baza 2: ");
+                baza=2;
+                m=n;//facem copie numarului 
+                while(m!=0) 
+                {
+                        x=x+p10*(m%baza);
+                        p10=p10*10;
+                        m=m/baza;
+                }
+                System.out.print(x);
+                System.out.print("\n");
+                System.out.print("Convertim numarul in baza 8: ");
+                m=n; 
+                x=0; 
+                p10=1;
+                baza=8;
+                while(m!=0) 
+                {
+                        x=x+p10*(m%baza);
+                        p10=p10*10;
+                        m=m/baza;
+                }
+                System.out.print(x);
+                System.out.print("\n");            
+        }
+}
+
+
+
+//ex 5 Vlas Denisa grupa 2122
+/*5. Implementati algoritmii cunoscuti de ordonare a sirurilor numerice (bubble sort, insertion sort, quick sort, etc.)
+si aplicati-i asupra unui sir de valori intregi citite de la tastatura.*/
+
+//Bubble sort
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Ordonare {
+        static Scanner dis = new Scanner(System.in);
+
+        public static void main(String[] args) {
+                int numar, nr;
+                System.out.println("Introduceti lungimea sirului: ");
+                nr = dis.nextInt();
+                int numere[] = new int[nr];
+                System.out.println("Introduceti numerele: ");
+                for (int i = 0; i < numere.length; i++) 
+                {
+                        numar = dis.nextInt();
+                        numere[i] = numar;
+                }
+                // Vector nesortat
+                System.out.println("Numerele din tabloul initial sunt: ");
+                for (int it : numere)
+                        System.out.print(" " + it);
+                //Bubble sort
+                int j, i;
+                for (i = 0; i < numere.length - 1; i++) 
+                {
+                        for (j = i + 1; j < numere.length; j++) 
+                        {
+                                if (numere[i] > numere[j]) 
+                                {
+                                        int aux = numere[i];
+                                        numere[i] = numere[j];
+                                        numere[j] = aux;
+                                }
+                        }
+                }
+                System.out.println("");
+                System.out.println("Bubble sort: ");
+
+                for (int i1 = 0; i1 < numere.length; i1++)
+                        System.out.print(" " + numere[i1]);
+        }
+}
+
+
+/*
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Ordonare
+{
+        static Scanner dis = new Scanner(System.in);
+
+        public static void main(String[] args)
+        {
+                int numar, nr;
+                System.out.println("Introduceti lungimea sirului: ");
+                nr = dis.nextInt();
+                int numere[] = new int[nr];
+                System.out.println("Introduceti numerele: ");
+                for (int i = 0; i < numere.length; i++) 
+                {
+                        numar = dis.nextInt();
+                        numere[i] = numar;
+                }
+                // Vector nesortat
+                System.out.println("Numerele din tabloul initial sunt: ");
+                for (int it : numere)
+                        System.out.print(" " + it);
+                int[] copieSir = new int[nr];
+                System.arraycopy(numere, 0, copieSir, 0, nr);
+                // insertion sort
+                System.out.print("\n");
+                System.out.print("Insertion sort: ");
+                int k, j;
+                for (int i = 1; i < nr; i++)
+                {
+                        k = copieSir[i];
+                        j = i - 1;
+                        while (j >= 0 && copieSir[j] > k)
+                        {
+                                copieSir[j + 1] = copieSir[j];
+                                j = j - 1;
+                        }
+                        copieSir[j + 1] = k;
+                }
+                for (int i = 0; i < nr; i++) {
+                        System.out.print(copieSir[i] + " ");
+                }
+}*/
+
+
+//ex 6 lab 3 Vlas Denisa grupa 2122
+/*6. Scrieti un program Java care genereaza 2 valori aleatoare si efectueaza asupra lor cateva operatii matematice.*/
+
+import java.math.*;
+import java.util.Scanner;
+
+public class Matematica {
+        
+        public static void main(String[] args) 
+        {
+              Double a = Math.random();
+              System.out.println("Primul numar random: " + a);
+              Double b = Math.random();
+              System.out.println("Al doilea numar random: " + b);
+              System.out.println("Suma este: "+(a+b));
+              System.out.println("Diferenta este: "+(a-b));
+              System.out.println("Produsul este: "+(a*b));
+              System.out.println("Impartirea este: "+(a/b));
+        }
+}
+
+
+
+//ex 8 lab 3 Vlas Denisa Georgiana grupa 2122
+/*8. Sa se citeasca de la tastatura elementele unei matrice de valori intregi cu m linii (m preluat din linia de
+comanda). Pentru fiecare linie numarul de elemente va creste cu 1 fata de linia precedenta, prima linie avand
+doar un element.
+Sa se implementeze metodele care:
+�' afiseaza matricea linie cu linie, apoi coloana cu coloana;
+�' elimina din matrice (egalizeaza cu 0) valorile care nu sunt cuprinse intre doua limite specificate
+�' afiseaza vecinii existenti ai unui element a carui indecsi sunt trimisi ca parametri*/
+
+import java.util.Scanner;
+
+public class matrice 
+{
+        private static int lines;
+        private static Scanner dis;
+    
+    
+        private static void vecini(int i,int j, int [][]mat)
+        {
+                if(i>1) 
+                {
+                        System.out.print("Vecin 1: "+mat[i-1][j]);
+                }
+                if(i<lines) 
+                {
+                        System.out.print("Vecin 2: "+mat[i+1][j]);
+                }
+                if(j>1) 
+                {
+                        System.out.print("Vecin 3: "+mat[i][j-1]);
+                }
+                if(j<lines) 
+                {
+                        System.out.print("Vecin 4: "+mat[i][j+1]);
+                }
+        }
+        public static void main(String[] args) 
+        {
+        Scanner dis=new Scanner(System.in);
+        System.out.flush();
+        
+                System.out.print("Introduceti nr de linii: ");
+                lines=dis.nextInt();
+                int x;
+                int j;
+                int [][]mat=new int[lines+1][lines+1];
+                for(int i=1;i<=lines;i++) 
+                {
+                        x=i;
+                        j=1;
+                        System.out.print("Introduceti elementele liniei "+i+" :");
+                        while(x!=0) 
+                        {
+                                mat[i][j]=dis.nextInt();
+                                x--;
+                                j++;
+                        }
+                }
+                System.out.println("Afisare dupa linii: ");
+                for(int i=1;i<=lines;i++) {
+                        System.out.println("Linia "+i+" : ");
+                        for( j=1;j<=i;j++) {
+                        System.out.println(mat[i][j]+" ");
+                        }
+                }
+                System.out.println("Afisare dupa coloane: ");
+                int i;
+                for(j=1;j<=lines;j++) 
+                {
+                        System.out.println("Coloana"+j+" : ");
+                        for(i=j;i<=lines;i++)
+                        {
+                        System.out.println(mat[i][j]+" ");
+                        }
+                }
+                int n,m;
+                n=dis.nextInt();
+                m=dis.nextInt();
+                int aux;
+                if(n>m) 
+                {
+                        aux=n;
+                        n=m;
+                        m=aux;
+                }
+                for(i=1;i<=lines;i++) 
+                {
+                        for(j=1;j<=i;j++) 
+                        {
+                                if(mat[i][j]<n || mat[i][j]>m) 
+                                {
+                                        mat[i][j]=0;
+                                }
+                        }
+                }
+                System.out.println("Matricea dupa verificarea elementelor in limite: \n");
+                for(i=1;i<=lines;i++) 
+                {
+                        for(j=1;j<=i;j++) 
+                        {
+                                System.out.print(mat[i][j]+" ");
+                        }
+                        System.out.print("\n");
+                }
+                vecini(2,2,mat);
+        }
+}

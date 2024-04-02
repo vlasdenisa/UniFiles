@@ -1,0 +1,261 @@
+
+//ex 1 lab 9 Vlas Denisa grupa 2122
+/*1. Să se creeze o aplicație Java în cadrul căreia există o clasă ce implementează interfața Runnable. Constructorul clasei
+permite definirea unui nume asociat fiecărui obiect instanțiat din clasa respectivă și de asemenea clasa are un atribut
+static ce contorizează numărul de obiecte instanțiate. Metoda run( ) a clasei va afișa numele obiectului de un număr de
+ori egal cu valoarea contorului și cu o întârziere de 1000 msec între afișări.
+Dintr-o clasă separată, creați mai multe fire de execuție cu obiecte diferite din clasa descrisă anterior și analizați
+rezultatele afișate.*/
+
+import java.util.concurrent.TimeUnit;
+
+class Thread2 extends Thread
+{
+        public void run() 
+        {
+        System.out.println("MyThread running");
+        }
+}
+class Runnable2 implements Runnable{
+        public static int nr;
+        String nume;
+        Runnable2(String nume){
+                this.nume=nume;
+                nr++;
+        }
+        public void run(){
+                for (int i = 1; i <= nr; i++) {
+            System.out.println(nume + ", nr: " + i);
+            try 
+            {
+                    TimeUnit.SECONDS.sleep(1);
+            } 
+            catch (InterruptedException e) 
+            {
+                e.printStackTrace();
+            }
+        };
+                }
+}
+
+public class Test {
+
+        public static void main(String[] args) {
+                // TODO Auto-generated method stub
+                Thread thread = new Thread2();
+                Thread thread1 = new Thread(new Runnable2("Mesaj1"));
+                Thread thread2 = new Thread(new Runnable2("Mesaj2"));
+                Thread thread3 = new Thread(new Runnable2("Mesaj3"));
+                Thread thread4 = new Thread(new Runnable2("Mesaj4"));
+                
+                thread.start();
+                thread1.start();
+                thread2.start();
+                thread3.start();
+                thread4.start();
+        }
+
+}
+
+
+//ex 2 lab 9 Vlas Denisa grupa 2122
+/*2. Scrieti o aplicatie Java in care un fir de executie genereaza 30 numere aleatoare intre 0 si 30 si un alt fir de executie
+afiseaza aria cercului cu raza generata de primul fir de executie, daca aceasta raza este divizibila cu 3.
+*/
+
+class MyRunnable implements Runnable
+{
+public void run(){
+System.out.println("MyRunnable running");
+}
+}
+
+class MyThread extends Thread{
+@Override
+public void run(){
+System.out.println("MyThread running");
+}
+}
+
+
+import java.util.Random;
+
+public class Test 
+{
+    public static void main(String[] args) 
+    {
+        Random rand = new Random();
+        //instantiere fir de executie propriu
+        Thread thread1 = new MyThread();
+        //utilizare clasa proprie care implementeaza Runnable
+        thread1.start();
+        
+            for (int i = 1; i <= 30; i++) 
+            {
+                int r = rand.nextInt(31);
+                System.out.println("Radius: " + r);
+                //se verifica daca raza e divizibila cu 3
+                if (r % 3 == 0) 
+                {
+                        //instantiere fir de executie propriu
+                        Thread thread2 = new Thread(new MyRunnable());
+                        //utilizare clasa proprie care implementeaza Runnable
+                    thread2.start();
+                    
+                    double area = Math.PI * r * r;
+                    System.out.println("Aria cercului cu raza " + r + " este " + area);
+                   
+                    thread2.start();
+                    try 
+                    {
+                        thread2.join();
+                    } 
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+//ex 3 lab 9 Vlas Densia grupa 2122
+
+/* Scrieti o clasa pentru determinarea unui element din sirul lui Fibonacci. In clasa vor fi 2 metode, una care calculeaza
+valoarea elementului si alta care afiseaza acea valoare. Folositi mecanismul de multithreading cu sincronizare, astfel
+incat in timp ce un fir de executie realizeaza calculul, celalalt sa afiseze valorile intermediare (toate componentele sirului
+pana la elementul calculat).*/
+
+import java.util.*;
+
+import java.util.concurrent.*;
+
+class Fibonacci implements Callable<Integer> 
+{
+        Integer fs = 1;
+
+        public Fibonacci(int n)
+        {
+                Integer f1 = 0, f2 = 1;
+                for (int i = 0; i < n - 1; i++)
+                {
+                        System.out.println("Element intermediar: " + fs);
+                        fs = f1 + f2;
+                        f1 = f2;
+                        f2 = fs;
+                }
+        }
+
+        public Integer call() throws Exception {
+                System.out.println("Nr fibonacci - " + fs);
+                return fs;
+        }
+}
+
+public class Test 
+{
+        private static Scanner read() 
+        {
+                Scanner dis = new Scanner(System.in);
+                System.out.flush();
+                return dis;
+        }
+
+        public static void main(String[] args) throws Exception
+        {
+                ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+                List<Future<Integer>> resultList = new ArrayList<>();
+                Integer n;
+                System.out.println("Introduceti indexul nr din sirul Fibonacci: ");
+                n = read().nextInt();
+                Fibonacci calculator = new Fibonacci(n);
+                Future<Integer> result1 = executor.submit(calculator);
+                resultList.add(result1);
+                for (Future<Integer> future : resultList) 
+                {
+                        try
+                        {
+                                System.out.println("Future result is - " + future.get() + "; And Task done is " + future.isDone());
+                        } 
+                        catch (InterruptedException | ExecutionException e)
+                        {
+                                e.printStackTrace();
+                        }
+                }
+                executor.shutdown();
+        }
+}
+
+
+//ex 5 lab 9 Vlas Denisa grupa 2122
+/*Scrieți o aplicație Java ce calculează cel mai mare divizor comun a două numere mari (>100.000). Aplicația va citi de la 
+tastatură în mod continuu perechi de câte două numere și va lansa în execuție câte un thread pentru fiecare pereche 
+citită. Rezultatele vor fi afișate în consolă în momentul finalizării metodei de calcul a cmmdc.*/
+
+import java.util.*;
+
+class Cmmdc extends Thread {
+        int a, b;
+        public Cmmdc(int a, int b) {
+                this.a = a;
+                this.b = b;
+        }
+        //determinarea cmmdc ului
+        public void cmmdc() {
+                int aux1, aux2;
+                aux1 = a;
+                aux2 = b;
+                while (a != b) {
+                        if (a >= b)
+                                a -= b;
+                        else
+                                b -= a;
+                }
+                System.out.println("cmmdc(" + aux1 + "; " + aux2 + ")= " + b);
+        }
+}
+
+public class Test 
+{
+        private static Scanner dis;
+
+        public static void main(String[] args) throws Exception 
+        {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                int x, y;
+                int ok = 1;
+                System.out.println("Introduceti perechea " + ok);
+                System.out.print("x=");
+                x = dis.nextInt();
+                System.out.print("y=");
+                y = dis.nextInt();
+                
+                Cmmdc calc = new Cmmdc(x, y);
+                //se determina cmmdc ul dintre doua numere citite de la tastatura
+                while (x != 0 && y != 0) 
+                {
+                        Thread t = new Thread(new Runnable() {
+                                public void run() 
+                                {
+                                        calc.cmmdc();
+                                }
+                        });
+                        t.start();
+                        t.join();
+                        ok++;
+                        
+                        System.out.println("Introduceti perechea " + ok);
+                        System.out.print("x=");
+                        x = dis.nextInt();
+                        System.out.print("y=");
+                        y = dis.nextInt();
+                        calc.a = x;
+                        calc.b = y;
+                }
+                System.out.println("Finalizare!!");
+        }
+}

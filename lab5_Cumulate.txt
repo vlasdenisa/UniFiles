@@ -1,0 +1,339 @@
+
+//ex 1'' lab 5 Vlas Denisa grupa 2122
+
+public interface Interfata1 {
+        double adunare(double a,double b);
+}
+
+public interface Interfata2 {
+        double scadere(double a, double b);
+}
+
+public interface Interfata3 {
+        double inmultire(double a, double b);
+}
+
+public interface Interfata4 {
+        double impartire(double a, double b);
+}
+
+
+class Operatii implements Interfata1, Interfata2, Interfata3, Interfata4 {
+        public double adunare(double a, double b) {
+                System.out.println(" Adunarea numerelor: ");
+                return a + b;
+        }
+
+        public double scadere(double a, double b) {
+                System.out.println(" Scaderea numerelor: ");
+                return a - b;
+        }
+
+        public double inmultire(double a, double b) {
+                System.out.println(" Inmultirea numerelor: ");
+                return a * b;
+        }
+
+        public double impartire(double a, double b) {
+                System.out.println(" Impartirea numerelor: ");
+                return a / b;
+        }
+}
+
+
+import java.math.*;
+import java.util.Scanner;
+
+class Test {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                double x;
+                double y;
+                System.out.print("Introducem valoarea x: ");
+                x = dis.nextDouble();
+                System.out.print("Introducem valoarea y: ");
+                y = dis.nextDouble();
+
+                Operatii ob1= new Operatii(); //se creaza referinta
+                System.out.println(ob1.adunare(x, y));
+                System.out.println(ob1.scadere(x, y));
+                System.out.println(ob1.inmultire(x, y));
+                System.out.println(ob1.impartire(x, y));
+                
+                Interfata1 ad = (a,b)->a+b;
+                System.out.println("Suma(datorita implementarii lambda): " + ad.adunare(x, y));
+                Interfata2 sc=(a,b)->a-b;
+                System.out.println("Scaderea(datorita implementarii lambda): " + sc.scadere(x, y));
+                Interfata3 in=(a,b)->a*b;
+                System.out.println("Inmultirea(datorita implementarii lambda): " + in.inmultire(x, y));
+                Interfata4 imp=(a,b)->a/b;
+                System.out.println("Impartirea(datorita implementarii lambda): " + imp.impartire(x, y));
+        }
+}
+
+
+
+//ex 1' lab 5 Vlas Denisa grupa 2122
+/*1’. În loc de o interfață care conține toate metodele menționate anterior, să se implementeze 4 interfețe funcționale,
+câte una pentru fiecare metodă.
+Interfețele vor fi implementate în cadrul unei singure clase. Instanțiați clasa și verificați operațiile implementate.*/
+
+import java.math.*;
+import java.util.Scanner;
+public interface Interfata1 {
+        double adunare(double a,double b);
+}
+public interface Interfata2 {
+        double scadere(double a, double b);
+}
+
+public interface Interfata3 {
+        double inmultire(double a, double b);
+}
+
+public interface Interfata4 {
+        double impartire(double a, double b);
+}
+class Operatii implements Interfata1, Interfata2, Interfata3, Interfata4 {
+        public double adunare(double a, double b) {
+                System.out.println(" Adunarea numerelor: ");
+                return a + b;
+        }
+
+        public double scadere(double a, double b) {
+                System.out.println(" Scaderea numerelor: ");
+                return a - b;
+        }
+
+        public double inmultire(double a, double b) {
+                System.out.println(" Inmultirea numerelor: ");
+                return a * b;
+        }
+
+        public double impartire(double a, double b) {
+                System.out.println(" Impartirea numerelor: ");
+                return a / b;
+        }
+}
+
+class Test {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                double x;
+                double y;
+                System.out.print("Introducem valoarea x: ");
+                x = dis.nextDouble();
+                System.out.print("Introducem valoarea y: ");
+                y = dis.nextDouble();
+
+                Operatii ob1= new Operatii();
+                System.out.println(ob1.adunare(x, y));
+                System.out.println(ob1.scadere(x, y));
+                System.out.println(ob1.inmultire(x, y));
+                System.out.println(ob1.impartire(x, y));
+                
+        }
+}
+
+
+
+ //ex 1 lab 5 Vlas Denisa grupa 2122
+/*1. Să se implementeze o interfață Java care conține prototipurile metodelor de adunare, scădere, înmulțire, împărțire,
+radical și ridicare la putere. Toate metodele vor avea doi parametri de tip double și vor specifica tipul returnat double.
+Implementați interfața astfel încât operațiile să fie definite în cadrul unei clase. Instanțiați clasa și verificați operațiile
+implementate.*/
+
+import java.math.*;
+import java.util.Scanner;
+
+interface Interfara1 {
+        double adunare(double a, double b);
+        double scadere(double a, double b);
+        double inmultire(double a, double b);
+        double impartire(double a, double b);
+        double radical(double a, double b);
+        double putere(double a, double b);
+}
+public class Operatii implements Interfara1 {
+
+        public double adunare(double a, double b) {
+                System.out.println(" Adunarea numerelor: ");
+                return a + b;
+        }
+
+        public double scadere(double a, double b) {
+                System.out.println(" Scaderea numerelor: ");
+                return a - b;
+        }
+
+        public double inmultire(double a, double b) {
+                System.out.println(" Inmultirea numerelor: ");
+                return a * b;
+        }
+
+        public double impartire(double a, double b) {
+                System.out.println(" Impartirea numerelor: ");
+                return a / b;
+        }
+
+        public double radical(double a, double b) {
+                System.out.println(" Radical a+b: ");
+                return java.lang.Math.sqrt(a + b);
+        }
+
+        public double putere(double a, double b) {
+                System.out.println(" A la puterea B: ");
+                while (b != 0) 
+                {
+                        a = a * a;
+                        b = b - 1;
+                }
+                return a;
+        }
+}
+
+
+class Test {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                double x;
+                double y;
+                System.out.print("Introducem valoarea x: ");
+                x = dis.nextDouble();
+                System.out.print("Introducem valoarea y: ");
+                y = dis.nextDouble();
+
+                Operatii ob1= new Operatii();
+                System.out.println(ob1.adunare(x, y));
+                System.out.println(ob1.scadere(x, y));
+                System.out.println(ob1.inmultire(x, y));
+                System.out.println(ob1.impartire(x, y));
+                System.out.println(ob1.radical(x, y));
+                System.out.println(ob1.putere(x, y));
+        }
+}
+
+
+
+
+//ex 2 lab 5 Vlas Denisa grupa 2122
+/*2. Definiți o interfață denumită FormaGeometrica care are 2 metode care primesc ca parametru o valoare integer și
+returnează o valoare double reprezentînd aria, respectiv perimetrul unei forme geometrice echilaterale.
+Implementați interfața în 3 clase distincte pentru forme concrete de tip pătrat, triunghi echilateral și hexagon regulat.
+Se preiau datele pentru un număr N de forme geometrice de fiecare tip.
+Să se calculeze aria și perimetrul total al formelor geometrice, ținând cont că acestea nu se suprapun*/
+
+import java.math.*;
+import java.util.Scanner;
+
+public interface FormaGeometrica{
+        double arie(int latura);
+        double perimetru(int latura);
+}
+
+public class Hexagon implements FormaGeometrica 
+{
+        public double arie(int latura) 
+        {
+                return (3 * Math.sqrt(3) / 2) * latura * latura;
+        }
+
+        public double perimetru(int latura) 
+        {
+                return 6 * latura;
+        }
+}
+
+public class Patrat implements FormaGeometrica{
+        public double arie(int latura) 
+        {
+                return latura*latura;
+        }
+        public double perimetru(int latura) 
+        {
+                return 4*latura;
+        }
+
+}
+
+public class Triunghi implements FormaGeometrica
+{
+        public double arie(int latura) 
+        {
+                return ((latura*latura)*Math.sqrt(3))/4;
+        }
+        public double perimetru(int latura) 
+        {
+                return 3*latura;
+        }
+}
+public class Test {
+        private static Scanner dis;
+
+        public static void main(String args[])
+        {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                
+                Patrat patrat = new Patrat();
+                Triunghi triunghi = new Triunghi();
+                Hexagon hexagon = new Hexagon();
+                
+                double ariaTotala = 0;
+                double perimetrulTotal = 0;
+                System.out.println("Introduceti nr de forme geometrice de fiecare tip: ");
+                int nr = dis.nextInt();
+                int latura;
+                for (int i = 0; i < nr; i++) 
+                {
+                        System.out.println("Introduceti lungimea laturii " + (i + 1) + ": ");
+                        latura = dis.nextInt();
+                        
+                        ariaTotala = ariaTotala + patrat.arie(latura) + triunghi.arie(latura) + hexagon.arie(latura);
+                        
+                        perimetrulTotal = perimetrulTotal + patrat.perimetru(latura) + triunghi.perimetru(latura) + hexagon.perimetru(latura);
+                }
+                System.out.println("Aria totala a formelor geometrice este: " + ariaTotala);
+                System.out.println("Perimetrul total al formelor geometrice este: " + perimetrulTotal);
+        }
+}
+
+
+//ex 5 lab 5 Vlas Denisa grupa 2122
+/*5. Definiți un sir de elemente de tip String. Folosind expresii lambda, ordonați-l după următoarele metode: lungime (mic-
+>mare), inversul lungimii (mare->mic), ordine alfabetică, șirurile de caractere ce încep cu litera M vor fi primele, urmate
+de restul șirurilor.
+*/
+
+import java.util.*;
+
+public class Sortare 
+{
+        public static void main(String[] args) 
+        {
+                List<String> strings = Arrays.asList("Ananas", "Banana", "Mango", "Mar", "Portocala", "Merisoare","Capsuni");
+                System.out.println("Lista data: " + strings);
+
+                // sortare dupa lungime e (mic->mare)
+                Collections.sort(strings, (s1, s2) -> s1.length() - s2.length());
+                System.out.println("Sortare dupa lungimea fiecarui sir: " + strings);
+
+                // sortare dupa inversul lungimii (mare->mic)
+                Collections.sort(strings, (s1, s2) -> s2.length() - s1.length());
+                System.out.println("Sortare dupa inversul lungimii (mare->mic): " + strings);
+
+                // sortare alfabetica
+                Collections.sort(strings);
+                System.out.println("Sortare alfabetica: " + strings);
+
+        }
+}

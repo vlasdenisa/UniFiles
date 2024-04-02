@@ -1,0 +1,521 @@
+
+//ex 1 lab 4 Vlas Denisa, Rad Amalia, grupa 2122
+/*1. Scrieți o clasă Methods in care să aveți 3 metode: o metodă cu număr variabil de parametri de tip intreg, care
+returnează media aritmetică a parametrilor; o altă metodă în care să definiți un tablou unidimensional de n
+numere de tip double (n fiind parametrul metodei și care va fi citit în main() de la tastatură), elementele acestuia
+vor primi valori generate aleator și metoda va returna acest tablou; o metodă statică ce primește ca parametru
+un tablou de caractere, convertește caracterele respective în majuscule și formează din acest șir un obiect
+String, pe care îl returnează. Din metoda main(), definită intr-o altă clasă, apelați metodele clasei Methods și
+afișați rezultatele pe ecran (valorile de apel pentru prima metodă și șirul de caractere cu care se apelează a 3-a
+metodă se vor defini în main()).*/
+
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Methods_01 {
+        public double m1(int... valori) 
+        {
+                double sum = 0;
+                int rez = valori.length;
+                for (int i = 0; i < valori.length; i++) {
+                        sum = sum + valori[i];
+                }
+                return (sum / rez);
+        }
+
+        void m2(int s[], int n) {
+                Random rand = new Random();
+                System.out.println("Sirul random este:");
+                int i, a = 0, b = 30;
+                for (i = 0; i < n; i++) {
+
+                        s[i] = rand.nextInt(a, b);
+                        System.out.println(" " + s[i]);
+                }
+        }
+
+        public void m3(String[] args) {
+                Scanner scan = new Scanner(System.in);
+
+                System.out.print("Introduceti numarul elementelor: ");
+                int n = scan.nextInt();
+                scan.nextLine(); // clear
+
+                System.out.println("Introduceti " + n + " elemente: ");
+                String array[] = new String[n];
+                for (int i = 0; i < n; i++) {
+                        array[i] = scan.nextLine();
+                }
+                System.out.println("Tabloul de elemente este: " + Arrays.toString(array));
+
+                for (int i = 0; i < n; i++) {
+                        array[i] = array[i].toUpperCase();
+                }
+                System.out.println("Dupa transformarea in litere mari: " + Arrays.toString(array));
+                scan.close();
+        }
+}
+
+
+//ex 3 lab 4 Vlas Denisa grupa 2122
+/*3. Scrieți o clasă Java care modelează o matrice de valori întregi. Atât dimensiunile matricii cât și tabloul
+bidimensional de elemente sunt atribute private în clasă, accesate prin intermediul unor metode publice setter
+și getter. Includeți în clasă metode de afișare a matricii, de calcul și retur a numărului de grupuri de elemente (9
+valori învecinate), care nu diferă cu mai mult de 5% față de un anumit prag. */
+
+import java.util.Scanner;
+
+class Matrix
+{
+        private int length;
+        private int width;
+           private int[][] matrice;
+           public void setLength(int l)
+           {
+                   length=l;
+           }
+        public int getLenght()
+        {
+                   return length;
+           }
+           public void setWidth(int w)
+           {
+                   width=w;
+           }
+           public int getWidht()
+           {
+                   return width;
+           }
+           public void setMatrice(int l,int w,int[][] a)
+           {
+                   length=l;
+                   width=w;
+                   matrice=a;
+           }
+        public int[][]getMatrice()
+        {
+                return matrice;
+        }
+        public void displayMatrice()
+        {
+                System.out.println("Matricea este: ");
+                for(int i=0;i<length;i++)
+                {
+                        for(int j=0;j<width;j++)
+                        {
+                                System.out.print(matrice[i][j]+" ");
+                        }
+                        System.out.println();
+                }
+        }
+        public int Grup(int prag)
+        {
+                int gr=0,cnt=0;
+                for(int i=0;i<length;i++)
+                {
+                        for(int j=0;j<width;j++)
+                        {        
+                                if(cnt==9)
+                                {
+                                        cnt=0;
+                                        gr++;
+                                }
+                                /*
+                                if(matrice[i][j]>=95.0*prag/100.0 && matrice[i][j]<=105.0*prag/100.0)
+                                {
+                                        cnt++;
+                                }
+                                else 
+                                        cnt=0;*/
+                        }
+                }
+                if(cnt==9)
+                {
+                        cnt=0;
+                        gr++;
+                }
+                return gr;
+        }
+}
+
+public class Matrice 
+{
+        private static Scanner dis;
+
+    public static void main(String args[]) 
+    {
+            dis = new Scanner(System.in);
+            System.out.flush();
+            
+                int n,m;
+                Matrix mat=new Matrix();
+                
+                System.out.println("Introduceti lungimea matricii: ");
+                n=dis.nextInt();
+                mat.setLength(n);
+                
+                System.out.println("Introduceti latimea matricii: ");
+                m=dis.nextInt();
+                mat.setWidth(m);
+                
+                //afisam elementele matricii 
+                System.out.println("Elementele matricii: ");
+                int[][] a = new int[n][m];
+                   for(int i=0;i<n;i++)
+                   {
+                           for(int j=0;j<m;j++)
+                           {
+                                   a[i][j]=dis.nextInt();                              
+                           }
+                   }
+                   
+                   mat.setMatrice(n, m, a);
+                   mat.displayMatrice();
+                   int grp=mat.Grup(2);
+                   System.out.println(grp);
+        }
+}
+
+//ex 4 lab 4 Vlas Denisa grupa 2122
+/*4. Scrieți o clasă Java numită Persoană cu atributele private: nume (String), latitudine și longitudine (float). Clasa
+conține un constructor explicit fără parametri care inițializează numele cu null și latitudinea și longitudinea cu 0.
+Metoda finalize() va fi implementată pentru a afișa un mesaj la distrugerea obiectelor. Atributele clasei se pot
+modifica prin metodele mutator specifice setNume(), setLatitudine() și setLongitudine(). Atributele vor fi
+returnate prin metode accesor specifice. Instanțiați n obiecte, citiți și setati valorile atributelor, apoi afișați
+datele tuturor obiectelor.*/
+
+
+import java.util.Scanner;
+import java.lang.Math;
+
+class Person 
+{
+        private String nume;
+        private float lat, lon;
+        public Person() 
+        {
+                nume=null;
+                lat=0;
+                lon=0;
+        }
+        public void setNume(String nume) 
+        {
+                this.nume = nume;
+        }
+        public String getNume() 
+        {
+                return nume;
+        }
+        public void setLat(float lat) 
+        {
+                this.lat=lat;
+        }
+        public float getLat() 
+        {
+                return lat;
+        }
+        public void setLon(float lon) 
+        {
+                this.lon=lon;
+        }
+        public float getLon() 
+        {
+                return lon;
+        }
+        public void display()
+        {
+                System.out.println("Numele persoanei este: "+nume);
+                System.out.println("Latitudinea este: "+lat);
+                System.out.println("Longitudinea este: "+lon);
+                System.out.println();
+        }
+        public void finalize() 
+        {
+                System.out.println("Se distrug ob...");
+        }
+} 
+
+public class Test
+{
+        private static Scanner dis;
+    
+    public static void main(String[] args) 
+    {
+        Scanner dis=new Scanner(System.in);
+        System.out.flush();
+                String []nume= new String[20];
+                Person ob = new Person();
+                System.out.println("Introduceti numarul de persoane: ");
+                int n=dis.nextInt();
+                float []lat=new float[100];
+                float []lon=new float[100];
+                for(int i=0;i<n;i++) 
+                {
+                        System.out.println("Introduceti numele, latitudinea si longitudinea persoanei "+(i+1)+": ");
+                        
+                        nume[i]=dis.nextLine();
+                        lat[i]=dis.nextFloat();
+                        lon[i]=dis.nextFloat();
+                        
+                        ob.setNume(nume[i]);
+                        ob.setLat(lat[i]);
+                        ob.setLon(lon[i]);
+                        ob.display();
+                }
+                ob.finalize();
+                System.gc();
+        }
+}
+
+
+//ex 5 lab 4 Vlas Denisa grupa 2122
+/*5. Construiti o aplicatie Java care sa testeze diferite metode ale clasei String (join(), chars(), lines(), repeat(),
+transform(), formatted(), etc.)
+*/
+
+import java.util.stream.Stream;
+
+/*
+// Class
+public class Metode
+{
+        public static void main(String[] args)
+        {
+
+                // Custom input string
+                String str= " Denisa \n este \n la \r Technical \r\n University";
+
+                // Generating stream of lines from string
+                // using line method
+                Stream<String> lines = str.lines();
+                lines.forEach(System.out::println);
+        }
+}
+*/
+
+/*
+ //formatted()
+public class Metode
+{ 
+        public static void main(String[] args) 
+        { 
+                
+                int a = 25; 
+                
+                int b = -50;
+                
+                int largeNumber = 0; 
+                if(a>b)
+                { 
+                        //if a is greater than b assign it to largeNumber variable 
+                        largeNumber = a; 
+                }
+                else 
+                { 
+                        //if a is less than b then assign b to largeNumber variable 
+                        largeNumber = b; 
+                } 
+                
+                String largeNumberString = String.format("|%5d|",largeNumber); 
+                // print variable String largeNumberString 
+                System.out.println("Variable largeNumber Value --->" + largeNumberString); 
+        } 
+}
+*/
+
+//join()
+public class Metode
+{
+    public static void main(String args[])
+    {
+        // delimiter is "<" and elements are "Four", "Five", "Six", "Seven"
+        String gfg1 = String.join(" < ", "Four", "Five", "Six", "Seven");
+  
+        System.out.println(gfg1);
+    }
+}
+
+
+
+//ex 6 lab 4 Vlas Denisa gtrupa 2122
+/*6. Definiți un șir unidimensional de valori de tip char, având numărul mai mic sau cel mult egal cu un n citit de la
+tastatură. Fiecare valoare conține valori alfa-numerice generate aleator. Transformați șirul de caractere într-un
+obiect de tip String. Afișați valoarea inițială și apoi valoarea obținută prin înlocuirea fiecărui caracter numeric cu
+‘*’. */
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class Caracter
+{
+private static Scanner dis;
+    
+    public static void main(String[] args) 
+    {
+        Scanner dis=new Scanner(System.in);
+        System.out.flush();
+        
+        Random rand= new Random();
+        System.out.println("Introduceti nr de elemente: ");
+        int n=dis.nextInt();
+        char[] sir=new char[n];
+        for(int i = 0; i < n; i++)
+        {
+            sir[i] =(char) (48 + rand.nextInt(74));
+        }
+        String str=new String(sir);
+        System.out.println("Sirul generat este: "+ str);
+        str=str.replaceAll("[0-9]","*");
+        System.out.println("Sirul dupa schimbarea cifrelor in '*': "+ str);
+    }
+}
+
+
+//ex 9 lab 4 Vlas Denisa grupa 2122
+/*9. Să se definească o clasa numita Student cu atributele private nume, nr. tel si media (constructori, metode setter
+și getter). În metoda main (inclusă într-o altă clasă) se crează un tablou unidimensional de obiecte de tip
+Student, cu lungimea specificată de catre utilizator. Citirea datelor fiecărui student se face în formatul
+nume^^^nr_tel^^^media. Dacă informația specifică numarului de tel. nu este validă (10 caractere numerice, cu
+sau fară caractere speciale de tip spațiu, - sau .), se cere reintroducerea întregului șir de caractere. Să se
+ordoneze și să se afișeze studenții după nume și după medie.
+*/
+
+import java.util.Scanner;
+import java.util.Random;
+import java.util.*;
+
+class Student {
+        private String nume;
+        private String nrTel;
+        private float media;
+        private ArrayList lista;
+        public Student() {
+                nume = null;
+                nrTel = null;
+                media = 0;
+        }
+
+        public Student(String n, String nr, float m) {
+                nume = n;
+                nrTel = nr;
+                media = m;
+        }
+
+        public void setName(String nume) {
+                this.nume = nume;
+        }
+
+        public String getName() {
+                return nume;
+        }
+
+        public void setNrTel(String nr) {
+                nrTel = nr;
+        }
+
+        public String getNrTel() {
+                return nrTel;
+        }
+
+        public void setMedie(float media) {
+                this.media = media;
+        }
+
+        public float getMedie() {
+                return media;
+        }
+
+        public void setStudent(String n, String nrT, float m) {
+                nume = n;
+                nrTel = nrT;
+                media = m;
+        }
+
+        public void display() {
+                System.out.println(nume + "^^^" + nrTel + "^^^" + media);
+        }
+
+        public void finalize() {
+                System.out.println("Distrugerea ob...");
+        }
+
+        class ComparatorNume {
+                public int compare(Object o1, Object o2) {
+                        Student s1 = (Student) o1;
+                        Student s2 = (Student) o2;
+                        return s1.nume.compareTo(s2.nume);
+                }
+        }
+
+        class ComparatorMedie {
+                public float compare(Object o1, Object o2) {
+                        Student s1 = (Student) o1;
+                        Student s2 = (Student) o2;
+                        return s1.media - s2.media;
+                }
+        }
+}
+
+        public void ordonare_medie()
+        {
+                Collections.sort(lista, new ComparatorMedie());
+        }
+
+        public void ordonare_alfabetic() 
+        {
+                Collections.sort(lista, new ComparatorNume());
+        }
+
+public class TestElevi {
+        private static Scanner dis;
+
+        public static void main(String[] args) {
+                Scanner dis = new Scanner(System.in);
+                System.out.flush();
+
+                String[] nume = new String[20];
+                Student ob = new Student();
+
+                System.out.println("Introduceti nr de studenti: ");
+                int n = dis.nextInt();
+                String[] nrTel = new String[20];
+                float[] media = new float[100];
+                for (int i = 0; i < n; i++) {
+                        System.out.println("Introduceti numele, nr de telefon si media studentului " + (i + 1) + ": ");
+                        int ok = 0;
+                        nume[i] = dis.nextLine();
+                        nrTel[i] = dis.nextLine();
+                        media[i] = dis.nextFloat();
+                        while (ok == 0) 
+                        {
+                                if (nrTel[i].length() == 10)
+                                {
+                                        System.out.println("Numarul de telefon e corect!");
+                                        ok = 1;
+                                } 
+                                else 
+                                {
+                                        System.out.println("Introduceti iar nr de telefon al studentului " + (i + 1) + ": ");
+                                        nrTel[i] = dis.nextLine();
+                                }
+                        }
+                        ob.setName(nume[i]);
+                        ob.setNrTel(nrTel[i]);
+                        ob.setMedie(media[i]);
+                        ob.display();
+                }
+                ob.ordonare_alfabetic ();
+                 System.out.println("----------------------------");
+                 System.out.println ("Ordonare dupa nume:");
+                 System.out.println("----------------------------");
+                 ob.display ();
+                ob.ordonare_medie ();
+                 System.out.println("----------------------------");
+                 System.out.println ("Ordonare dupa medie:");
+                 System.out.println("----------------------------");
+                 ob.display ();
+                ob.finalize();
+
+        }
+}

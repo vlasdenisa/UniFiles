@@ -1,0 +1,155 @@
+
+//ex 1 lab 10 Vlas Denisa grupa2122
+
+/*1.Scrieți o aplicație de tip Frame în care afișați într-un Panel numele vostru și grupa din care faceți parte. Textul va fi de
+culoare albastră și centrat atât pe orizontală, cât și pe verticală, ținând cont de dimensiunea panelului.*/
+
+import java.awt.*;
+import javax.swing.*;
+
+class Test extends JFrame 
+{
+
+    private JFrame frame = new JFrame("Test");
+    private JPanel panel = new JPanel();
+    private JLabel label = new JLabel("VlasDenisa, grupa 2122");
+
+    public Test() 
+    {
+        panel.setLayout(new GridBagLayout());
+        label.setForeground(Color.blue);
+        panel.add(label); //adauga eticheta
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        frame.add(panel);
+        frame.setSize(400, 400);
+        frame.setVisible(true); ////afisarea ferestrei
+    }
+
+    public static void main(String[] args)
+    {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                    Test text=new Test();
+            }
+        });
+    }
+}
+
+
+//ex 2 lab 10 Vlas Denisa grupa 2122
+/*2. Scrieți o aplicație de tip Frame care va desena într-un Canvas un cerc de culoare roșie tangent la dimensiunea cea mai
+mică (înălțime, lățime) a componentei Canvas.*/
+
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+public class Test extends Canvas
+{
+        public void paint(Graphics g) 
+        {
+                super.paint(g);
+                int diameter = Math.min(getWidth(), getHeight());
+                int x= (getWidth()-diameter)/2;
+                int y=(getHeight()-diameter)/2;
+                g.setColor(Color.RED);
+                g.fillOval(x,y,diameter,diameter);
+}
+        public static void main(String[] args) {
+                JFrame frame = new JFrame("Cerc");
+                frame.add(new Test());
+                frame.setSize(600, 600);
+                frame.setVisible(true);
+        }
+
+}
+
+
+//ex 3 lab 10 Vlas Denisa grupa 2122
+/*3. Scrieți o aplicație de tip Frame ce afișează o imagine stocată local sub care este afișat și numele fișierului din care
+provine, cu un font stabilit în prealabil și o culoare creată printr-o combinație de trei valori întregi (reprezentând
+cantitățile de roșu, verde și albastru).
+*/
+
+import java.io.File;
+import java.io.IOException;
+import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.Dimension;
+
+public class Test{
+        public static void main(String[] args){
+                try {
+                        String image= "poza.jpg";
+                        BufferedImage myPicture = ImageIO.read(new File(image));
+                        JLabel label = new JLabel(new ImageIcon(myPicture));
+                        JPanel jPanel = new JPanel();
+                        jPanel.add(label);
+                        JFrame f = new JFrame();
+                        f.setSize(new Dimension(myPicture.getWidth()-150, myPicture.getHeight()-150));
+                        JLabel newlabel = new JLabel(image + "=>dimensiune: " + myPicture.getHeight() + "x" + myPicture.getWidth(), JLabel.CENTER);
+                        f.add(newlabel,BorderLayout.SOUTH);
+                        f.add(jPanel);
+                        f.setVisible(true);
+                        f.setLocationRelativeTo(null);
+                } 
+                catch (IOException e) {}
+        }
+}
+
+
+// ex 6 lab 10 Vlas Denisa grupa 2122
+/*6. Creați o aplicație Java de tip Frame ce desenează o mașină schematică. Folosiți culori diferite pentru mașină, roți și
+text*/
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Car extends JPanel 
+{
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 300;
+
+    public Car() 
+    {
+        setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // masina
+        g.setColor(Color.RED);
+        g.fillRect(50, 100, 300, 100);
+
+        // rotile
+        g.setColor(Color.BLACK);
+        g.fillOval(75, 200, 50, 50);
+        g.fillOval(275, 200, 50, 50);
+
+        //textul
+        g.setColor(Color.BLUE);
+        g.drawString("Car Drawing", 150, 50);
+    }
+
+    public static void main(String[] args)
+    {
+        JFrame frame = new JFrame("Car Drawing");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new Car());
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}

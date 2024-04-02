@@ -1,0 +1,277 @@
+
+//ex 1 lab 7 Vlas Denisa grupa 2122
+/*1. Creați o interfață denumită Generator<T> cu singura metodă next(T var). Implementați interfața pentru a permite
+generarea valorilor următoare în cazul aplicării asupra unor variabile de tipuri de date concrete (Integer, Character, etc.).
+Instanțierea clasei se va face în cadrul metodei main( ), care va fi poziționată într-o clasă distinctă.*/
+
+public interface Generator<T> {
+        T next(T var);
+}
+
+public class Next<T> implements Generator<T> 
+{
+
+        @SuppressWarnings("unchecked")
+        public Object next(Object var)
+        {
+                return var;
+        }
+}
+
+public class Test {
+        public static void main(String[] args) 
+        {
+                Next type = new Next();
+                Object obj1= 56, obj2= 145.26, obj3= "String";
+                System.out.println("The object " + type.next(obj1) + " is from class: " + type.next(obj1).getClass());
+                System.out.println("The object " + type.next(obj2) + " is from class: " + type.next(obj2).getClass());
+                System.out.println("The object " + type.next(obj3) + " is from class: " + type.next(obj3).getClass());
+                
+        }
+}
+
+//ex 2 lab 7 Vlas Denisa grupa 2122
+/*2. Creați o clasă Calculator ce are implementate metode de adunare, scădere, înmulțire și împărțire. Metodele vor avea
+ca intrare tipuri de date generice și vor returna rezultatul conform acestor date. De exemplu, suma a doi întregi va
+returna tot un întreg, pentru două numere de tip float se va returna tot un float. Aplicarea metodelor de adunare și
+scădere este permisă și pe variabile de tip String, restul operațiilor fiind interzise pt. acest tip de date (mesaj de eroare). */
+
+
+public class Calculator<T extends Number> {
+        double a,b;
+        public double adunare(double a, double b) {
+                System.out.println(" Adunarea numerelor: ");
+                return a + b;
+        }
+
+        public double scadere(double a, double b) {
+                System.out.println(" Scaderea numerelor: ");
+                return a - b;
+        }
+
+        public double inmultire(double a, double b) {
+                System.out.println(" Inmultirea numerelor: ");
+                return a * b;
+        }
+
+        public double impartire(double a, double b) {
+                System.out.println(" Impartirea numerelor: ");
+                return a / b;
+        }
+
+}
+
+import java.util.Scanner;
+
+class Test {
+    
+        public static void main(String[] args) {
+                Calculator<Integer> obj1 = new Calculator<>();
+                System.out.println("suma 1: " + obj1.adunare(6, 8)); 
+                System.out.println("diferenta 1: " + obj1.scadere(6, 8));
+                System.out.println("inmultirea 1: " + obj1.inmultire(6, 8));
+                System.out.println("impartirea 1: " + obj1.impartire(6, 8));
+                
+                Calculator<Float> obj2 = new Calculator<>();
+                System.out.println("suma 2: " + obj2.adunare(10.4, 8.5));
+                System.out.println("diferenta 2: " + obj2.scadere(10.4, 8.5));
+                System.out.println("inmultirea 2: " + obj2.inmultire(10.4, 8.5));
+                System.out.println("impartirea 2: " + obj2.impartire(10.4, 8.5));
+                
+        }
+}
+
+
+
+//ex 4 lab 7 Vlas Denisa grupa 2122
+/*4. Implementati o clasa numita UserFile (denumire, extensie, tip, marime in bytes, constructori, mutatori si accesori).
+Tipurile de fisiere sunt predefinite si stocate intr-un obiect Hashtable (de ex. „imagine” =>0, „text” =>1, „aplicatie” =>2,
+etc.). Creați un șir de obiecte instanțiate din această clasă și citiți de la tastatură datele aferente. Afișați toate extensiile
+specifice tipurilor de fișiere predefinite. Ordonați lista de fișiere în funcție de mărime si afișați rezultatul.
+*/
+
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Scanner;
+public class UserFile {
+    private String den, ext, tip;
+    long mar;
+
+    public UserFile(String den, String ext, String tip, Long mar) {
+        this.den = den;
+        this.ext = ext;
+        this.tip = tip;
+        this.mar = mar;
+    }
+
+    public void setDen(String den) {
+        this.den = den;
+    }
+
+    public String getDen() {
+        return den;
+    }
+
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
+
+    public String getExt() {
+        return ext;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setMar(long mar) {
+        this.mar = mar;
+    }
+
+    public long getMar() {
+        return mar;
+    }
+}
+
+public class Test {
+        private static Scanner dis;
+
+        public static void main(String args[]) 
+        {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                
+                int n, i;
+                String den = null, ext = null, tip = null;
+                long mar = 0;
+                System.out.print("Introduceti n(n>0): ");
+                n = dis.nextInt();
+                UserFile[] fis = new UserFile[n];
+                for (i = 0; i < n; i++) {
+                        System.out.print("Introduceti denumirea: ");
+                        den = dis.next();
+
+                        System.out.print("Introduceti extensia: ");
+                        ext = dis.next();
+
+                        System.out.print("Tip: ");
+                        tip = dis.next();
+
+                        System.out.print("Marime in bytes: ");
+                        mar = dis.nextLong();
+
+                        UserFile file = new UserFile(den, ext, tip, mar);
+                        System.out.println(file.getDen() + " => ");
+                        System.out.print(file.getExt() + " => ");
+                        System.out.print(file.getTip() + " => ");
+                        System.out.print(file.getMar() + " => ");
+                        fis[i] = new UserFile(den, ext, tip, mar);
+
+                }
+
+        }
+}
+
+
+
+//ex 5 lab 7 Vlas Denisa grupa 2122
+/*5. Scrieti o clasa Student cu campurile private nume, grupa, media, si metode getter/setter pentru campuri. In main(),
+plasata in alta clasa, creati o colectie de tip SortedSet, cu obiecte de tip Student, initializate cu valori citite de la tastatura,
+care sa pastreze elementele descrescator dupa medie si crescator dupa nume (cei care au aceeasi medie sa fie in ordine
+alfabetica). Parcurgeti cu for-loop colectia si afisati toate elementele. Parcurgeti apoi colectia cu un iterator si afisati toti
+studentii cu media >=8. Parcurgeti colectia cu forEach() si afisati toate datele studentilor dintr-o anumita grupa.
+Complexitate ****/
+
+import java.util.Scanner;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+public class Student 
+{
+        String nume;
+        int grupa;
+        float medie;
+        Student(String n, int gr, float m) 
+        {
+                nume = n;
+                grupa = gr;
+                medie = m;
+        }
+        public void setNume(String n) 
+        {
+                nume = n;
+        }
+        public String getNume() 
+        {
+                return nume;
+        }
+        public void setGrupa(int gr)
+        {
+                grupa = gr;
+        }
+        public int getGrupa() 
+        {
+                return grupa;
+        }
+        public void setMedie(float m) 
+        {
+                medie = m;
+        }
+        public float getMedie() 
+        {
+                return medie;
+        }
+        public String toString() 
+        {
+                return "Numele este: " + nume + ", Grupa este: " + grupa + ", Media este: " + medie + ")";
+        }
+
+}
+
+public class Test {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis = new Scanner(System.in);
+                System.out.flush();
+                
+                String nume;
+                int gr;
+                float med;
+                System.out.print("Introduceti nr de studenti: ");
+                int n;
+                n = dis.nextInt();
+                
+                Student s[] = new Student[n];
+                //ordonare în funcție de media fiecărui student, de la cel mai mare la cel mai mic
+                //Comparator.comparing(Student::getMedie).reversed() este utilizat pentru a specifica ordinea de sortare
+                SortedSet<Student> ord_med = new TreeSet<>(Comparator.comparing(Student::getMedie).reversed());
+                
+                // ordonare în funcție de numele fiecărui student, în ordine alfabetica
+                SortedSet<Student> ord_nume = new TreeSet<>(Comparator.comparing(Student::getNume));
+                
+                System.out.print("Introduceti datele studentiilor: ");
+                for (int i = 0; i < n; i++) 
+                {
+                        System.out.print("\nIntroduceti numele studentului: ");
+                        nume = dis.next();
+                        System.out.print("Introduceti grupa studentului: ");
+                        gr = dis.nextInt();
+                        System.out.print("Introduceti media studentului: ");
+                        med = dis.nextFloat();
+                        ord_med.add(new Student(nume, gr, med));
+                        ord_nume.add(new Student(nume, gr, med));
+                }
+                
+                System.out.println("Studentii sortati dupa medie: ");
+                ord_med.forEach(System.out::println);
+                System.out.println("Studentii sortati dupa nume: ");
+                ord_nume.forEach(System.out::println);
+        }
+}

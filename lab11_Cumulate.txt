@@ -1,0 +1,383 @@
+
+//ex 1 lab 11 Vlas Denisa grupa 2122
+/*1. Implementați o aplicație Java care folosește GridLayout pentru aranjarea în pagină a componentelor unei aplicații de
+calcul (TextField pt. intrare/ieșire, butoane pentru numere, operații matematice, ștergerea ecranului, etc.).
+*/
+
+//metoda 1
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Calculator {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Calculator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6,5,4,4)); // Utilizarea GridLayout
+
+        JTextField text = new JTextField();
+        panel.add(text);
+
+        JButton del = new JButton("C");
+        panel.add(del);
+
+        JButton b7 = new JButton("7");
+        panel.add(b7);
+
+        JButton b8 = new JButton("8");
+        panel.add(b8);
+
+        JButton b9 = new JButton("9");
+        panel.add(b9);
+
+        JButton imp = new JButton("/");
+        panel.add(imp);
+
+        JButton b4 = new JButton("4");
+        panel.add(b4);
+
+        JButton b5 = new JButton("5");
+        panel.add(b5);
+
+        JButton b6 = new JButton("6");
+        panel.add(b6);
+
+        JButton inm = new JButton("*");
+        panel.add(inm);
+
+        JButton b1 = new JButton("1");
+        panel.add(b1);
+
+        JButton b2 = new JButton("2");
+        panel.add(b2);
+
+        JButton b3 = new JButton("3");
+        panel.add(b3);
+
+        JButton scd = new JButton("-");
+        panel.add(scd);
+
+        JButton b = new JButton("0");
+        panel.add(b);
+
+        JButton egal = new JButton("=");
+        panel.add(egal);
+
+        JButton adun = new JButton("+");
+        panel.add(adun);
+        
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
+
+
+/*metoda 2
+import java.awt.*;
+import javax.swing.*;
+
+public class Calculator extends JFrame 
+{
+    
+    JButton applyButton = new JButton("Apply gaps");
+    GridLayout experimentLayout = new GridLayout(4,4);
+    
+    public Calculator() {
+        super("Calculator");
+        setResizable(false);
+    }
+    
+    public void addComponentsToPane(final Container pane) 
+    {
+        final JPanel compsToExperiment = new JPanel(experimentLayout);
+        JPanel controls = new JPanel(new GridLayout());
+        TextField tf = new TextField();
+        controls.add(tf);
+        JButton b = new JButton("Just fake button");
+        Dimension buttonSize = b.getPreferredSize();
+        compsToExperiment.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 2.5) + 20,(int)(buttonSize.getHeight() * 2.5) + 40));
+        compsToExperiment.add(new JButton("0"));
+        compsToExperiment.add(new JButton("Delete"));
+        compsToExperiment.add(new JButton("="));
+        compsToExperiment.add(new JButton("+"));
+        compsToExperiment.add(new JButton("1"));
+        compsToExperiment.add(new JButton("2"));
+        compsToExperiment.add(new JButton("3"));
+        compsToExperiment.add(new JButton("-"));
+        compsToExperiment.add(new JButton("4"));
+        compsToExperiment.add(new JButton("5"));
+        compsToExperiment.add(new JButton("6"));
+        compsToExperiment.add(new JButton("*"));
+        compsToExperiment.add(new JButton("7"));
+        compsToExperiment.add(new JButton("8"));
+        compsToExperiment.add(new JButton("9"));
+        compsToExperiment.add(new JButton("/"));
+        //se va apela metoda layoutContainer(compsToExperiment) a obiectului experimentLayout
+        //actualizarea aranjamentului componentelor din panoul compsToExperiment
+        applyButton.addActionListener(e -> experimentLayout.layoutContainer(compsToExperiment));
+        
+        //plasează panoul de control în partea superioară a ferestrei
+        pane.add(controls, BorderLayout.NORTH);
+        
+        //plasează panoul cu butoanele calculatorului în partea inferioară a ferestrei
+        pane.add(compsToExperiment, BorderLayout.SOUTH);
+        
+        //adaugă un separator orizontal în partea centrală a containerului pane
+        pane.add(new JSeparator(), BorderLayout.CENTER);
+    }
+    
+    private static void createAndShowGUI() {
+        Calculator frame = new Calculator();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frame.addComponentsToPane(frame.getContentPane());
+        
+        frame.pack();
+        frame.setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        try 
+        {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } 
+        catch (UnsupportedLookAndFeelException ex) {
+                 ex.printStackTrace();
+                 }
+                catch (IllegalAccessException ex) {
+                 ex.printStackTrace();
+                 }
+                catch (InstantiationException ex) {
+                 ex.printStackTrace();
+                 }
+                catch (ClassNotFoundException ex) {
+                 ex.printStackTrace();
+                 }
+
+                 createAndShowGUI();
+    }//main
+
+    
+}
+*/
+
+
+//ex 2 lab 11 Vlas enisa grupa 2122
+/* Implementați o aplicație Java care folosește GridBagLayout pentru aranjarea în pagină a componentelor unei aplicații de calcul 
+(TextField pt. intrare/ieșire, butoane pentru numere, operații matematice, ștergerea ecranului, etc.).*/
+
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Calculator {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Calculator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gr = new GridBagConstraints();
+        
+        gr.fill = GridBagConstraints.HORIZONTAL;
+        gr.ipadx = 20;
+        gr.ipady = 40;
+
+        JTextField text=new JTextField();
+        gr.gridx = 0;
+        gr.gridy =0;
+        gr.gridwidth = 3;
+        panel.add(text, gr);
+        
+        JButton del= new JButton("C");// Butonul de ștergere
+        gr.gridx = 3;
+        gr.gridy = 0;
+        panel.add(del, gr);
+
+        JButton b7= new JButton("7");
+        gr.gridx = 0;
+        gr.gridy = 1;
+        gr.gridwidth = 1;
+        panel.add(b7, gr);
+
+        JButton b8= new JButton("8");
+        gr.gridx = 1;
+        gr.gridy = 1;
+        panel.add(b8, gr);
+
+        JButton b9= new JButton("9");
+        gr.gridx = 2;
+        gr.gridy = 1;
+        panel.add(b9, gr);
+
+        JButton imp= new JButton("/");
+        gr.gridx = 3;
+        gr.gridy = 1;
+        panel.add(imp, gr);
+
+        JButton b4= new JButton("4");
+        gr.gridx = 0;
+        gr.gridy = 2;
+        panel.add(b4, gr);
+
+        JButton b5= new JButton("5");
+        gr.gridx = 1;
+        gr.gridy = 2;
+        panel.add(b5, gr);
+
+        JButton b6= new JButton("6");
+        gr.gridx = 2;
+        gr.gridy = 2;
+        panel.add(b6, gr);
+
+        JButton inm= new JButton("*");
+        gr.gridx = 3;
+        gr.gridy = 2;
+        panel.add(inm, gr);
+
+        JButton b1= new JButton("1");
+        gr.gridx = 0;
+        gr.gridy = 3;
+        panel.add(b1, gr);
+
+        JButton b2= new JButton("2");
+        gr.gridx = 1;
+        gr.gridy = 3;
+        panel.add(b2, gr);
+
+        JButton b3= new JButton("3");
+        gr.gridx = 2;
+        gr.gridy = 3;
+        panel.add(b3, gr);
+
+        JButton scd= new JButton("-");
+        gr.gridx = 3;
+        gr.gridy = 3;
+        panel.add(scd, gr);
+
+        JButton b= new JButton("0");
+        gr.gridx = 0;
+        gr.gridy = 4;
+        gr.gridwidth = 2;
+        panel.add(b, gr);
+
+        JButton egal= new JButton("=");        
+        gr.gridx = 2;
+        gr.gridy = 4;
+        gr.gridwidth = 1;
+        panel.add(egal, gr);
+
+        JButton adun= new JButton("+");
+        gr.gridx = 3;
+        gr.gridy = 4;
+        panel.add(adun, gr);
+        
+        JButton delete = new JButton("000"); 
+        gr.gridx = 0;
+        gr.gridy = 5;
+        gr.gridwidth = 4;
+        panel.add(delete, gr);
+
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
+
+
+
+//ex 3 lab 11 Vlas Denisa grupa 2122
+/*3. Implementați o aplicație de tip TabbedView care afișează în fiecare panou grafic:
+- o zonă de desenare
+- componente pentru selectarea tipului de font, a mărimii de font și a culorii textului
+- componente pentru alegerea unei forme geometrice (dintr-un set predefinit) și a mărimii laturii / razei (după caz)
+*/
+
+import java.awt.*;
+import javax.swing.*;
+
+public class MyFrame {
+        final static String DRAWINGZONE="Drawing Zone";
+    final static String TEXTRELATED = "Text options";
+    final static String SHAPE = "Shape and size";   
+    
+    final static int extraWindowWidth = 100;
+    public void addComponent(Container pane) {
+    JTabbedPane tabbedView = new JTabbedPane();
+    
+    JPanel draw = new JPanel() 
+    {
+            public Dimension getPreferredSize() {
+                    Dimension size = super.getPreferredSize();
+                size.width += extraWindowWidth;
+                return size;
+            }
+        };
+        
+    JPanel text = new JPanel();
+    JPanel font = new JPanel();
+    font.add(new JLabel("Font Style: "));
+    String fonts[]= {"Times New Roman","Calibri","Algerian","Arial","Verdana"};
+    JComboBox<String> f= new JComboBox<String>(fonts);
+    f.setVisible(true);
+    font.add(f);
+    
+    JPanel fontSize = new JPanel();
+    fontSize.add(new JLabel("Size: "));
+    String dimensions[]= {"8","10","12","14","18","22","24","30"};
+    JComboBox<String> s = new JComboBox<String>(dimensions);
+    s.setVisible(true);
+    fontSize.add(s);
+    
+    JPanel fontColor = new JPanel();
+    fontColor.add(new JLabel("Colors: "));
+    String colors[]= {"Red","Green","Purple","Blue","Yellow","Black","Pink"};
+    JComboBox<String> c = new JComboBox<String>(colors);
+    c.setVisible(true);
+    fontColor.add(c);
+    
+    text.add(font);
+    text.add(fontSize);
+    text.add(fontColor);
+    
+    tabbedView.addTab(DRAWINGZONE, draw);
+    tabbedView.addTab(TEXTRELATED, text);
+    
+    pane.add(tabbedView, BorderLayout.CENTER);
+}
+
+    private static void createAndShowGUI() {
+            JFrame frame = new JFrame("TabbedViewApp");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        MyFrame demo= new MyFrame();
+        demo.addComponent(frame.getContentPane());
+        frame.pack();
+        frame.setVisible(true);
+     }
+    
+    public static void main(String[] args) 
+    {
+            try 
+            {
+                    UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (UnsupportedLookAndFeelException ex) {
+                ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+        }
+        createAndShowGUI();
+    }
+}

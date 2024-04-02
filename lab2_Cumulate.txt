@@ -1,0 +1,251 @@
+
+//ex 1 lab 2 Vlas Denisa Georgiana grupa 2122
+//1. Verificati functionalitatile mediului Eclipse considerand aplicatii stand-alone minimale cu operatii de I/E
+/*a)
+//import java.io.DataInputStream;
+import java.io.*;
+import java.lang.String;
+import java.io.IOException;
+
+public class LeapYear {
+        public static void main(String args[]) {
+                // DataInputStream dis = new DataInputStream(System.in);
+                BufferedReader dis = new BufferedReader(new InputStreamReader(System.in));
+                String Syear = null;
+                System.out.print("Enter a year: ");
+                System.out.flush();
+                try {
+                        Syear = dis.readLine();
+                } catch (IOException ioe) {
+                        System.out.println(ioe.toString());
+                        System.exit(1);
+                }
+                long year = Long.parseLong(Syear);
+                System.out.println("year is " + year);
+                if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+                        System.out.println(year + " is a leap year!");
+                else
+                        System.out.println(year + " is NOT a leap year.");
+        }
+}
+*/
+
+
+//b)
+//import java.io.DataInputStream;
+import java.util.Scanner;
+
+// import java.lang.String;
+// import java.io.IOException;
+public class LeapYear {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                // DataInputStream dis = new DataInputStream(System.in);
+                dis = new Scanner(System.in);// System.in is an InputStream
+                String Syear = null;
+                System.out.print("Enter a year: ");
+                System.out.flush();
+                // try {
+                // Syear = dis.readLine();
+                Syear = dis.next();
+                // } catch (IOException ioe)
+                // {
+                // System.out.println(ioe.toString());
+                // System.exit(1);
+                // }
+                long year = Long.parseLong(Syear);
+                System.out.println("year is " + year);
+                if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+                        System.out.println(year + " is a leap year!");
+                else
+                        System.out.println(year + " is NOT a leap year.");
+        }
+}
+
+
+//ex 2 lab 2 Vlas Denisa Georgiana grupa 2122
+//2. Scrieti o aplicatie Java in care se citeste de la tastatura o valoare intreaga si se afiseaza factorialul numarului citit.
+
+import java.util.Scanner;
+import java.lang.String;
+
+public class Factorial 
+{
+        private static Scanner dis;
+
+        public static void main(String args[]) 
+        {
+                dis = new Scanner(System.in);
+                System.out.print("Introdu un numar: ");
+                System.out.flush();
+                int a = 1;
+                int n;
+                n = dis.nextInt();
+                while (n != 0) 
+                {
+                        a = a * n;
+                        n = n - 1;
+                }
+                System.out.println("Factorialul numarului dat este: " + a);
+
+        }
+}
+
+/*import java.util.Scanner;
+
+public class Factorial {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis= new Scanner(System.in);
+                int n=Integer.parseInt(args[0]);
+                int a=1;
+                System.out.print("Introdu un numar: ");
+                System.out.flush();
+                n=dis.nextInt();
+                while(n!=0)
+                {
+                        a=a*n;
+                        n=n-1;
+                }        
+                System.out.printIn("Factorialul numarului dat este: "+ a);
+        }
+
+}
+*/
+
+
+//ex 3 lab 2 Vlas Denisa Georgiana grupa 2122 
+//3. Scrieti o aplicatie Java in care se citesc de la tastatura 2 valori intregi si se afiseaza cmmdcul valorilor.
+
+import java.util.Scanner;
+import java.lang.String;
+
+public class cmmdc 
+{
+        private static Scanner dis;
+
+        public static void main(String args[]) 
+        {
+                dis = new Scanner(System.in);
+                System.out.print("Introdu doua numere: ");
+                System.out.flush();
+                int nr2;
+                int nr1;
+                int r;
+                nr1 = dis.nextInt();
+                nr2 = dis.nextInt();
+                while(nr1 != 0)
+            {
+                r = nr2 % nr1;
+                nr2 = nr1;
+                nr1 = r;
+            }
+                System.out.println("Cmmdc ul este: " + nr2);
+
+        }
+}
+
+
+//ex 4 lab 2 Vlas Denisa Georgiana grupa 2122
+//4. Scrieti o aplicatie Java in care cititi de la tastatura un numar intreg si afisati toti divizorii numarului citit.
+
+import java.util.Scanner;
+import java.lang.String;
+
+public class Divizorii 
+{
+        private static Scanner dis;
+
+        public static void main(String args[]) 
+        {
+                dis = new Scanner(System.in);
+                System.out.print("Introdu un numar: ");
+                System.out.flush();
+                int d = 1;
+                int n;
+                n = dis.nextInt();
+                System.out.println("Divizorii numarului sunt: ");
+            for(d =1 ; d <= n ; d ++ )
+                if(n % d == 0)
+                        System.out.println(+ d);
+
+        }
+}
+
+
+//ex 5 lab 2 Vlas Denisa Georgiana grupa 2122
+/*5. Scrieti o aplicatie Java in care cititi de la tastatura mai multe numere intregi si verificati daca
+sunt numere prime. Numarul de valori citite este preluat de la tastatura sau din linia de
+comanda.*/
+
+//de la tastatura
+import java.util.Scanner;
+import java.lang.String;
+
+public class NrPrim {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis = new Scanner(System.in);
+                System.out.print("Introdu cate un numar: ");
+                System.out.flush();
+                int n;
+                n = dis.nextInt();
+                while (n!=0) {
+                        int divizori = 0;
+                        int d = 1;
+                        while (d <= n) {
+                                if (n % d == 0) {
+                                        divizori++;
+                                }
+                                d++;
+                        }
+                        if (divizori == 2) {
+                                System.out.println(n + " este prim!");
+                        } else {
+                                System.out.println(n + " nu este prim!");
+                        }
+                        System.out.print("Urmatorul numar: ");
+                        n = dis.nextInt();
+                }
+        }
+}
+
+
+/*
+//din linia de comanda
+
+import java.util.Scanner;
+import java.lang.String;
+
+public class NrPrim {
+        private static Scanner dis;
+
+        public static void main(String args[]) {
+                dis = new Scanner(System.in);
+                System.out.print("Introdu cate un numar: ");
+                System.out.flush();
+                int n=Integer.parseInt(args[0]);
+                n = dis.nextInt();
+                while (n!=0) {
+                        int divizori = 0;
+                        int d = 1;
+                        while (d <= n) {
+                                if (n % d == 0) {
+                                        divizori++;
+                                }
+                                d++;
+                        }
+                        if (divizori == 2) {
+                                System.out.println(n + " este prim!");
+                        } else {
+                                System.out.println(n + " nu este prim!");
+                        }
+                        System.out.print("Urmatorul numar: ");
+                        n = dis.nextInt();
+                }
+        }
+}
+*/
