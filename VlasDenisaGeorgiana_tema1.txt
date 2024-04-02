@@ -1,0 +1,198 @@
+--Vlas Denisa Georgiana, grupa 2232, tema 1
+CREATE DATABASE lab3;
+USE lab3;
+
+--comentez cu doua linii
+--select=citeste din baza de date
+
+CREATE TABLE DEPARTAMENTE (
+    IdDept int PRIMARY KEY IDENTITY,
+    Denumire varchar(20) NOT NULL
+);
+GO
+
+CREATE TABLE FUNCTII (
+IdFunctie int PRIMARY KEY IDENTITY,
+Denumire varchar(20) NOT NULL,
+Salariu decimal
+)
+GO
+
+CREATE TABLE ANGAJATI (
+IdAngajat int PRIMARY KEY IDENTITY,
+Nume varchar(20) NOT NULL,
+Prenume varchar(20) NOT NULL,
+Marca int NOT NULL UNIQUE,
+DataNasterii date,
+DataAngajarii date,
+Adresa_jud varchar(20),
+IdFunctie int NOT NULL,
+IdDept int NOT NULL
+)
+GO
+
+CREATE TABLE CATEGORII_PROD (
+IdCateg int PRIMARY KEY IDENTITY,
+Denumire varchar(20) NOT NULL,
+)
+GO
+
+CREATE TABLE PRODUSE (
+IdProdus int PRIMARY KEY IDENTITY,
+Denumire varchar(20) NOT NULL,
+IdCateg int NOT NULL
+)
+GO
+
+CREATE TABLE CLIENTI (
+IdClient int PRIMARY KEY IDENTITY,
+Denumire varchar(20) NOT NULL,
+Tip_Cl int,
+Adresa_jud varchar(20)
+)
+GO
+
+CREATE TABLE VANZARI (
+IdVanzare int PRIMARY KEY IDENTITY,
+IdProdus int ,
+IdClient int ,
+IdVanzator int ,
+DataVanz date,
+NrProduse int,
+PretVanz int
+)
+GO
+
+--constrangeri
+
+ALTER TABLE PRODUSE
+ADD CONSTRAINT FK_PRODUSE_CATEGORII_PROD FOREIGN KEY (IdCateg)
+REFERENCES CATEGORII_PROD(IdCateg)
+GO
+
+ALTER TABLE ANGAJATI
+ADD CONSTRAINT FK_ANGAJATI_FUNCTII FOREIGN KEY (IdFunctie)
+REFERENCES FUNCTII(IdFunctie)
+GO
+
+ALTER TABLE ANGAJATI
+ADD CONSTRAINT FK_ANGAJATI_DEPT FOREIGN KEY (IdDept)
+REFERENCES DEPARTAMENTE(IdDept)
+GO
+
+ALTER TABLE VANZARI
+ADD CONSTRAINT FK_VANZARI_CLIENTI FOREIGN KEY (IdClient)
+REFERENCES CLIENTI(IdClient)
+GO
+
+ALTER TABLE VANZARI
+ADD CONSTRAINT FK_VANZARI_PRODUSE FOREIGN KEY (IdProdus)
+REFERENCES PRODUSE(IdProdus)
+GO
+
+ALTER TABLE VANZARI
+ADD CONSTRAINT FK_VANZARI_ANGAJATI FOREIGN KEY (IdVanzator)
+REFERENCES ANGAJATI(IdAngajat)
+GO
+
+
+--comenzi
+
+--3 departamente
+INSERT INTO DEPARTAMENTE (Denumire) VALUES ('MANAGEMENT');
+INSERT INTO DEPARTAMENTE (Denumire) VALUES ('VANZARI');
+INSERT INTO DEPARTAMENTE (Denumire) VALUES ('CONTABILITATE');
+
+select * from departamente 
+
+--3 functii
+
+INSERT INTO FUNCTII (Denumire, Salariu) VALUES ('MANAGER', 5000)
+INSERT INTO FUNCTII (Denumire, Salariu) VALUES ('CONTABIL', 4500)
+INSERT INTO FUNCTII (Denumire, Salariu) VALUES ('INGINER', 4000)
+
+select * from functii 
+
+--2 angajati cu functii diferite
+
+INSERT INTO ANGAJATI(Nume, Prenume, Marca, DataNasterii, DataAngajarii, Adresa_jud, IdFunctie, IdDept)
+VALUES ('Dimitrie', 'Cantemir', 1, '01/01/1958', '12/31/2002', 'Bucuresti', 1, 1);
+
+INSERT INTO ANGAJATI(Nume, Prenume, Marca, DataNasterii, DataAngajarii, Adresa_jud, IdFunctie, IdDept)
+VALUES ('Vasile', 'Parvan', 100, '01/01/1958', '12/31/2002', 'Bucuresti', 2, 2);
+
+select * from angajati
+
+--3 categorii de produse
+
+INSERT INTO CATEGORII_PROD (Denumire) 
+VALUES ('Electronice');
+
+INSERT INTO CATEGORII_PROD (Denumire) 
+VALUES ('Mobilier');
+
+INSERT INTO CATEGORII_PROD (Denumire) 
+VALUES ('Îmbrăcăminte');
+
+--3 produse în fiecare categorie
+
+INSERT INTO PRODUSE (Denumire, IdCateg) 
+VALUES ('Telefon', 1);
+
+INSERT INTO PRODUSE (Denumire, IdCateg)
+VALUES ('Laptop', 1);
+
+INSERT INTO PRODUSE (Denumire, IdCateg) 
+VALUES ('Masa', 2);
+
+INSERT INTO PRODUSE (Denumire, IdCateg) 
+VALUES ('Scaun', 2);
+
+INSERT INTO PRODUSE (Denumire, IdCateg) 
+VALUES ('Bluza', 3);
+
+INSERT INTO PRODUSE (Denumire, IdCateg) 
+VALUES ('Pantaloni', 3);
+
+--3 clienți
+INSERT INTO CLIENTI (Denumire, Tip_Cl, Adresa_jud) 
+VALUES ('Client1', 1, 'Bucuresti');
+
+INSERT INTO CLIENTI (Denumire, Tip_Cl, Adresa_jud) 
+VALUES ('Client2', 2, 'Sibiu');
+
+INSERT INTO CLIENTI (Denumire, Tip_Cl, Adresa_jud) 
+VALUES ('Client3', 1, 'Cluj');
+
+
+--10 vânzări (2 vânzări la același client; 2 vânzări pe același produs)
+
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (1, 1, 1, '2023-01-15', 2, 1000);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (2, 1, 2, '2023-01-20', 1, 2000);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (1, 2, 1, '2023-01-22', 3, 1500);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (2, 2, 2, '2023-01-25', 1, 1800);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (3, 3, 1, '2023-01-27', 2, 300);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (4, 3, 2, '2023-01-30', 1, 400);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (1, 1, 1, '2023-02-05', 2, 150);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (2, 1, 2, '2023-02-10', 1, 80);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (3, 2, 1, '2023-02-12', 2, 250);
+INSERT INTO VANZARI (IdProdus, IdClient, IdVanzator, DataVanz, NrProduse, PretVanz) 
+VALUES (4, 2, 2, '2023-02-15', 1, 350);
+
+
+-- Verificați rezultatele cu SELECT * FROM Nume_Tabela
+SELECT * FROM CATEGORII_PROD;
+SELECT * FROM PRODUSE;
+SELECT * FROM CLIENTI;
+SELECT * FROM VANZARI;
+
+

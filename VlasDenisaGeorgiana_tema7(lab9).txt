@@ -1,0 +1,479 @@
+
+//ex 1_2 lab 9 Vlas Denisa Georgiana gr 2232
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Siruri JS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://helios.utcluj.ro/cosmin/WEB/CSS/style.css">
+
+<script>
+
+var numere = [40, 100, 1, 5, 25, 10];
+var altSirPredefinit = [7, 14, 21];
+   // Definirea și popularea șirului asociativ
+var produse = {
+  "Laptop": 2500,
+  "Telefon": 1200,
+  "Tabletă": 800,
+  "Mouse": 50,
+  "Tastatură": 80
+};                                               
+textAfisat = ""; //variabila de tip text, folosita la output
+
+function f1(){
+
+        displayer = document.getElementById("displayer");
+
+        textAfisat += "<br><br> afisare implicita = " + numere;
+        
+        textAfisat += "<br><br> suma este = " + suma(numere);
+        
+        numere_ordonateDesc = numere.sort(sortareDesc);
+        
+        numere_ordonateCresc = numere.sort(sortareCresc);
+        
+        textAfisat += "<br><br> numerele ordonate sunt descrescator= " + numere_ordonateDesc;
+        
+        textAfisat += "<br><br> numerele ordonate sunt crescator= " + numere_ordonateCresc;
+        
+        sir_final = stergerePare(numere);
+        
+        textAfisat += "<br><br> sirul fara elemete pare = " + sir_final;
+        
+        numere = numere.concat(altSirPredefinit);
+        
+    textAfisat += "<br><br> sirul dupa introducerea altui sir predefinit = " + numere;
+        
+        textAfisat += "<br><br> afisare implicita siruri caractere= " + JSON.stringify(produse);
+
+        displayer.innerHTML = textAfisat;
+}
+
+function suma(sir){
+        s=0;
+        for(i=0; i<sir.length; i++){
+                s += sir[i];
+        }
+        return s;
+}
+
+
+/* ordonarea crescătoare și descrescătoare a valorilor din șir*/
+function sortareDesc(a, b){
+        return a-b;
+}
+function sortareCresc(a, b){
+        return b-a;
+}
+
+/*- eliminarea din șir a valorilor pare*/
+function stergerePare(sir){
+for(i=0;i<sir.length;i++)
+        if(sir[i]%2==0){
+                sir.splice(i,1) ;
+                i--;
+                }
+return sir;
+}
+
+
+// Ordonarea produselor după preț și afișarea rezultatului
+var produseOrdonate = Object.fromEntries(Object.entries(produse).sort((a, b) => a[1] - b[1]));
+
+console.log("\nProdusele Ordonate După Preț:");
+console.log(produseOrdonate);
+
+</script>
+
+</head>
+
+<body onLoad="f1()">
+
+<div id="displayer">
+
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+//ex3 lab 9 Vlas Denisa Georgiana gr 2232
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Clase JS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://helios.utcluj.ro/cosmin/WEB/CSS/style.css">
+
+<script>
+
+class Student {
+  constructor(nume, prenume, dataNasterii, foaieMatricola) {
+    this.nume = nume;
+    this.prenume = prenume;
+    this.dataNasterii = dataNasterii;
+    this.foaieMatricola = foaieMatricola || [];
+  }
+
+  afiseazaVarsta() {
+    const dataNasterii = new Date(this.dataNasterii);
+    const diferentaAni = new Date().getFullYear() - dataNasterii.getFullYear();
+    return diferentaAni;
+  }
+
+  afiseazaNotele() {
+    return this.foaieMatricola.join(', ');
+  }
+
+  calculeazaMedia() {
+    if (this.foaieMatricola.length === 0) {
+      return 0;
+    }
+
+    const sumaNote = this.foaieMatricola.reduce((acc, nota) => acc + nota, 0);
+    return sumaNote / this.foaieMatricola.length;
+  }
+
+  adaugaNota(notaNoua) {
+    this.foaieMatricola.push(notaNoua);
+  }
+}
+
+textAfisat = ""; //variabila de tip text, folosita la output
+
+function f1(){        
+
+  displayer = document.getElementById("displayer");
+
+  grupa = [];
+  grupa.push(new Student("Ana", "Popescu", '1998-05-10', [8, 9, 7]));
+  grupa.push(new Student("Ion", "Ionescu", '2000-02-15', [10, 9, 8]));
+  grupa.push(new Student("Vasile", "Vasilescu", '1999-09-22', [7, 8, 6]));
+
+  // Ordonare alfabetică
+  grupa.sort((a, b) => (a.nume + a.prenume).localeCompare(b.nume + b.prenume));
+
+  textAfisat += "<br><br> Studenții ordonați alfabetic:";
+  for (var i = 0; i < grupa.length; i++) 
+  {
+  textAfisat += "<br>" + grupa[i].nume + " " + grupa[i].prenume;
+}
+
+
+  // Ordonare după medii
+  grupa.sort((a, b) => a.calculeazaMedia() - b.calculeazaMedia()).reverse();
+
+  textAfisat += "<br><br> Studenții ordonați după medii:";
+  for (var i = 0; i < grupa.length; i++) 
+  {
+  textAfisat += "<br>" + grupa[i].nume + " " + grupa[i].prenume + " - Medie: " + grupa[i].calculeazaMedia();
+}
+
+
+  // Ordonare după vârstă
+  grupa.sort((a, b) => a.afiseazaVarsta() - b.afiseazaVarsta()); //daca scad varstele, obiectele vor fi ordonate crescător după vârstă
+
+  textAfisat += "<br><br> Studenții ordonați după vârstă:";
+  for (var i = 0; i < grupa.length; i++) 
+  {
+  textAfisat += "<br>" + grupa[i].nume + " " + grupa[i].prenume + " - Vârstă: " + grupa[i].afiseazaVarsta();
+}
+
+
+  displayer.innerHTML = textAfisat;
+}
+
+</script>
+
+</head>
+
+<body onLoad="f1()">
+
+<div id="displayer"></div>
+
+</body>
+</html>
+
+
+
+
+//ex 4 lab 9 Vlas Denisa Georgiana gr 2232
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Clase JS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://helios.utcluj.ro/cosmin/WEB/CSS/style.css">
+
+<script>
+class StudentLambda {
+      constructor(nume, prenume, data_nasterii, foaie_matricola = [])
+          {
+        this.nume = nume;//this=referinta
+        this.prenume = prenume;
+        this.data_nasterii = data_nasterii;
+        this.foaie_matricola = foaie_matricola;
+      }
+
+      afiseazaVarsta = () => {
+        const today = new Date();
+        const birthDate = new Date(this.data_nasterii);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        return age;
+      }
+
+      afiseazaNotele = () => this.foaie_matricola.join(', ');
+
+      calculeazaMedia = () => this.foaie_matricola.length === 0 ? 0 : this.foaie_matricola.reduce((acc, nota) => acc + nota, 0) / this.foaie_matricola.length;
+
+      adaugaNota = (nota_noua) => this.foaie_matricola.push(nota_noua);
+    }
+
+</script>
+
+</head>
+
+<body onLoad="f1()">
+
+<div id="displayer"></div>
+
+</body>
+</html>
+
+
+
+//ex 5 lab 9 Vlas Denisa Georgiana gr 2232
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Clase JS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="http://helios.utcluj.ro/cosmin/WEB/CSS/style.css">
+
+<script>
+class Student {
+  constructor(nume, prenume, dataNasterii, foaieMatricola) {
+    this._nume = "";
+    this._prenume = "";
+    this._dataNasterii = "";
+    this._foaieMatricola = [];
+
+    this.nume = nume;
+    this.prenume = prenume;
+    this.dataNasterii = dataNasterii;
+    this.foaieMatricola = foaieMatricola || [];
+  }
+
+  // Getteri
+  get nume() {
+    return this._nume;
+  }
+
+  get prenume() {
+    return this._prenume;
+  }
+
+  get dataNasterii() {
+    return this._dataNasterii;
+  }
+
+  get foaieMatricola() {
+    return this._foaieMatricola;
+  }
+
+  // Setteri
+  set nume(nume) {
+    if (typeof nume === 'string' && nume.length >= 2 && !/\d/.test(nume)) //typeof nume === 'string': Verifică dacă tipul variabilei nume este un șir de caractere (string).
+										//nume.length >= 2: Verifică dacă lungimea șirului nume este cel puțin 2 caractere.
+				//!/\d/.test(nume): Verifică dacă șirul nume nu conține niciun caracter numeric. Expresia regulată /\d/ se potrivește cu orice caracter numeric, iar ! neghează rezultatul testului.
+    {
+      this._nume = nume;
+    } 
+	else 
+    {
+      console.error('Numele trebuie să fie un șir de caractere cu lungimea cel puțin 2 și să nu conțină cifre.');
+    }
+  }
+
+  set prenume(prenume) {
+    if (typeof prenume === 'string' && prenume.length >= 2 && !/\d/.test(prenume)) {
+      this._prenume = prenume;
+    } else {
+      console.error('Prenumele trebuie să fie un șir de caractere cu lungimea cel puțin 2 și să nu conțină cifre.');
+    }
+  }
+
+  set dataNasterii(dataNasterii) {
+    const dataNasteriiObj = new Date(dataNasterii);
+    const dataCurenta = new Date();
+    const diferentaAni = dataCurenta.getFullYear() - dataNasteriiObj.getFullYear();
+
+    if (diferentaAni >= 18) {
+      this._dataNasterii = dataNasterii;
+    } else {
+      console.error('Data de naștere trebuie să fie mai veche decât 18 ani.');
+    }
+  }
+
+  set foaieMatricola(foaieMatricola) {
+    if (Array.isArray(foaieMatricola)) {
+      this._foaieMatricola = foaieMatricola;
+    } else {
+      console.error('Foaia matricolă trebuie să fie un șir de valori numerice.');
+    }
+  }
+
+  afiseazaVarsta() {
+    const dataNasterii = new Date(this.dataNasterii);
+    const diferentaAni = new Date().getFullYear() - dataNasterii.getFullYear();
+    return diferentaAni;
+  }
+
+  afiseazaNotele() {
+    return this.foaieMatricola.join(', ');
+  }
+
+  calculeazaMedia() {
+    if (this.foaieMatricola.length === 0) {
+      return 0;
+    }
+
+    const sumaNote = this.foaieMatricola.reduce((acc, nota) => acc + nota, 0);
+    return sumaNote / this.foaieMatricola.length;
+  }
+
+  adaugaNota(notaNoua) {
+    this.foaieMatricola.push(notaNoua);
+  }
+}
+
+textAfisat = ""; // variabila de tip text, folosita la output
+
+function f1() {
+  displayer = document.getElementById("displayer");
+
+  grupa = [];
+  grupa.push(new Student("Ana", "Popescu", '1998-05-10', [8, 9, 7]));
+  grupa.push(new Student("Ion", "Ionescu", '2000-02-15', [10, 9, 8]));
+  grupa.push(new Student("Vasile", "Vasilescu", '1999-09-22', [7, 8, 6]));
+
+  // Ordonare alfabetică
+  grupa.sort((a, b) => (a.nume + a.prenume).localeCompare(b.nume + b.prenume));
+
+  textAfisat += "<br><br> Studenții ordonați alfabetic:";
+  for (var i = 0; i < grupa.length; i++) {
+    textAfisat += "<br>" + grupa[i].nume + " " + grupa[i].prenume;
+  }
+
+  // Ordonare după medii
+  grupa.sort((a, b) => a.calculeazaMedia() - b.calculeazaMedia()).reverse();
+
+  textAfisat += "<br><br> Studenții ordonați după medii:";
+  for (var i = 0; i < grupa.length; i++) {
+    textAfisat += "<br>" + grupa[i].nume + " " + grupa[i].prenume + " - Medie: " + grupa[i].calculeazaMedia();
+  }
+
+  // Ordonare după vârstă
+  grupa.sort((a, b) => a.afiseazaVarsta() - b.afiseazaVarsta());
+
+  textAfisat += "<br><br> Studenții ordonați după vârstă:";
+  for (var i = 0; i < grupa.length; i++) {
+    textAfisat += "<br>" + grupa[i].nume + " " + grupa[i].prenume + " - Vârstă: " + grupa[i].afiseazaVarsta();
+  }
+
+  displayer.innerHTML = textAfisat;
+}
+</script>
+</head>
+<body onLoad="f1()">
+
+<div id="displayer"></div>
+
+</body>
+</html>
+
+
+//ex 6 lab 9 Vlas Denisa Georgiana gr 2232
+
+//6. Să se implementeze o pagină web care afișează în mod dinamic o serie de elemente de tip div colorate cu
+toate valorile posibile (saturate) dintr-o paletă de culori.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paletă de Culori</title>
+  <link rel="stylesheet" href="styles.css">
+ <style>
+    body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#colorPalette {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.colorBox {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border: 1px solid #000;
+}
+
+  </style>
+<body>
+        <script>
+        
+        document.addEventListener('DOMContentLoaded', function () {
+          const colorPalette = document.getElementById('colorPalette');
+
+          function generateColors() {
+                for (let saturation = 0; saturation <= 100; saturation += 10) {
+                  const colorBox = document.createElement('div');
+                  colorBox.className = 'colorBox';
+                  colorBox.style.backgroundColor = `hsl(186, ${saturation}%, 50%)`;
+
+                  colorPalette.appendChild(colorBox);
+                }
+          }
+
+          generateColors();
+        });
+        </script>
+  <div id="colorPalette"></div>
+  <script src="script.js"></script>
+</body>
+</html>
+

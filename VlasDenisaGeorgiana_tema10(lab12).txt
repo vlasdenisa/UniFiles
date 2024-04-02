@@ -1,0 +1,504 @@
+//ex 1 lab 12 Vlas Denisa Georgiana 
+
+//1. Dezvoltați o pagină web cu facilități JavaScript care afișează un câmp destinat încărcării de fișiere și permite
+doar selectarea fișierelor de tip imagine (jpeg, png, gif, bmp). Corelați tipul de fișier detectat cu extensia
+acestuia
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #fileInput {
+      margin-bottom: 20px;
+    }
+
+    #output {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      text-align: center;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <input type="file" id="fileInput" accept=".jpeg, .jpg, .png, .gif, .bmp" onchange="FileSelect()">
+
+  <div id="output">
+    <p id="fileName"></p>
+    <p id="fileType"></p>
+    <p id="fileExtension"></p>
+  </div>
+
+  <script>
+    function FileSelect() {
+      const fileInput = document.getElementById('fileInput');
+      const outputDiv = document.getElementById('output');
+      const fileNameParagraph = document.getElementById('fileName');
+      const fileTypeParagraph = document.getElementById('fileType');
+      const fileExtensionParagraph = document.getElementById('fileExtension');
+
+      // Resetarea afișării la fiecare selectare nouă de fișier
+      outputDiv.style.display = 'none';
+      fileNameParagraph.textContent = '';
+      fileTypeParagraph.textContent = '';
+      fileExtensionParagraph.textContent = '';
+
+      const selectedFile = fileInput.files[0];
+
+      if (selectedFile) {
+        const fileName = selectedFile.name;
+        const fileType = selectedFile.type;
+
+        // Verificare dacă tipul de fișier corespunde imaginii
+        if (fileType.startsWith('image/')) 
+                {
+          const fileExtension = getFileExtension(fileName);
+
+          // Afișarea informațiilor
+          fileNameParagraph.textContent = 'Nume fișier: ' + fileName;
+          fileTypeParagraph.textContent = 'Tip fișier: ' + fileType;
+          fileExtensionParagraph.textContent = 'Extensie fișier: ' + fileExtension;
+          outputDiv.style.display = 'block';//div-ul devine vizibil
+        }
+      }
+    }
+
+    function getFileExtension(fileName) {
+      return fileName.slice((Math.max(0, fileName.lastIndexOf(".")) || Infinity) + 1);
+          //Math.max - asigură că poziția găsită este cel puțin 0, astfel încât să nu fie niciodată mai mică decât 0.
+        //Acest lucru este util pentru cazurile în care numele fișierului nu conține un punct.
+    }
+  </script>
+</body>
+</html>
+
+
+
+//ex 3 lab 12 Vlas Denisa Georgiana 
+
+//3. Dezvoltați o pagină web cu facilități JavaScript care afișează două câmpuri pt. introducerea unei date. Se
+validează datele introduse doar dacă delimitează un interval mai mare de 3 luni.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #validationMessage {
+      margin-top: 10px;
+      color: red;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <label for="startDate">Introduceți data de început:</label>
+  <input type="date" id="startDate">
+
+  <label for="endDate">Introduceți data de sfârșit:</label>
+  <input type="date" id="endDate">
+
+  <button onclick="validateDateRange()">Validare</button>
+
+  <p id="validationMessage"></p>
+
+  <script>
+    function validateDateRange() {
+      const startDateInput = document.getElementById('startDate');
+      const endDateInput = document.getElementById('endDate');
+      const validationMessage = document.getElementById('validationMessage');
+
+      const startDate = new Date(startDateInput.value);
+      const endDate = new Date(endDateInput.value);
+
+      // Verificare dacă datele au fost introduse corect
+      if (isNaN(startDate) || isNaN(endDate)) {
+        validationMessage.textContent = 'Introduceți date valide în ambele câmpuri.';
+        return;
+      }
+
+      // Calculul diferenței în luni
+      const monthsDifference = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
+
+      // Verificare dacă intervalul este mai mare de 3 luni
+      if (monthsDifference < 3) {
+        validationMessage.textContent = 'Intervalul trebuie să fie mai mare de 3 luni.';
+      } 
+          else 
+          {
+        validationMessage.textContent = 'Date validate cu succes.';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+//ex 4 lab 12 Vlas Denisa Georgiana 
+
+//4. Dezvoltați o pagină web cu facilități JavaScript care afișează 2 componente de text exclusiv numeric limitat
+între valorile 100-400. La apăsarea unui buton, un cerc (componentă <div> cu atributul border-radius
+setat corespunzător) se poziționează pe ecran în funcție de valorile scrise în componente (stânga, sus).
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      color: #333; /* Culoarea textului */
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc; /* Culoarea bordurii input-ului */
+      border-radius: 5px;
+    }
+
+    #circle {
+      width: 50px;
+      height: 50px;
+      background-color: #ff7eb9; /* Roz */
+      border-radius: 50%;
+      position: relative;
+      right: 0;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #positionValues {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333; /* Culoarea textului */
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #3498db; /* Albastru deschis */
+      color: #fff; /* Text alb */
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #217dbb; /* Albastru mai inchis la hover */
+    }
+  </style>
+</head>
+<body>
+
+  <label for="leftValue">Stânga:</label>
+  <input type="number" id="leftValue" min="100" max="400" value="100" style="color: #3498db;"> 
+
+  <label for="topValue">Sus:</label>
+  <input type="number" id="topValue" min="100" max="400" value="100" style="color: #3498db;"> 
+
+  <button onclick="positionCircle()">Pozitioneaza cercul</button>
+
+  <div id="circle"></div>
+
+  <p id="positionValues"></p>
+
+  <script>
+    function positionCircle() {
+  const stanga = document.getElementById('leftValue');
+  const sus = document.getElementById('topValue');
+  const circle = document.getElementById('circle');
+  const positionValues = document.getElementById('positionValues');
+
+  const leftValue = parseInt(stanga.value);  //este o funcție JavaScript care convertește un șir la un număr întreg. 
+				//Aici, este folosită pentru a asigura că valorile introduse sunt interpretate ca numere întregi, deoarece valorile din input-uri sunt întotdeauna șiruri.
+  const topValue = parseInt(sus.value);
+
+  // Verificare dacă valorile sunt în intervalul 100-400
+  if (leftValue >= 100 && leftValue <= 400 && topValue >= 100 && topValue <= 400) {
+    circle.style.transform = 'translate(' + leftValue + 'px, ' + topValue + 'px)';
+
+    // Afișare valorile poziției
+    positionValues.textContent = 'Cercul este poziționat la stânga: ' + leftValue + 'px, sus: ' + topValue + 'px.';
+  } 
+  else 
+  {
+    alert('Valorile trebuie să fie între 100 și 400!');
+  }
+}
+
+  </script>
+</body>
+</html>
+
+
+
+//ex 5 lab 12 Vlas Denisa Georgiana 
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f2f4; /* Roz deschis */
+    }
+
+    form {
+      background-color: #fff; /* Fundal alb pentru formular */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #6c5b7b; /* Mov inchis */
+    }
+
+    input, select, textarea {
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #dcdcdc; /* Gri deschis */
+      border-radius: 5px;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #9d88b5; /* Mov deschis */
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #7b6391; /* Mov mai inchis la hover */
+    }
+
+    .error-message {
+      color: #d9534f; /* Rosu pentru mesaje de eroare */
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="myForm" onsubmit="submitForm(event)">
+    <label for="firstName">Nume:</label>
+    <input type="text" id="firstName" required>
+
+    <label for="lastName">Prenume:</label>
+    <input type="text" id="lastName" required>
+
+    <label>Sex:</label>
+    <input type="radio" name="gender" value="male" required> Masculin
+    <input type="radio" name="gender" value="female" required> Feminin
+
+    <label for="birthdate">Data nașterii:</label>
+    <input type="date" id="birthdate" required>
+
+    <label for="email">Adresă de email:</label>
+    <input type="email" id="email" required>
+
+    <label for="phoneNumber">Număr de telefon:</label>
+    <input type="tel" id="phoneNumber" required>
+
+    <label>Cunoștințe de programare:</label>
+    <input type="checkbox" name="programming" value="html"> HTML
+    <input type="checkbox" name="programming" value="css"> CSS
+    <input type="checkbox" name="programming" value="javascript"> JavaScript
+
+    <label for="observations">Observații:</label>
+    <textarea id="observations" rows="4" required></textarea>
+
+    <button type="submit">Trimite</button>
+  </form>
+
+  <div id="errorMessages"></div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+
+      const form = document.getElementById('myForm');
+      const errorMessagesContainer = document.getElementById('errorMessages');
+      errorMessagesContainer.innerHTML = '';
+
+      if (form.checkValidity()) 
+          {
+        // Formularul este valid, puteți trimite datele la server
+        alert('Formularul este completat corect. Datele pot fi trimise la server.');
+      } 
+          else 
+          {
+        // Formularul nu este valid, afișați mesaje de eroare
+        const errorMessages = document.createElement('div');
+        errorMessages.textContent = 'Completează toate câmpurile obligatorii.';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+//ex 6 lab 12 Vlas Denisa Georgiana 
+
+//6. Dezvoltați o pagină web cu facilități JavaScript care generează 10 numere aleatoare între 10 și 20 și le
+afișează ca text pe 10 butoane. Fiecare buton incrementează valoarea proprie la fiecare click. Să se afișeze în
+permanență suma valorilor butoanelor iar dacă aceasta depășește un prag prestabilit (de asemenea afișat), se
+elimină câte un buton de pe ecran iar suma este recalculată.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      background-color: #f7ebd3; /* Bej deschis */
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+      background-color: #e5989b; /* Roz deschis */
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #sum {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #c0392b; /* Rosu deschis */
+    }
+
+    #threshold {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #3498db; /* Albastru deschis */
+    }
+  </style>
+</head>
+<body>
+
+  <div id="buttons-container"></div>
+  <div id="sum">Suma: 0</div>
+  <div id="threshold">Pragul: 100</div>
+
+  <script>
+    const buttonsContainer = document.getElementById('buttons-container');
+    const sumElement = document.getElementById('sum');
+    const prag = document.getElementById('prag');
+    const maxim = 100;
+
+    let sum = 0;
+
+    function generateRandomNumber(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+
+    function addButton(number)
+        {
+      const button = document.createElement('button');
+      button.textContent = number;
+      button.addEventListener('click', function() 
+          {
+        sum += number;
+        sumElement.textContent = 'Suma: ' + sum;
+
+        if (sum > maxim) {
+          removeButton(button);
+        }
+      });
+      buttonsContainer.appendChild(button);
+    }
+
+    function removeButton(button) {
+      sum -= parseInt(button.textContent);
+      sumElement.textContent = 'Suma: ' + sum;
+      buttonsContainer.removeChild(button);
+    }
+
+    for (let i = 0; i < 10; i++) {
+      const randomNumber = generateRandomNumber(10, 20);
+      addButton(randomNumber);
+    }
+
+    prag.textContent = 'Pragul: ' + maxim;
+  </script>
+</body>
+</html>

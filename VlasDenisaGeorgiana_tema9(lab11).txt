@@ -1,0 +1,324 @@
+//ex 1' lab 11 Vlas Denisa Georgiana gr 2232
+
+//1'. Schimbați culoarea componentei progresiv (setTimeout, setInterval).
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #coloredDiv {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="coloredDiv"></div>
+
+  <script>
+    // JavaScript pentru a adauga logica de afisare si schimbare progresiva a culorii
+    var coloredDiv = document.getElementById('coloredDiv');
+
+    function changeColor() {
+      var currentColor = coloredDiv.style.backgroundColor || 'red';
+      var newColor = (currentColor === 'red') ? 'blue' : 'red';
+      coloredDiv.style.backgroundColor = newColor;
+    }
+
+    setInterval(changeColor, 1000); // Schimba culoarea la fiecare 1000 de milisecunde (1 secunda)
+  </script>
+</body>
+</html>
+
+
+//ex 1 lab 11 Vlas Denisa Georgiana 
+
+//1. Dezvoltați o pagină web cu facilități JavaScript care pozitionează la mijlocul ecranului
+o componentă "div" cu latura de 100 de pixeli, umplută cu roșu. Cand mouse-ul se află deasupra componentei,
+aceasta este colorată cu albastru.
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #coloredDiv {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      transition: background-color 0.3s;
+    }
+
+    #coloredDiv:hover {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="coloredDiv"></div>
+
+  <script>
+    // JavaScript pentru a adauga logica de afisare si schimbare a culorii
+    var coloredDiv = document.getElementById('coloredDiv');
+
+    coloredDiv.addEventListener('mouseover', function() {
+      coloredDiv.style.backgroundColor = 'blue';
+    });
+
+    coloredDiv.addEventListener('mouseout', function() {
+      coloredDiv.style.backgroundColor = 'red';
+    });
+  </script>
+</body>
+</html>
+
+
+
+//ex 4 lab 11 Vlas Denisa Georgiana
+
+//4. Dezvoltați o pagină web cu facilități JavaScript care definește o grilă dreptunghiulară (componente div
+alăturate, dispuse matricial; dimensiunea grilei este prestabilită).
+La trecerea cu mouse-ul peste componente, acestea își schimbă culoarea. Monitorizați și afișați timpul scurs
+până la colorarea tuturor celulelor.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: grid;
+      grid-template-columns: repeat(5, 50px);
+      grid-template-rows: repeat(5, 50px);
+      gap: 5px;
+    }
+
+    .gridCell {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    const grid = document.body;
+
+    // Dimensiunile grilei
+    const rows = 5;
+    const cols = 5;
+
+    // Numărul total de celule
+    const totalCells = rows * cols;
+
+    // Variabile pentru monitorizarea timpului
+    let startTime;
+    let endTime;
+
+    // Crearea celulelor și adăugarea evenimentelor de mouse
+    for (let i = 0; i < totalCells; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'gridCell';
+      grid.appendChild(cell);
+
+      cell.addEventListener('mouseover', handleMouseOver);
+    }
+
+    function handleMouseOver() {
+      // Dacă este prima celulă colorată, începe monitorizarea timpului
+      if (!startTime) {
+        startTime = new Date();
+      }
+
+      this.style.backgroundColor = getRandomColor();
+
+      // Verificare dacă toate celulele au fost colorate
+      if (checkAllCellsColored()) {
+        endTime = new Date();
+        const elapsedTime = (endTime - startTime) / 1000; // Convertire din milisecunde în secunde
+        messageDiv.textContent = 'Toate celulele au fost colorate în ' + elapsedTime + ' secunde.';
+      }
+    }
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function checkAllCellsColored() {
+      const cells = document.querySelectorAll('.gridCell');
+      for (const cell of cells) {
+        if (cell.style.backgroundColor === '') {
+          return false;
+        }
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
+
+
+
+//ex 6 lab 11 Vlas Denisa Georgiana 
+
+//6. Dezvoltați o pagină web cu facilități JavaScript care afișează ora curentă (hh:mm:ss), actualizată o dată pe
+secundă (obiect de tip Date, apel repetat de cod prin setInterval() sau setTimeout()).
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-size: 36px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="clock"></div>
+
+  <script>
+    function updateClock() {
+      const clockElement = document.getElementById('clock');
+      const currentTime = new Date();
+
+      const hours = currentTime.getHours().toString().padStart(2, '0');
+      const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+      const seconds = currentTime.getSeconds().toString().padStart(2, '0');
+
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+      clockElement.textContent = formattedTime;
+    }
+
+    // Actualizarea ceasului o dată pe secundă
+    setInterval(updateClock, 1000);
+
+    // Actualizarea inițială la încărcarea paginii
+    updateClock();
+  </script>
+</body>
+</html>
+
+
+
+//ex 7 lab 11 Vlas Denia Georgiana 
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Informații despre pagină:</h2>
+  <ul id="pageInfo"></ul>
+
+  <h2>Numele browserului:</h2>
+  <p id="browserInfo"></p>
+
+  <script>
+    // Informații despre pagină
+    const pageInfoElement = document.getElementById('pageInfo');
+    const pageProperties = ['host', 'hostname', 'href', 'pathname', 'port', 'protocol'];
+
+    pageProperties.forEach(function (property) {
+      const listItem = document.createElement('li');
+      listItem.textContent = property + ': ' + window.location[property];
+      pageInfoElement.appendChild(listItem);
+    });
+
+    // Numele browserului
+    const browserInfoElement = document.getElementById('browserInfo');
+    const browserName = getBrowserName();
+    browserInfoElement.textContent = 'Numele browserului: ' + browserName;
+
+    function getBrowserName() {
+      const userAgent = navigator.userAgent;
+      if (userAgent.indexOf('Chrome') !== -1) {
+        return 'Google Chrome';
+      } else if (userAgent.indexOf('Firefox') !== -1) {
+        return 'Mozilla Firefox';
+      } else if (userAgent.indexOf('Safari') !== -1) {
+        return 'Apple Safari';
+      } else if (userAgent.indexOf('Edge') !== -1) {
+        return 'Microsoft Edge';
+      } else if (userAgent.indexOf('Opera') !== -1 || userAgent.indexOf('OPR') !== -1) {
+        return 'Opera';
+      } else if (userAgent.indexOf('MSIE') !== -1 || userAgent.indexOf('Trident/') !== -1) {
+        return 'Internet Explorer';
+      } else {
+        return 'Necunoscut';
+      }
+    }
+  </script>
+</body>
+</html>

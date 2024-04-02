@@ -1,0 +1,297 @@
+//ex 1 lab 10 Vlas Denisa Georgiana
+
+//1. Dezvoltați o pagină web cu facilități JavaScript care obține o referință la o componentă de tip div
+existentă în pagină. Folosind referința,
+- modificați culoarea de background a componentei
+- afișați în componentă un text predefinit
+- afișați în componentă
+- un alt element de tip div
+- un text încapsulat într-un tag p
+- o imagine cu referința spre o resursă web
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manipulare div cu JavaScript</title>
+  <style>
+    /* Stiluri CSS pentru div */
+    #myDiv {
+      width: 300px;
+      height: 200px;
+      border: 2px solid #000;
+      padding: 20px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Div-ul existent -->
+<div id="myDiv">
+  <!-- Afișare text predefinit -->
+  Text predefinit în div.
+
+  <!-- Afișare alt div -->
+  <div id="anotherDiv">
+    Alt div în interiorul div-ului principal.
+  </div>
+
+  <!-- Afișare text într-un tag p -->
+  <p>Acesta este un text într-un tag p.</p>
+
+  <!-- Afișare imagine -->
+  <img src="https://www.thesprucepets.com/breed-profile-akita-1117933" alt="Imagine de la web">
+</div>
+
+<script>
+  // Obține referința la div-ul existent
+  var myDiv = document.getElementById("myDiv");
+
+  // Modifică culoarea de background
+  myDiv.style.backgroundColor = "#ffcc00";
+
+  // Afișează un alt div în interiorul div-ului principal
+  var anotherDiv = document.createElement("div");
+  anotherDiv.innerText = "Un alt div creat dinamic.";
+  myDiv.appendChild(anotherDiv);
+</script>
+
+</body>
+</html>
+
+
+//ex 2 lab 10 Vlas Denisa Georgiana
+
+//2. Dezvoltați o pagină web cu facilități JavaScript care desenează, una langa alta,
+- o serie de componente (10) div colorate cu culori prestabilite
+- o serie de componente (10) div colorate cu culori generate aleator
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desenează componente div cu JavaScript</title>
+  <style>
+    /* Stiluri CSS pentru div */
+    .colorDiv {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Serie de componente div cu culori prestabilite -->
+<div>
+  <h3>Culori prestabilite:</h3>
+  <div class="colorDiv" style="background-color: #ff0000;"></div>
+  <div class="colorDiv" style="background-color: #00ff00;"></div>
+  <div class="colorDiv" style="background-color: #0000ff;"></div>
+  <div class="colorDiv" style="background-color: #ffff00;"></div>
+  <div class="colorDiv" style="background-color: #ff00ff;"></div>
+  <div class="colorDiv" style="background-color: #00ffff;"></div>
+  <div class="colorDiv" style="background-color: #ffffff;"></div>
+  <div class="colorDiv" style="background-color: #000000;"></div>
+  <div class="colorDiv" style="background-color: #aabbcc;"></div>
+  <div class="colorDiv" style="background-color: #ffa500;"></div>
+</div>
+
+<!-- Serie de componente div cu culori generate aleator -->
+<div>
+  <h3>Culori generate aleator:</h3>
+  <script>
+    // Funcție pentru generarea unei culori aleatoare
+    function getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Creează și adaugă div-urile cu culori generate aleator
+    for (var i = 0; i < 10; i++) {
+      var randomColorDiv = document.createElement("div");
+      randomColorDiv.className = "colorDiv";
+      randomColorDiv.style.backgroundColor = getRandomColor();
+      document.body.appendChild(randomColorDiv);
+    }
+  </script>
+</div>
+
+</body>
+</html>
+
+
+
+//ex 3 lab 10 Vlas Denisa Georgiana 
+
+//3. Dezvoltați o pagină web cu facilități JavaScript care definește și randează o grilă dreptunghiulară
+(componente div alăturate, dispuse matricial; dimensiunea grilei este prestabilită). Componentele vor fi
+colorate diferit în funcție de valorile 0 sau 1 memorate într-o matrice. Pozițiile ocupate de elementele din
+matrice definesc corespondența cu elementele de pe ecran.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grilă dreptunghiulară cu JavaScript</title>
+  <style>
+    /* Stiluri CSS pentru div-uri */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(5, 50px); /* Schimbați 5 cu numărul dorit de coloane */
+      gap: 5px;
+    }
+
+    .grid-item {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cell-0 {
+      background-color: #fff; /* Culoare pentru valoarea 0 */
+    }
+
+    .cell-1 {
+      background-color: #00f; /* Culoare pentru valoarea 1 */
+      color: #fff; /* Culoare text pentru valoarea 1 */
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-container" id="grid-container"></div>
+
+<script>
+  // Definirea matricei cu valorile 0 și 1
+  var matrix = [
+    [1, 0, 1, 0, 1],
+    [0, 1, 0, 1, 0],
+    [1, 0, 1, 0, 1],
+    [0, 1, 0, 1, 0],
+    [1, 0, 1, 0, 1]
+    // Puteți schimba dimensiunea matricei și valorile aici
+  ];
+
+  // Referința către containerul grilei
+  var gridContainer = document.getElementById("grid-container");
+
+  // Iterarea prin matrice și crearea div-urilor corespunzătoare
+  for (var i = 0; i < matrix.length; i++) {
+    for (var j = 0; j < matrix[i].length; j++) {
+      var gridItem = document.createElement("div");
+      gridItem.className = "grid-item cell-" + matrix[i][j];  //Se setează clasa elementului div în funcție de valoarea din matrice, astfel încât să poată fi stilizat ulterior prin CSS.
+      gridItem.innerText = matrix[i][j];  //Se setează textul elementului div cu valoarea din matrice.
+      gridContainer.appendChild(gridItem);
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
+
+//ex 5 lab 10 Vlas Denisa Georgiana 
+
+//5. Dezvoltați o pagină web cu facilități JavaScript care definește un șir de valori numerice întregi. În 3
+componente de tip div (existente în pagină) se vor afișa:
+- valorile pozitive pare
+- numărul de elemente negative care sunt compuse din mai mult de 2 cifre, urmat de respectivele elemente
+- valorile care reprezintă minime locale (sunt încadrate de valori mai mari)
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manipulare șir de valori numerice cu JavaScript</title>
+  <style>
+    /* Stiluri CSS pentru div-uri */
+    .result-container {
+      margin-top: 20px;
+    }
+
+    .result-div {
+      border: 1px solid #000;
+      margin: 5px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Șirul de valori numerice -->
+<script>
+  var sir = [5, -10, 2, -15, 8, 3, 9, -20, 10, -30, 5];
+</script>
+
+<!-- Valorile pozitive pare -->
+<div id="positive-even" class="result-div">
+  Valorile pozitive pare: 
+</div>
+
+<!-- Elementele negative cu mai mult de 2 cifre -->
+<div id="negative-more-than-2-digits" class="result-div">
+  Numărul de elemente negative cu mai mult de 2 cifre și respectivele elemente: 
+</div>
+
+<!-- Minime locale -->
+<div id="local-minima" class="result-div">
+  Valorile care reprezintă minime locale: 
+</div>
+
+<script>
+  // Funcție pentru a verifica dacă un număr este par
+  function par(number) {
+    return number % 2 === 0;
+  }
+
+  // Funcție pentru a găsi minimele locale dintr-un șir
+  function minim(arr) {
+    var min = [];
+
+    for (var i = 1; i < arr.length - 1; i++) {
+      if (arr[i] < arr[i - 1] && arr[i] < arr[i + 1]) {
+        min.push(arr[i]);
+      }
+    }
+
+    return min;
+  }
+
+  // Obține referințe către div-urile rezultat
+  var poz = document.getElementById("positive-even");
+  var neg = document.getElementById("negative-more-than-2-digits");
+  var localMinimaDiv = document.getElementById("local-minima");
+
+  // Filtrare și afișare valorilor în div-uri
+  var pozValues = sir.filter(value => value > 0 && par(value));
+  poz.innerText += pozValues.join(", ");
+
+  var negDigits = sir.filter(value => value < 0 && Math.abs(value) > 9);
+  neg.innerText += "Număr: " + negDigits.length + ", Elemente: " + negDigits.join(", ");
+
+  var localMinimaValues = minim(sir);
+  localMinimaDiv.innerText += localMinimaValues.join(", ");
+</script>
+
+</body>
+</html>

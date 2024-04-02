@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Tema laborator 8(HTML/CSS)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="VlasDenisaGeorgiana_fisierCSS.css">
+
+<style>
+
+
+h2{
+	text-align: left;
+	color:#800000 ;
+	text-indent: 50px;
+	width:700px;
+}
+
+body{
+	background-color:#FFB6C1;
+}
+
+header{
+	height:150px;
+  	border:3px solid #FA8072;
+	background-color:#ccccff;
+ 	border-radius: 25px;
+  	padding: 10px; 
+}
+
+center{
+	height:350px;
+  	border:3px solid #A52A2A;
+	background-color:#cc66ff;
+	border-radius: 25px;
+  	padding: 10px;
+}
+.meniusecundar {
+	height:15%;
+	width: 65%;
+	float:left;
+	border:3px solid;
+	background-color:#FFDAB9;
+	align-text:left;
+	border-radius: 25px;
+}
+
+
+
+.meniuprincipal {
+	height:300px;
+	width: 30%;
+	float:right;
+	border:3px solid;
+	background-color:#FFDAB9;
+	border-radius: 25px;
+}
+a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
+}
+
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 16.5%;
+  
+}
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+ 
+ height:130px;
+}
+
+.scroll {
+  background-color: #eee;
+  width: 22%;
+  height: 140px;
+  border: 1px dotted black;
+  overflow: scroll;
+  float:left;
+}
+
+
+
+footer{
+	height:150px;
+  	border:3px solid #FA8072;
+	background-color:#9900cc;
+	border-radius: 25px;
+  	padding: 10px; 
+}
+.div1{
+	border:2px solid;
+	width:160px;
+}
+
+
+	
+ 
+}
+
+</style>
+</head>
+
+<body>
+
+
+<header>
+
+<img src="akita2.jpg" border="3px solid"  align="right" class="w3-circle" height ="150px" width="400px"></img>
+
+<p><i><b><h2>Câteodata viața te lovește în cap cu o cărămidă. Mergi mai departe, nu-ți pierde încrederea. – Steve Jobs</h2></b></i></p>
+</header>
+
+
+<center>
+
+<div class="meniusecundar">
+
+<table>
+<tr>
+ <th><a  href="https://www.olx.ro/d/oferta/mascul-akita-inu-superb-cu-pedigree-tip-a-arbitrat-IDhgF9t.html?reason=extended_search_extended_category" target="_blank">Adoptie Akita OLX!</a></th>
+
+  <th><a  href="https://www.publi24.ro/anunturi/animale/caini/akita%20inu/" target="_blank">Vanzare Akita publi24!</a></th>
+
+ <th><a  href="https://ro.pinterest.com/cynthiaprecup/akita-inu/" target="_blank">Poze Akita!</a></th>
+
+
+</tr>
+</table>
+</div>
+
+
+<div class="meniuprincipal" align="right">
+<ul style="list-style-type:none;">
+<table>
+ 
+<tr>
+<td><li><a href="#">Link fara actiune</a></li></td>
+</tr>
+<tr>
+<td><li><a href="#">Link fara actiune</a></li></td>
+</tr>
+<tr>
+<td><li><a href="#">Link fara actiune</a></li></td>
+</tr>
+</table>
+</ul>
+</div>
+
+
+<div class="gallery">
+    <img src="akita.jpg" width="100%" >
+</div>
+
+<div class="gallery">
+ 
+    <img src="akita.jpg"  width="100%" >
+ 
+</div>
+
+<div class="gallery">
+
+    <img src="akita.jpg"  width="100%" >
+  
+</div>
+
+<div class="scroll">
+<p><h3><i>Culorile posibile ale unui Akita Inu</i></h3></p>
+<p><h5>Blana are un strat superior aspru și dur, în timp ce stratul inferior este moale și des, oferindu-i o protecție bună împotriva vântului și a vremii rele. În general blana este de culoare cafenie sau roșiatică (blană roșiatică și fire negre). </h5>
+</p>
+</div>
+
+<div class="scroll">
+<p><h1><i>Caracter</i></h1></p>
+<p><h5> Akita este o rasa de caine foarte ndependent și iubitor de liniște</h5>
+</p>
+</div>
+
+<div class="scroll">
+<p><h1><i>Condiții de viață</i></h1></p>
+<p><h5>Este un câine rezistent la intemperii, se simte bine în aer liber. Preferă să trăiască într-o curte mare, bine împrejmuită, are nevoie de mișcare, exerciții, plimbări, alergări, înot.</h5></p>
+</div>
+</center>
+
+
+<footer>
+<h4 style color="#483D8B">
+		<P><b><i> &#9742 Telefon :</i></b> 0786889140 </p> 
+		<p><b><i>  &#9745 Email : </i></b> vlasdenisa@yahoo.com </p>
+		<p><b><i>  &#9962 Adresa : </i></b> Aleea Cioplea, nr 11, Cluj-Napoca </p>
+	<p align="center"><b><i> Nume: </i></b><b><font color='#00CED1'> Vlas Denisa Georgiana </font></b></p>
+	</h4>
+</footer>
+
+</body>
+</html>
